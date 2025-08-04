@@ -378,7 +378,7 @@ public class SlimeController : MonoBehaviour
         };
     }
 
-    void ReactToElement(Element element)
+    void ReactToElement(Element element, Collider2D col = null)
     {
         switch (element)
         {
@@ -411,7 +411,7 @@ public class SlimeController : MonoBehaviour
                         Die();
                         break;
                     case Reaction.Push:
-                        GetPushed();
+                        GetPushed(col);
                         break;
                     case Reaction.GainSalt:
                         ChangeSalt(true);
@@ -433,9 +433,11 @@ public class SlimeController : MonoBehaviour
         }
     }
 
-    void GetPushed()
+    void GetPushed(Collider2D col)
     {
         Debug.Log($"{gameObject.name} got pushed!");
+        Vector2 closestPoint = col.ClosestPoint(transform.position);
+        rb.AddForce(((Vector2)transform.position - closestPoint).normalized * 800);
     }
 
     void ChangeSalt(bool new_salt)
@@ -497,6 +499,10 @@ public class SlimeController : MonoBehaviour
 
     void IdentifyElement(Collider2D col)
     {
+        if (col.tag == "Coin")
+        {
+            GameManager.instance.OnCoinPickUp(col.gameObject.GetComponentInParent<Coin>());
+        }
         if (col.tag == "SaltPiece")
         {
             ReactToElement(Element.SaltPiece);
@@ -507,7 +513,7 @@ public class SlimeController : MonoBehaviour
         }
         else if (col.tag == "Fire")
         {
-            ReactToElement(Element.Fire);
+            ReactToElement(Element.Fire, col);
         }
         else if (col.tag == "Water")
         {
@@ -515,7 +521,7 @@ public class SlimeController : MonoBehaviour
         }
         else if (col.tag == "Electricity")
         {
-            ReactToElement(Element.Electricity);
+            ReactToElement(Element.Electricity, col);
         }
         else if (col.tag == "Frost")
         {
