@@ -45,6 +45,7 @@ public class BounceMoveState : SlimeMoveState
     public override void OnCollisionEnterState(SlimeController slime, Vector2 normal)
     {
         //Debug.Log($"Collided with {CurrentSide}!");
+        SlimeSoundManager.Instance.PlaySound(SoundType.Bounce);
         Vector2 velocity = move;
         Vector2 delta_direction = Vector2.zero;
         string debug_text = "Slime BOUNCED!";

@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum MoveState
@@ -89,6 +90,8 @@ public class SlimeController : MonoBehaviour
 {
     [SerializeField] LayerMask GroundLayer;
     public Vector2 Move = Vector2.zero;
+    const float c_MoveForce = 80;
+    bool debugVelocity = false;
     public Collider2D SlimeCollider;
     public ParticleSystem DirChangeParticles;
     [HideInInspector] public Rigidbody2D rb;
@@ -251,9 +254,14 @@ public class SlimeController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (debugVelocity)
+        {
+            Debug.Log($"New Move: {Move}, Final Velocity: { rb.velocity}");
+            debugVelocity = false;
+        }
         Move = rb.velocity;
         CurrentMoveState.FixedUpdateState(this, Move);
-        rb.velocity = Move;
+        rb.AddForce(-(rb.velocity - Move) * c_MoveForce);
         CheckSides();
     }
 
@@ -441,9 +449,28 @@ public class SlimeController : MonoBehaviour
 
     void GetPushed(Collider2D collision)
     {
+        float PushPower = 10;
         Debug.Log($"{gameObject.name} got pushed!");
-        Vector2 closestPoint = collision.ClosestPoint(transform.position);
-        rb.AddForce(((Vector2)transform.position - closestPoint).normalized * 800);
+        Vector3 closestPoint = collision.ClosestPoint(transform.position);
+        Vector2 collisionNormal = (transform.position - closestPoint).normalized;
+
+        //collisionNormal.normalized* Vector3.Dot(Move.normalized, collisionNormal.normalized) * Move
+        float magnitude = Move.magnitude * Mathf.Cos(Mathf.Deg2Rad * (180-Vector2.Angle(Move.normalized, collisionNormal)));
+        Vector2 opposingForce = (collisionNormal * magnitude);
+        Vector2 appliedForce = collisionNormal * PushPower;
+        Vector2 totalAddedForce = opposingForce + appliedForce;
+
+        //rb.AddForce(Vector3.Dot(Move.normalized, VectorFromClosestPoint.normalized) * Move + VectorFromClosestPoint.normalized * PushPower - new Vector2(0, Move.y) * 20);
+        
+        //Debug.Log($"Move dot product: {Vector3.Dot(Move.normalized, collisionNormal)}, Push vector: {collisionNormal * PushPower}");
+        Debug.Log($"Move: {Move}, Initial Velocity: {rb.velocity}, Collision Normal: {collisionNormal}");
+        Debug.Log($"Angle: {180 - Vector2.Angle(Move.normalized, collisionNormal)}, Cos: {Mathf.Cos(Mathf.Deg2Rad * (180 - Vector2.Angle(Move.normalized, collisionNormal)))}, Magnitude: {magnitude}");
+        Debug.Log($"Move magnitude: {Move.magnitude}, Opposing force: {opposingForce}, Applied Force: {appliedForce}");
+        //rb.AddForce(totalAddedForce);
+        Move += totalAddedForce;
+        rb.velocity = Move;
+        debugVelocity = true;
+        Debug.Log($"New Move: {Move}, Added force: {totalAddedForce}");
     }
 
     void ChangeSalt(bool new_salt)

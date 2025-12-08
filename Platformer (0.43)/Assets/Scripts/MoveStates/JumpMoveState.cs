@@ -12,6 +12,7 @@ public class JumpMoveState : SlimeMoveState
         slime.rb.gravityScale = 1f;
         slime.rb.AddForce(Vector2.up * slime.CurrentSlimeState.JumpPower);
         slime.ChangeDirection(Direction.JumpUp);
+        SlimeSoundManager.Instance.PlaySound(SoundType.Jump);
         //slime.face.localPosition = new Vector2(0,0.1f);
         //slime.sr.sprite = slime.slime_jump;
     }

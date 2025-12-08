@@ -132,11 +132,11 @@ public class GameManager : MonoBehaviour
     {
         if (GameLevels[SelectedLevel].name != "Level Test 01")
         {
-            return activeRoom >= GameLevels[SelectedLevel].RoomCount;
+            return activeRoom >= GameLevels[SelectedLevel].RoomCount - 1;
         }
         else
         {
-            return activeRoom >= GameLevels[SelectedLevel].RoomCount - 1;
+            return activeRoom >= GameLevels[SelectedLevel].RoomCount;
         }
         
         

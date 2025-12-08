@@ -25,18 +25,21 @@ public class GroundMoveState : SlimeMoveState
         moveX = 0;
         if (Input.GetKey(KeyCode.D))
         {
+            SlimeSoundManager.Instance.PlaySound(SoundType.Slide);
             IsControlled = true;
             moveX++;
             slime.ChangeDirection(Direction.GroundRight);
         }
         if (Input.GetKey(KeyCode.A))
         {
+            SlimeSoundManager.Instance.PlaySound(SoundType.Slide);
             IsControlled = true;
             moveX--;
             slime.ChangeDirection(Direction.GroundLeft);
         }
         if (moveX == 0)
         {
+            SlimeSoundManager.Instance.PlaySound(SoundType.None);
             IsControlled = false;
             slime.ChangeDirection(Direction.Ground);
         }
