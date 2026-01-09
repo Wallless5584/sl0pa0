@@ -10,8 +10,6 @@ public enum TrapState
     Off
 }
 
-[SelectionBase]
-
 public class TrapAnimator : MonoBehaviour
 {
 

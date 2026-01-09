@@ -10,6 +10,7 @@ TagManager:
   - Water
   - Electricity
   - Frost
+  - Coin
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
+  - Trap
   - 
   - 
   - 

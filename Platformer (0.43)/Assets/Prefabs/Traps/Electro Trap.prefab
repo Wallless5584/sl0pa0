@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1263939156781691850}
   - component: {fileID: 236811330422471872}
   - component: {fileID: -6259676478701259636}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Electro Trap
   m_TagString: Electricity
   m_Icon: {fileID: 0}
@@ -57,6 +57,9 @@ MonoBehaviour:
   - {fileID: 8743592388682553943}
   - {fileID: 4712230042352744855}
   lineEffect: {fileID: 7246482083490017866}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
   boxCollider: {fileID: -6259676478701259636}
 --- !u!61 &-6259676478701259636
 BoxCollider2D:
@@ -114,7 +117,7 @@ GameObject:
   - component: {fileID: 7782661952565905710}
   - component: {fileID: 6971069248214911910}
   - component: {fileID: 7246482083490017866}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -200,7 +203,7 @@ LineRenderer:
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 1, y: 0, z: 0}
-  - {x: 2, y: 3, z: 0}
+  - {x: 2, y: 0, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.4
@@ -270,7 +273,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1980091200087419646}
   - component: {fileID: 3276216932284867467}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Energy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -354,7 +357,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8928103375064246689}
   - component: {fileID: 7816034323209488453}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Gloom Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -439,7 +442,7 @@ GameObject:
   - component: {fileID: 3981116422696034881}
   - component: {fileID: 8743592388682553943}
   - component: {fileID: 5600329063425135277}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Trap Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -714,7 +717,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3710111950191202928}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -746,7 +749,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5159743371514634278}
   - component: {fileID: 3075455239308637999}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Gloom Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -831,7 +834,7 @@ GameObject:
   - component: {fileID: 2857325685253896133}
   - component: {fileID: 4712230042352744855}
   - component: {fileID: 6049883635950899960}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Pair Trap Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -963,7 +966,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1556853320361620427}
   - component: {fileID: 8907109501343941243}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Energy
   m_TagString: Untagged
   m_Icon: {fileID: 0}

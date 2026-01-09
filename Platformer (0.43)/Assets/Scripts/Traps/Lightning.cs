@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class Lightning : MonoBehaviour
 {
-    float c_rightOffset = 1;
     
     [SerializeField] Material material;
     [SerializeField] float scrollSpeed;
@@ -53,15 +49,20 @@ public class Lightning : MonoBehaviour
         }
         material.mainTextureOffset = new Vector2(offsetX, 0);
     }
+
     public void SetEndPosition(Vector2 localPosition)
     {
         float horizontalCoefficient = Vector3.Dot(transform.right, Vector3.right);
         float verticalCoefficient = Vector3.Dot(transform.right, Vector3.up);
         Vector2 offsetPos = new Vector2(
-            x: localPosition.x * horizontalCoefficient - c_rightOffset * horizontalCoefficient + localPosition.y * verticalCoefficient,
-            y: localPosition.y * verticalCoefficient - c_rightOffset * verticalCoefficient + localPosition.x * horizontalCoefficient
+            x: localPosition.x * horizontalCoefficient + localPosition.y * verticalCoefficient,
+            y: localPosition.y * horizontalCoefficient + localPosition.x * verticalCoefficient
+            //x: localPosition.x * horizontalCoefficient - c_rightOffset * horizontalCoefficient + localPosition.y * verticalCoefficient,
+            //y: localPosition.y * verticalCoefficient - c_rightOffset * verticalCoefficient - localPosition.x * horizontalCoefficient
             );
-        lineRenderer.SetPosition(lineRenderer.positionCount - 1, offsetPos);
+        Debug.Log($"SetEndPosition | localPosition {localPosition}, horCoeff {horizontalCoefficient}, verCoef {verticalCoefficient}, offsetPos {offsetPos}");
+        int linePointIndex = lineRenderer.positionCount - 1;
+        lineRenderer.SetPosition(linePointIndex, offsetPos);
     }
 
 }
