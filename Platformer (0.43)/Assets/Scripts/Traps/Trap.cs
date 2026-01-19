@@ -25,8 +25,16 @@ public class Trap : MonoBehaviour
     [SerializeField] LayerMask groundLayer;
     [SerializeField] BoxCollider2D boxCollider;
 
+    [Header("Sounds")]
+    AudioSource soundSource;
+    [SerializeField] bool playSound;
+    [SerializeField] AudioClip soundActivating;
+    [SerializeField] AudioClip soundActive;
+    [SerializeField] AudioClip soundDeactivating;
+
     void Start()
     {
+        soundSource = GetComponent<AudioSource>();
         if (maxActiveTime == 0 || maxOffTime == 0)
         {
             useTimer = false;
@@ -72,6 +80,39 @@ public class Trap : MonoBehaviour
     public void SetStateFromAnimator()
     {
         trapState = animators[0].State;
+        if (playSound)
+        {
+            soundSource.enabled = true;
+            switch (trapState)
+            {
+                case TrapState.None:
+                    break;
+                case TrapState.Off:
+                    soundSource.clip = null;
+                    soundSource.loop = false;
+                    soundSource.Stop();
+                    break;
+                case TrapState.Activating:
+                    soundSource.clip = soundActivating;
+                    soundSource.loop = false;
+                    soundSource.Play();
+                    break;
+                case TrapState.Active:
+                    soundSource.clip = soundActive;
+                    soundSource.loop = true;
+                    soundSource.Play();
+                    break;
+                case TrapState.Deactivating:
+                    soundSource.clip = soundDeactivating;
+                    soundSource.loop = false;
+                    soundSource.Play();
+                    break;
+            }
+        }
+        else
+        {
+            soundSource.enabled = false;
+        }
     }
 
     void UpdateTiming()
@@ -137,7 +178,14 @@ public class Trap : MonoBehaviour
             Debug.LogWarning($"{gameObject.name} : SetPairBasePosition || LineEffect not set!");
 
 
-        boxCollider.offset = (rayHitPos - (Vector2)animators[0].transform.position) / 2 + new Vector2(c_colliderOffset, 0);      //half-size offset = center
-        boxCollider.size = new Vector2(rayHitPos.x - animators[0].transform.position.x + 1, boxCollider.size.y);
+        boxCollider.offset = new Vector2(((rayHitPos - (Vector2)transform.position) / 2).magnitude, 0);      //half-size offset = center
+        //boxCollider.offset = (rayHitPos - (Vector2)animators[0].transform.position) / 2 + new Vector2(c_colliderOffset, 0);      //half-size offset = center
+        boxCollider.size = new Vector2((rayHitPos - (Vector2)transform.position).magnitude, boxCollider.size.y);
+        //boxCollider.size = new Vector2(rayHitPos.x - animators[0].transform.position.x + 1, boxCollider.size.y);
+    }
+
+    private void UpdateSound()
+    {
+
     }
 }

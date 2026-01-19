@@ -203,7 +203,9 @@ public class GameManager : MonoBehaviour
     {
         if (SpawnedRooms.Count > 0)
         {
-            return Instantiate(new_room, SpawnedRooms[SpawnedRooms.Count-1].GetConnectionPoint() + new Vector3(12, 1), Quaternion.identity);
+            Vector3 pos_offset = new Vector3(11, 1);
+            return Instantiate(new_room, SpawnedRooms[SpawnedRooms.Count-1].GetExitPos() - new_room.GetSpawnPos() + pos_offset, Quaternion.identity);
+            //return Instantiate(new_room, SpawnedRooms[SpawnedRooms.Count-1].GetConnectionPoint() + new Vector3(12, 1), Quaternion.identity);
         }
         else
         {
@@ -219,6 +221,7 @@ public class GameManager : MonoBehaviour
         //PlaceRoom(StartRoom);
         if (GameLevels[SelectedLevel].KeepRoomOrder)
         {
+            GameLevels[SelectedLevel].RoomCount = GameLevels[SelectedLevel].RoomVars.Length+1;
             foreach (RoomController room in GameLevels[SelectedLevel].RoomVars)
             {
                 SpawnRoom(room);

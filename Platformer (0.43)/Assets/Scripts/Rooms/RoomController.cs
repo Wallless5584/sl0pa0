@@ -37,9 +37,16 @@ public class RoomController : MonoBehaviour
         exit.SetState(false);
     }
 
-    public Vector3 GetConnectionPoint()
+    public Vector3 GetExitPos()
     {
+        Debug.Log($"{gameObject.name}, Exit pos: {exit.transform.position}");
         return exit.transform.position;
+    }
+
+    public Vector3 GetSpawnPos()
+    {
+        Debug.Log($"{gameObject.name}, Spawn pos: {spawn.transform.position}");
+        return spawn.transform.position;
     }
 
     public void ResetRoom()
