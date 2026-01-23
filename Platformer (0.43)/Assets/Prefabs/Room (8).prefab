@@ -548,6 +548,10 @@ PrefabInstance:
       propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[1].Array.data[25].Y
       value: -21274510
       objectReference: {fileID: 0}
+    - target: {fileID: 5029382724541986747, guid: b8a280b3bd2699547977f8230329f7a5, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5105679153348360464, guid: b8a280b3bd2699547977f8230329f7a5, type: 3}
       propertyPath: m_RootOrder
       value: 0

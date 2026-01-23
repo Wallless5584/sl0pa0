@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -21,8 +22,8 @@ public class GameManager : MonoBehaviour
     public float LevelStartTime;
     //[SerializeField] int MaxRooms;
     //[SerializeField] RoomController[] RoomVars;
-    [SerializeField] List<RoomController> SpawnedRooms = new List<RoomController>();
-    List<int> used_index = new List<int>();
+    [SerializeField] List<RoomController> SpawnedRooms;
+    [SerializeField] List<int> used_index;
     //[SerializeField] RoomController StartRoom;
     //[SerializeField] RoomController EndRoom;
 
@@ -36,10 +37,17 @@ public class GameManager : MonoBehaviour
 
     public SlimeController PlayerInstance { get; private set; }
     public static GameManager instance { get; private set; }
+    
+    void Awake()
+    {
+        
+    }
 
     private void Start()
     {
         instance = this;
+
+        
     }
 
     private void Update()
@@ -58,6 +66,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
+    // GAMEPLAY
     public void SwitchState(GameState new_state)
     {
         Debug.Log($"Switching state from {CurrentState} to {new_state}!");
@@ -166,23 +176,26 @@ public class GameManager : MonoBehaviour
         Respawn();
     }
 
-    public void CheckLevelSettings()
+
+
+    // LEVEL GENERATION
+    public void CheckLevelSettings(LevelSettings level)
     {
-        if (GameLevels[SelectedLevel].RoomCount > GameLevels[SelectedLevel].RoomVars.Length)
+        if (level.RoomCount > level.RoomVars.Length)
         {
-            Debug.LogWarning($"Room count of {GameLevels[SelectedLevel].LevelName} had to be shortened due to lack of RoomVars");
-            GameLevels[SelectedLevel].RoomCount = GameLevels[SelectedLevel].RoomVars.Length + 1;
+            Debug.LogWarning($"Room count of {level.LevelName} had to be shortened due to lack of RoomVars");
+            level.RoomCount = level.RoomVars.Length + 1;
         }
     }
 
-    void SpawnRoom(RoomController new_room = null)
+    void SpawnRoom(LevelSettings level, RoomController new_room = null)
     {
         int new_index = -1;
         //-1 for the room variant with index 0 to spawn
         while (new_room == null)
         {
-            new_index = Random.Range(0, GameLevels[SelectedLevel].RoomVars.Length);
-            new_room = GameLevels[SelectedLevel].RoomVars[new_index];
+            new_index = Random.Range(0, level.RoomVars.Length);
+            new_room = level.RoomVars[new_index];
             if (used_index.Count > 0)
             {
                 foreach (int index in used_index)
@@ -213,28 +226,39 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void LoadLevel()
+    public void LoadLevel(LevelSettings levelToLoad = null)
     {
-        activeRoom = 0;
-        CheckLevelSettings();
-        SpawnRoom(GameLevels[SelectedLevel].StartRoom);
-        //PlaceRoom(StartRoom);
-        if (GameLevels[SelectedLevel].KeepRoomOrder)
+        if (levelToLoad == null)
         {
-            GameLevels[SelectedLevel].RoomCount = GameLevels[SelectedLevel].RoomVars.Length+1;
-            foreach (RoomController room in GameLevels[SelectedLevel].RoomVars)
+            levelToLoad = GameLevels[SelectedLevel];
+        }
+        activeRoom = 0;
+        CheckLevelSettings(levelToLoad);
+        SpawnRoom(levelToLoad, levelToLoad.StartRoom);
+        //PlaceRoom(StartRoom);
+        if (levelToLoad.KeepRoomOrder)
+        {
+            levelToLoad.RoomCount = levelToLoad.RoomVars.Length+1;
+            foreach (RoomController room in levelToLoad.RoomVars)
             {
-                SpawnRoom(room);
+                SpawnRoom(levelToLoad, room);
             }
         }
         else
         {
-            while (GameLevels[SelectedLevel].RoomCount > used_index.Count)
+            int i = 0;
+            while (levelToLoad.RoomCount > used_index.Count && i < 30)
             {
-                SpawnRoom();
+                SpawnRoom(levelToLoad);
+                i++;
             }
         }
-        SpawnRoom(GameLevels[SelectedLevel].EndRoom);
+        SpawnRoom(levelToLoad, levelToLoad.EndRoom);
+    }
+
+    public bool CheckHasLevelLoaded()
+    {
+        return SpawnedRooms.Count != 0;
     }
 
     public void ClearLevel()
@@ -244,6 +268,17 @@ public class GameManager : MonoBehaviour
         foreach (RoomController room in SpawnedRooms)
         {
             Destroy(room.gameObject);
+        }
+        used_index.Clear();
+        SpawnedRooms = new List<RoomController>();
+    }
+
+    public void ClearLevelEditor()
+    {
+        Debug.Log("Clearing Level!");
+        foreach (RoomController room in SpawnedRooms)
+        {
+            DestroyImmediate(room.gameObject);
         }
         used_index.Clear();
         SpawnedRooms = new List<RoomController>();
