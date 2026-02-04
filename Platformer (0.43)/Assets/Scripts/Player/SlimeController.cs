@@ -10,6 +10,7 @@ public enum MoveState
     JumpDown,
     JumpWallRight,
     JumpWallLeft,
+    JumpAir,
     Air,
     Wall,
     Bounce,
@@ -106,6 +107,7 @@ public class SlimeController : MonoBehaviour
     [SerializeField] float dryFrictionWall;
     [SerializeField] float dryFrictionWallUp;
     [SerializeField] float dryJumpPower;
+    [SerializeField] float dryWallJumpPower;
     [SerializeField] Reaction[] drySaltPiece;
     [SerializeField] Reaction[] drySalt;
     [SerializeField] Reaction[] dryFire;
@@ -127,6 +129,7 @@ public class SlimeController : MonoBehaviour
     [SerializeField] float normalFrictionWall;
     [SerializeField] float normalFrictionWallUp;
     [SerializeField] float normalJumpPower;
+    [SerializeField] float normalWallJumpPower;
     [SerializeField] Reaction[] normalSaltPiece;
     [SerializeField] Reaction[] normalSalt;
     [SerializeField] Reaction[] normalFire;
@@ -148,6 +151,7 @@ public class SlimeController : MonoBehaviour
     [SerializeField] float wetFrictionWall;
     [SerializeField] float wetFrictionWallUp;
     [SerializeField] float wetJumpPower;
+    [SerializeField] float wetWallJumpPower;
     [SerializeField] Reaction[] wetSaltPiece;
     [SerializeField] Reaction[] wetSalt;
     [SerializeField] Reaction[] wetFire;
@@ -181,10 +185,11 @@ public class SlimeController : MonoBehaviour
     {
         new GroundMoveState(),
         new CeilingMoveState(),
-        new JumpMoveState(),
+        new JumpGroundMoveState(),
         new JumpDownMoveState(),
         new JumpWallRightMoveState(),
         new JumpWallLeftMoveState(),
+        new JumpAirMoveState(),
         new AirMoveState(),
         new WallMoveState(),
         new BounceMoveState(),
@@ -376,19 +381,19 @@ public class SlimeController : MonoBehaviour
         SlimeStates = new SlimeState[]
         {
             new SlimeState(dryMaxSpeed, dryAcceleration, dryFrictionGround, dryFrictionCeiling, dryFrictionWall, dryFrictionWallUp, 
-            dryJumpPower, drySaltPiece, drySalt, dryFire, dryWater, dryElectricity, dryFrost),
+            dryJumpPower, dryWallJumpPower, drySaltPiece, drySalt, dryFire, dryWater, dryElectricity, dryFrost),
 
             new SlimeState(dryMaxSpeed, dryAcceleration, dryFrictionGround, dryFrictionCeiling, dryFrictionWall, dryFrictionWallUp,
-            dryJumpPower, drySaltySaltPiece, drySaltySalt, drySaltyFire, drySaltyWater, drySaltyElectricity, drySaltyFrost),
+            dryJumpPower, dryWallJumpPower, drySaltySaltPiece, drySaltySalt, drySaltyFire, drySaltyWater, drySaltyElectricity, drySaltyFrost),
 
             new SlimeState(normalMaxSpeed, normalAcceleration, normalFrictionGround, normalFrictionCeiling, normalFrictionWall, 
-            normalFrictionWallUp, normalJumpPower, normalSaltPiece, normalSalt, normalFire, normalWater, normalElectricity, normalFrost),
+            normalFrictionWallUp, normalJumpPower, normalWallJumpPower, normalSaltPiece, normalSalt, normalFire, normalWater, normalElectricity, normalFrost),
 
              new SlimeState(normalMaxSpeed, normalAcceleration, normalFrictionGround, normalFrictionCeiling, normalFrictionWall,
-            normalFrictionWallUp, normalJumpPower, normalSaltySaltPiece, normalSaltySalt, normalSaltyFire, normalSaltyWater, normalSaltyElectricity, normalSaltyFrost),
+            normalFrictionWallUp, normalJumpPower, normalWallJumpPower, normalSaltySaltPiece, normalSaltySalt, normalSaltyFire, normalSaltyWater, normalSaltyElectricity, normalSaltyFrost),
 
             new SlimeState(wetMaxSpeed, wetAcceleration, wetFrictionGround, wetFrictionCeiling, wetFrictionWall, wetFrictionWallUp, 
-            wetJumpPower, wetSaltPiece, wetSalt, wetFire, wetWater, wetElectricity, wetFrost),
+            wetJumpPower, wetWallJumpPower, wetSaltPiece, wetSalt, wetFire, wetWater, wetElectricity, wetFrost),
         };
     }
 

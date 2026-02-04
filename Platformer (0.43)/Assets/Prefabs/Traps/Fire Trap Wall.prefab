@@ -72,6 +72,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   boxCollider: {fileID: 0}
+  soundSource: {fileID: -1510238910388762688}
   playSound: 0
   soundActivating: {fileID: 0}
   soundActive: {fileID: 8300000, guid: 5c43b2ca6e13ac944b6c915841b99e81, type: 3}

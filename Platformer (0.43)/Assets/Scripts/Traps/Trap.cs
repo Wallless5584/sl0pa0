@@ -1,10 +1,8 @@
 using UnityEngine;
 
 [SelectionBase]
-[RequireComponent(typeof(AudioSource))]
 public class Trap : MonoBehaviour
 {
-
     [Header("Stats")]
     [SerializeField] TrapState startState; //for OnValidate
     TrapState trapState = TrapState.Off;
@@ -23,7 +21,7 @@ public class Trap : MonoBehaviour
     public BoxCollider2D boxCollider;
 
     [Header("Sounds")]
-    AudioSource soundSource;
+    [SerializeField] AudioSource soundSource;
     [SerializeField] bool playSound;
     [SerializeField] AudioClip soundActivating;
     [SerializeField] AudioClip soundActive;
@@ -48,15 +46,11 @@ public class Trap : MonoBehaviour
 
     private void OnValidate()
     {
-        soundSource = GetComponent<AudioSource>();
         UpdateTrap(startState);
     }
 
     public void Setup()
     {
-        soundSource = GetComponent<AudioSource>();
-
-
         if (maxActiveTime == 0 || maxOffTime == 0)
         {
             useTimer = false;

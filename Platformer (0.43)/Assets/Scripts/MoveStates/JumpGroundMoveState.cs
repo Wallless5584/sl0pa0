@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JumpMoveState : SlimeMoveState
+public class JumpGroundMoveState : SlimeMoveState
 {
     float exit_timer = 0.4f;
 
@@ -10,7 +10,7 @@ public class JumpMoveState : SlimeMoveState
     {
         Debug.Log("Entered Jump State!");
         slime.rb.gravityScale = 1f;
-        slime.rb.AddForce(Vector2.up * slime.CurrentSlimeState.JumpPower);
+        slime.rb.AddForce(-new Vector2(0, slime.rb.velocity.y) + Vector2.up * slime.CurrentSlimeState.JumpPower);
         slime.ChangeDirection(Direction.JumpUp);
         SlimeSoundManager.Instance.PlaySound(SoundType.Jump);
         //slime.face.localPosition = new Vector2(0,0.1f);
@@ -21,7 +21,8 @@ public class JumpMoveState : SlimeMoveState
     {
         exit_timer -= Time.deltaTime;
         moveX = 0;
-        if (Input.GetKey(KeyCode.LeftShift) && exit_timer < 0.2f)
+        const float c_ExitTime = 0.2f;
+        if (Input.GetKey(KeyCode.LeftShift) && exit_timer < c_ExitTime)
         {
             IsControlled = false;
             slime.EnterMoveState(MoveState.Bounce);
@@ -46,10 +47,16 @@ public class JumpMoveState : SlimeMoveState
         if (exit_timer < 0)
         {
             exit_timer = 0.4f;
-            slime.EnterMoveState(MoveState.Air);//inAir
+            if (Input.GetKey(KeyCode.Space))
+            {
+                slime.EnterMoveState(MoveState.JumpAir);
+            }
+            else
+            {
+                slime.EnterMoveState(MoveState.Air);//inAir
+            }
             return;
         }
-        return;
     }
 
     public override void FixedUpdateState(SlimeController slime, Vector2 move_vector)
@@ -74,7 +81,34 @@ public class JumpMoveState : SlimeMoveState
         switch (touching_side)
         {
             case Side.Top://sticks to the ceiling
-                slime.EnterMoveState(MoveState.Ceiling);
+                if (Input.GetKey(KeyCode.Space))
+                {
+                    slime.EnterMoveState(MoveState.JumpDown);
+                }
+                else
+                {
+                    slime.EnterMoveState(MoveState.Ceiling);
+                }
+                break;
+            case Side.Left://jumps off right
+                if (Input.GetKey(KeyCode.Space))
+                {
+                    slime.EnterMoveState(MoveState.JumpWallRight);
+                }
+                else
+                {
+                    slime.EnterMoveState(MoveState.Wall);
+                }
+                break;
+            case Side.Right://jumps off left
+                if (Input.GetKey(KeyCode.Space))
+                {
+                    slime.EnterMoveState(MoveState.JumpWallLeft);
+                }
+                else
+                {
+                    slime.EnterMoveState(MoveState.Wall);
+                }
                 break;
         }
     }

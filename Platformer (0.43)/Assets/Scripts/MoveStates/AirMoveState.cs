@@ -18,6 +18,11 @@ public class AirMoveState : SlimeMoveState
             slime.EnterMoveState(MoveState.Bounce);
             return;
         }
+        if (Input.GetKey(KeyCode.Space))
+        {
+            slime.EnterMoveState(MoveState.JumpAir);
+            return;
+        }
         if (Input.GetKey(KeyCode.D))
         {  
             slime.ChangeDirection(Direction.InAirRight);

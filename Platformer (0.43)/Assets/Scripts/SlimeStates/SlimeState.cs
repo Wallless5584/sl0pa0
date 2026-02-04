@@ -7,6 +7,7 @@ public struct SlimeState
     public float FrictionWall { get; private set; }
     public float FrictionWallUp { get; private set; }
     public float JumpPower { get; private set; }
+    public float WallJumpPower { get; private set; }
 
     public Reaction[] SaltPiece;
     public Reaction[] Salt;
@@ -19,7 +20,7 @@ public struct SlimeState
 
     public SlimeState(
         float maxSpeed, float acceleration, float frictionGround, float frictionCeiling, float frictionWall, 
-        float frictionWallUp, float jumpPower,
+        float frictionWallUp, float jumpPower, float wallJumpPower,
         Reaction[] saltPiece, Reaction[] salt, Reaction[] fire, Reaction[] water, Reaction[] electricity, Reaction[] frost)
     {
         MaxSpeed = maxSpeed;
@@ -29,6 +30,7 @@ public struct SlimeState
         FrictionWall = frictionWall;
         FrictionWallUp = frictionWallUp;
         JumpPower = jumpPower;
+        WallJumpPower = wallJumpPower;
 
         SaltPiece = saltPiece;
         Salt = salt;

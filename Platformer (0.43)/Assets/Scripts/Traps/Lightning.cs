@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Lightning : MonoBehaviour
 {
-    
+
     [SerializeField] Material material;
     [SerializeField] float scrollSpeed;
     [SerializeField] bool invert;
@@ -18,7 +18,7 @@ public class Lightning : MonoBehaviour
 
     void Start()
     {
-
+        
     }
 
     void Update()
@@ -64,5 +64,4 @@ public class Lightning : MonoBehaviour
         int linePointIndex = lineRenderer.positionCount - 1;
         lineRenderer.SetPosition(linePointIndex, offsetPos);
     }
-
 }

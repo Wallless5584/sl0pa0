@@ -5124,6 +5124,7 @@ MonoBehaviour:
   dryFrictionWall: 1
   dryFrictionWallUp: 1
   dryJumpPower: 400
+  dryWallJumpPower: 500
   drySaltPiece: 03000000
   drySalt: 01000000
   dryFire: 01000000
@@ -5143,6 +5144,7 @@ MonoBehaviour:
   normalFrictionWall: 0.05
   normalFrictionWallUp: 1
   normalJumpPower: 400
+  normalWallJumpPower: 500
   normalSaltPiece: 03000000
   normalSalt: 05000000
   normalFire: 01000000
@@ -5162,6 +5164,7 @@ MonoBehaviour:
   wetFrictionWall: 0
   wetFrictionWallUp: 0.04
   wetJumpPower: 400
+  wetWallJumpPower: 500
   wetSaltPiece: 00000000
   wetSalt: 06000000
   wetFire: 0600000002000000

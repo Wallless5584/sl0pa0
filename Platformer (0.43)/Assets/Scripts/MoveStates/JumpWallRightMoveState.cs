@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class JumpWallRightMoveState : JumpMoveState
+public class JumpWallRightMoveState : JumpGroundMoveState
 {
     public override void EnterState(SlimeController slime)
     {
         Debug.Log("Entered Jump Wall Right State!");
         slime.rb.gravityScale = 1f;
-        slime.rb.AddForce(Vector2.right * slime.CurrentSlimeState.JumpPower);
+        slime.rb.AddForce(-new Vector2(slime.rb.velocity.x, 0) + Vector2.right * slime.CurrentSlimeState.WallJumpPower);
         slime.ChangeDirection(Direction.JumpWall);
         //slime.face.localPosition = new Vector2(0.1f, 0);
     }
@@ -15,11 +15,35 @@ public class JumpWallRightMoveState : JumpMoveState
     {
         switch (touching_side)
         {
-            case Side.Bottom://sticks to the ceiling
-                slime.EnterMoveState(MoveState.Ground);
+            case Side.Bottom://sticks to the ground
+                if (Input.GetKey(KeyCode.Space))
+                {
+                    slime.EnterMoveState(MoveState.Jump);
+                }
+                else
+                {
+                    slime.EnterMoveState(MoveState.Ground);
+                }
                 break;
-            case Side.Right://sticks to right wall
-                slime.EnterMoveState(MoveState.Wall);
+            case Side.Top://sticks to the ceiling
+                if (Input.GetKey(KeyCode.Space))
+                {
+                    slime.EnterMoveState(MoveState.JumpDown);
+                }
+                else
+                {
+                    slime.EnterMoveState(MoveState.Ceiling);
+                }
+                break;
+            case Side.Right://jumps off left
+                if (Input.GetKey(KeyCode.Space))
+                {
+                    slime.EnterMoveState(MoveState.JumpWallLeft);
+                }
+                else
+                {
+                    slime.EnterMoveState(MoveState.Wall);
+                }
                 break;
         }
     }
