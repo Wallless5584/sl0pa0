@@ -22,14 +22,29 @@ public class BounceMoveState : SlimeMoveState
 
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            slime.rb.sharedMaterial.bounciness = 0;
-            slime.SlimeCollider.enabled = false;
-            slime.SlimeCollider.enabled = true;
+            LeaveBounceState();
             slime.EnterMoveState(MoveState.Air);
             return;
         }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            LeaveBounceState();
+            slime.EnterMoveState(MoveState.JumpAir);
+            return;
+        }
         bounce_time += Time.deltaTime;
+
+
+
+        void LeaveBounceState()
+        {
+            slime.rb.sharedMaterial.bounciness = 0;
+            slime.SlimeCollider.enabled = false;
+            slime.SlimeCollider.enabled = true;
+        }
     }
+
+    
 
     public override void FixedUpdateState(SlimeController slime, Vector2 move_vector)
     {

@@ -18,7 +18,7 @@ public class JumpAirMoveState : SlimeMoveState
             slime.EnterMoveState(MoveState.Air);
             return;
         }
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             IsControlled = false;
             slime.EnterMoveState(MoveState.Bounce);

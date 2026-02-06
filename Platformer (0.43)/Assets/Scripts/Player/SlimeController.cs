@@ -92,7 +92,7 @@ public class SlimeController : MonoBehaviour
     [SerializeField] LayerMask GroundLayer;
     public Vector2 Move = Vector2.zero;
     const float c_MoveForce = 80;
-    bool debugVelocity = false;
+    bool debugVelocity = true;
     public Collider2D SlimeCollider;
     public ParticleSystem DirChangeParticles;
     [HideInInspector] public Rigidbody2D rb;
@@ -262,7 +262,7 @@ public class SlimeController : MonoBehaviour
         if (debugVelocity)
         {
             Debug.Log($"New Move: {Move}, Final Velocity: { rb.velocity}");
-            debugVelocity = false;
+            //debugVelocity = false;
         }
         Move = rb.velocity;
         CurrentMoveState.FixedUpdateState(this, Move);
@@ -474,7 +474,7 @@ public class SlimeController : MonoBehaviour
         //rb.AddForce(totalAddedForce);
         Move += totalAddedForce;
         rb.velocity = Move;
-        debugVelocity = true;
+        //debugVelocity = true;
         Debug.Log($"New Move: {Move}, Added force: {totalAddedForce}");
     }
 

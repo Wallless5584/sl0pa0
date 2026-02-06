@@ -1,10 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class JumpGroundMoveState : SlimeMoveState
 {
-    float exit_timer = 0.4f;
+    const float c_exitTimeMaxValue = 0.4f;
+
+    float exit_timer = c_exitTimeMaxValue;
+
 
     public override void EnterState(SlimeController slime)
     {
@@ -21,13 +22,7 @@ public class JumpGroundMoveState : SlimeMoveState
     {
         exit_timer -= Time.deltaTime;
         moveX = 0;
-        const float c_ExitTime = 0.2f;
-        if (Input.GetKey(KeyCode.LeftShift) && exit_timer < c_ExitTime)
-        {
-            IsControlled = false;
-            slime.EnterMoveState(MoveState.Bounce);
-            return;
-        }
+        
         if (Input.GetKey(KeyCode.D))
         {
             IsControlled = true;
@@ -46,10 +41,14 @@ public class JumpGroundMoveState : SlimeMoveState
         }
         if (exit_timer < 0)
         {
-            exit_timer = 0.4f;
+            exit_timer = c_exitTimeMaxValue;
             if (Input.GetKey(KeyCode.Space))
             {
                 slime.EnterMoveState(MoveState.JumpAir);
+            }
+            else if (Input.GetKey(KeyCode.LeftShift))
+            {
+                slime.EnterMoveState(MoveState.Bounce);
             }
             else
             {
