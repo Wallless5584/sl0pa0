@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class JumpDownMoveState : JumpGroundMoveState
 {
+
+    public new string debugStateName = "Jump Down State";
+    public new Vector2 forceDirection = Vector2.down;
+    public new Direction direction = Direction.JumpDown;
+    public new SoundType sound = SoundType.Jump;
+
     public override void EnterState(SlimeController slime)
     {
         Debug.Log("Entered Jump Down State!");

@@ -17,7 +17,7 @@ public class GroundMoveState : SlimeMoveState
             slime.EnterMoveState(MoveState.Bounce);
             return;
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
         {
             slime.EnterMoveState(MoveState.Jump);
             return;

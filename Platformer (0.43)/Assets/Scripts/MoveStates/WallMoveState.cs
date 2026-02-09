@@ -22,8 +22,9 @@ public class WallMoveState : SlimeMoveState
             slime.EnterMoveState(MoveState.Bounce);
             return;
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
         {
+            FixedUpdateState(slime, slime.Move);
             if (slime.CurrentSide == Side.Left) 
             {
                 slime.EnterMoveState(MoveState.JumpWallRight);
@@ -103,6 +104,7 @@ public class WallMoveState : SlimeMoveState
         }
         move_vector.x = Mathf.Sign(move_vector.x) * Mathf.Lerp(Mathf.Abs(move_vector.x), 0, slime.CurrentSlimeState.FrictionGround);
         slime.Move = move_vector;
+        slime.rb.velocity = move_vector;
     }
 
     public override void ReactToGround(Side touching_side, SlimeController slime)

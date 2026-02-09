@@ -2,18 +2,26 @@ using UnityEngine;
 
 public class JumpGroundMoveState : SlimeMoveState
 {
-    const float c_exitTimeMaxValue = 0.4f;
+    protected const float c_exitTimeMaxValue = 0.4f;
 
-    float exit_timer = c_exitTimeMaxValue;
+    protected float exit_timer = c_exitTimeMaxValue;
+
+
+
+    public string debugStateName = "Jump State";
+    public Vector2 forceDirection = Vector2.up;
+    public Direction direction = Direction.JumpUp;
+    public SoundType sound = SoundType.Jump;
+
 
 
     public override void EnterState(SlimeController slime)
     {
-        Debug.Log("Entered Jump State!");
+        Debug.Log($"Entered {debugStateName}!");
         slime.rb.gravityScale = 1f;
-        slime.rb.AddForce(-new Vector2(0, slime.rb.velocity.y) + Vector2.up * slime.CurrentSlimeState.JumpPower);
-        slime.ChangeDirection(Direction.JumpUp);
-        SlimeSoundManager.Instance.PlaySound(SoundType.Jump);
+        slime.rb.AddForce(-forceDirection * slime.rb.velocity + forceDirection * slime.CurrentSlimeState.JumpPower);
+        slime.ChangeDirection(direction);
+        SlimeSoundManager.Instance.PlaySound(sound);
         //slime.face.localPosition = new Vector2(0,0.1f);
         //slime.sr.sprite = slime.slime_jump;
     }

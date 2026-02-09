@@ -25,7 +25,7 @@ public class CeilingMoveState : SlimeMoveState
             slime.EnterMoveState(MoveState.Bounce);
             return;
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
         {
             slime.EnterMoveState(MoveState.JumpDown);
             return;

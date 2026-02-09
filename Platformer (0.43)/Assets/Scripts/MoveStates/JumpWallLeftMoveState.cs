@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class JumpWallLeftMoveState : JumpGroundMoveState
+public class JumpWallLeftMoveState : JumpWallRightMoveState
 {
     public override void EnterState(SlimeController slime)
     {
@@ -35,7 +35,7 @@ public class JumpWallLeftMoveState : JumpGroundMoveState
                     slime.EnterMoveState(MoveState.Ceiling);
                 }
                 break;
-            case Side.Left://jumps off left
+            case Side.Left://jumps off right
                 if (Input.GetKey(KeyCode.Space))
                 {
                     slime.EnterMoveState(MoveState.JumpWallRight);

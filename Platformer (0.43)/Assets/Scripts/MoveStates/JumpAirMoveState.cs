@@ -73,16 +73,16 @@ public class JumpAirMoveState : SlimeMoveState
         switch (touching_side)
         {
             case Side.Bottom://sticks to the ground
-                slime.EnterMoveState(MoveState.Jump);
+                slime.EnterMoveState(MoveState.Ground);
                 break; 
             case Side.Top://sticks to the ceiling
-                slime.EnterMoveState(MoveState.JumpDown);
+                slime.EnterMoveState(MoveState.Ceiling);
                 break;
             case Side.Left://sticks to a left wall
-                slime.EnterMoveState(MoveState.JumpWallRight);
+                slime.EnterMoveState(MoveState.Wall);
                 break;
             case Side.Right://sticks to a right wall
-                slime.EnterMoveState(MoveState.JumpWallLeft);
+                slime.EnterMoveState(MoveState.Wall);
                 break;
         }
     }
