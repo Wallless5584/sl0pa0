@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lava
       objectReference: {fileID: 0}
+    - target: {fileID: 1839670268843349251, guid: d60af626bfc43994da4fcfdae0d0c943, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6959822757224493668, guid: d60af626bfc43994da4fcfdae0d0c943, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.5
@@ -113,6 +117,14 @@ PrefabInstance:
     - target: {fileID: 6083815725970896084, guid: c941daed8ced7f04e92f165b00e2e47a, type: 3}
       propertyPath: m_Name
       value: Water
+      objectReference: {fileID: 0}
+    - target: {fileID: 6083815725970896084, guid: c941daed8ced7f04e92f165b00e2e47a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8185489396129765372, guid: c941daed8ced7f04e92f165b00e2e47a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -48599,6 +48611,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SaltPiece (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3068165779276775150, guid: b90ac6196e3c49d4d83dc4d5a06c4d5e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -48660,6 +48676,10 @@ PrefabInstance:
     - target: {fileID: 6418064562389391743, guid: 7423f2ade9f244148a0458433f7d9981, type: 3}
       propertyPath: m_Name
       value: Salt
+      objectReference: {fileID: 0}
+    - target: {fileID: 6418064562389391743, guid: 7423f2ade9f244148a0458433f7d9981, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

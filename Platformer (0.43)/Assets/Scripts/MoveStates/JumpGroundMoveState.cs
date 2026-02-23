@@ -3,8 +3,12 @@ using UnityEngine;
 public class JumpGroundMoveState : SlimeMoveState
 {
     protected const float c_exitTimeMaxValue = 0.4f;
+    protected float c_exitTimeMinValue = 0.2f;
 
     protected float exit_timer = c_exitTimeMaxValue;
+
+    protected const float c_gravityJumpBalance = 2.4f;
+    protected const float c_timeJumpBalance = 0.2f;
 
 
 
@@ -12,13 +16,15 @@ public class JumpGroundMoveState : SlimeMoveState
     public Vector2 forceDirection = Vector2.up;
     public Direction direction = Direction.JumpUp;
     public SoundType sound = SoundType.Jump;
+    bool JumpExt = true;
 
 
 
     public override void EnterState(SlimeController slime)
-    {
+    { 
         Debug.Log($"Entered {debugStateName}!");
-        slime.rb.gravityScale = 1f;
+        JumpExt = true;
+        slime.rb.gravityScale = 0f;
         slime.rb.AddForce(-forceDirection * slime.rb.velocity + forceDirection * slime.CurrentSlimeState.JumpPower);
         slime.ChangeDirection(direction);
         SlimeSoundManager.Instance.PlaySound(sound);
@@ -28,6 +34,11 @@ public class JumpGroundMoveState : SlimeMoveState
 
     public override void UpdateState(SlimeController slime)
     {
+        if (Input.GetKeyUp(KeyCode.Space) && JumpExt == true)
+        {
+            exit_timer = Mathf.Clamp(c_exitTimeMaxValue * exit_timer, c_exitTimeMinValue, c_exitTimeMaxValue);
+            JumpExt = false;
+        }
         exit_timer -= Time.deltaTime;
         moveX = 0;
         
@@ -46,6 +57,10 @@ public class JumpGroundMoveState : SlimeMoveState
         if (moveX == 0)
         {
             IsControlled = false;
+        }
+        if (exit_timer < c_timeJumpBalance)
+        {
+            slime.rb.gravityScale = c_gravityJumpBalance;
         }
         if (exit_timer < 0)
         {

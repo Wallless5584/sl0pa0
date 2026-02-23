@@ -16,7 +16,7 @@ MonoBehaviour:
   MenuSprite: {fileID: 21300000, guid: bf2ef064d451da640b9bb7c3f5e339dc, type: 3}
   RoomCount: 2
   RoomVars:
-  - {fileID: 4482439227698753801, guid: 5447cabf6be3e1b4b85154eeee06a75d, type: 3}
+  - {fileID: 4482439227698753801, guid: 42b22e29f2b5af242a77429a53d51f4f, type: 3}
   StartRoom: {fileID: 4482439227698753801, guid: e91717516dae23c4b9928644990fa05e, type: 3}
   EndRoom: {fileID: 5563818516979147107, guid: 4bc2fcf74d7309b448a68a77b1bc4543, type: 3}
   KeepRoomOrder: 1

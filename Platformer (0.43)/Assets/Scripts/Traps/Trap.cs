@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [SelectionBase]
@@ -30,6 +31,10 @@ public class Trap : MonoBehaviour
     void Start()
     {
         Setup();
+        if (playSound == false)
+        {
+            Destroy(soundSource);
+        }
     }
 
     void Update()
@@ -51,13 +56,19 @@ public class Trap : MonoBehaviour
 
     public void Setup()
     {
-        if (maxActiveTime == 0 || maxOffTime == 0)
+        if (useTimer)
         {
-            useTimer = false;
-            Debug.LogWarning($"{gameObject.name} - Timer not set. Switching timer off.");
+            if (maxActiveTime == 0 || maxOffTime == 0)
+            {
+                useTimer = false;
+                Debug.LogWarning($"{gameObject.name} - Timer not set. Switching timer off.");
+            }
+            timer = timeOffset;
         }
-        timer = timeOffset;
-
+        else
+        {
+            trapState = startState;
+        }
 
         UpdateTrap(trapState);
     }
@@ -99,38 +110,41 @@ public class Trap : MonoBehaviour
     }
     private void UpdateSound()
     {
-        if (playSound)
+        if (soundSource)
         {
-            soundSource.enabled = true;
-            switch (trapState)
+            if (playSound)
             {
-                case TrapState.None:
-                    break;
-                case TrapState.Off:
-                    soundSource.clip = null;
-                    soundSource.loop = false;
-                    soundSource.Stop();
-                    break;
-                case TrapState.Activating:
-                    soundSource.clip = soundActivating;
-                    soundSource.loop = false;
-                    soundSource.Play();
-                    break;
-                case TrapState.Active:
-                    soundSource.clip = soundActive;
-                    soundSource.loop = true;
-                    soundSource.Play();
-                    break;
-                case TrapState.Deactivating:
-                    soundSource.clip = soundDeactivating;
-                    soundSource.loop = false;
-                    soundSource.Play();
-                    break;
+                soundSource.enabled = true;
+                switch (trapState)
+                {
+                    case TrapState.None:
+                        break;
+                    case TrapState.Off:
+                        soundSource.clip = null;
+                        soundSource.loop = false;
+                        soundSource.Stop();
+                        break;
+                    case TrapState.Activating:
+                        soundSource.clip = soundActivating;
+                        soundSource.loop = false;
+                        soundSource.Play();
+                        break;
+                    case TrapState.Active:
+                        soundSource.clip = soundActive;
+                        soundSource.loop = true;
+                        soundSource.Play();
+                        break;
+                    case TrapState.Deactivating:
+                        soundSource.clip = soundDeactivating;
+                        soundSource.loop = false;
+                        soundSource.Play();
+                        break;
+                }
             }
-        }
-        else
-        {
-            soundSource.enabled = false;
+            else
+            {
+                soundSource.enabled = false;
+            }
         }
     }
 }

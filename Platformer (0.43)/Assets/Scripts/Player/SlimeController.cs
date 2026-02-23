@@ -92,7 +92,7 @@ public class SlimeController : MonoBehaviour
     [SerializeField] LayerMask GroundLayer;
     public Vector2 Move = Vector2.zero;
     const float c_MoveForce = 80;
-    bool debugVelocity = true;
+    bool debugVelocity = false;
     public Collider2D SlimeCollider;
     public ParticleSystem DirChangeParticles;
     [HideInInspector] public Rigidbody2D rb;
@@ -179,7 +179,10 @@ public class SlimeController : MonoBehaviour
     SlimeMoveState CurrentMoveState;
     public Side CurrentSide = Side.None;
     Direction CurrentDirection = Direction.None;
+
     float CurrentScale;
+    const float c_ColliderThickness = 0.05f;
+    const float c_ColliderWidth = 0.9f;
 
     public SlimeMoveState[] MoveStates =
     {
@@ -216,13 +219,13 @@ public class SlimeController : MonoBehaviour
         float slime_pos_y = gameObject.transform.position.y;
         //Debug.Log($"Slime pos: ({slime_pos_x}, {slime_pos_y})");
         //Bottom
-        RaycastHit2D Bot = Physics2D.BoxCast(new Vector2(slime_pos_x, slime_pos_y - 0.5f * CurrentScale), new Vector2(0.9f, 0.1f) * CurrentScale, angle: 0, Vector2.down, 0, GroundLayer);
+        RaycastHit2D Bot = Physics2D.BoxCast(new Vector2(slime_pos_x, slime_pos_y - 0.5f * CurrentScale), new Vector2(c_ColliderWidth, c_ColliderThickness) * CurrentScale, angle: 0, Vector2.down, 0, GroundLayer);
         //Top
-        RaycastHit2D Top = Physics2D.BoxCast(new Vector2(slime_pos_x, slime_pos_y + 0.5f * CurrentScale), new Vector2(0.9f, 0.1f) * CurrentScale, angle: 0, Vector2.up, 0, GroundLayer);
+        RaycastHit2D Top = Physics2D.BoxCast(new Vector2(slime_pos_x, slime_pos_y + 0.5f * CurrentScale), new Vector2(c_ColliderWidth, c_ColliderThickness) * CurrentScale, angle: 0, Vector2.up, 0, GroundLayer);
         //Left
-        RaycastHit2D Left = Physics2D.BoxCast(new Vector2(slime_pos_x - 0.5f * CurrentScale, slime_pos_y), new Vector2(0.1f, 0.9f) * CurrentScale, angle: 0, Vector2.left, 0, GroundLayer);
+        RaycastHit2D Left = Physics2D.BoxCast(new Vector2(slime_pos_x - 0.5f * CurrentScale, slime_pos_y), new Vector2(c_ColliderThickness, c_ColliderWidth) * CurrentScale, angle: 0, Vector2.left, 0, GroundLayer);
         //Right
-        RaycastHit2D Right = Physics2D.BoxCast(new Vector2(slime_pos_x + 0.5f * CurrentScale, slime_pos_y), new Vector2(0.1f, 0.9f) * CurrentScale, angle: 0, Vector2.right, 0, GroundLayer);
+        RaycastHit2D Right = Physics2D.BoxCast(new Vector2(slime_pos_x + 0.5f * CurrentScale, slime_pos_y), new Vector2(c_ColliderThickness, c_ColliderWidth) * CurrentScale, angle: 0, Vector2.right, 0, GroundLayer);
         if (Bot.collider)
         {
             //Debug.DrawLine(new Vector2(slime_pos_x, slime_pos_y - 0.5f), Bot.point, Color.red, 2f);
