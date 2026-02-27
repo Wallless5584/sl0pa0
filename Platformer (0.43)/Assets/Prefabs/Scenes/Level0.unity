@@ -300,7 +300,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3453888377855622168, guid: 71d0cef69224c154fac7a1b14a7fb08b, type: 3}
       propertyPath: GameLevels.Array.size
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3453888377855622168, guid: 71d0cef69224c154fac7a1b14a7fb08b, type: 3}
       propertyPath: GameLevels.Array.data[0]
@@ -330,6 +330,10 @@ PrefabInstance:
       propertyPath: GameLevels.Array.data[6]
       value: 
       objectReference: {fileID: 11400000, guid: d161282d0fb05c643b7bcc41f0583af4, type: 2}
+    - target: {fileID: 3453888377855622168, guid: 71d0cef69224c154fac7a1b14a7fb08b, type: 3}
+      propertyPath: GameLevels.Array.data[7]
+      value: 
+      objectReference: {fileID: 11400000, guid: 5f0b5dda25272444fb34602eed259b08, type: 2}
     - target: {fileID: 4004606398330900979, guid: 71d0cef69224c154fac7a1b14a7fb08b, type: 3}
       propertyPath: m_IsActive
       value: 1
