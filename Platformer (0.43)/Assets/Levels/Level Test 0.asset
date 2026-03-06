@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69055c804570682478942ff105b00972, type: 3}
   m_Name: Level Test 0
   m_EditorClassIdentifier: 
-  LevelName: Level Test 00
+  LevelName: Level Test
   MenuSprite: {fileID: 21300000, guid: bf2ef064d451da640b9bb7c3f5e339dc, type: 3}
   RoomCount: 2
   RoomVars:
-  - {fileID: 4482439227698753801, guid: 9bd590bcc98398f4e93a1192399cba5c, type: 3}
+  - {fileID: 4482439227698753801, guid: 5272665ba41866741914e9c8ddecc520, type: 3}
   StartRoom: {fileID: 4482439227698753801, guid: e91717516dae23c4b9928644990fa05e, type: 3}
   EndRoom: {fileID: 5563818516979147107, guid: 4bc2fcf74d7309b448a68a77b1bc4543, type: 3}
   KeepRoomOrder: 1

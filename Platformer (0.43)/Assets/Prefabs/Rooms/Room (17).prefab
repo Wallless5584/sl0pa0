@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -654561093893138315, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 35070226861463035, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Name
       value: Fire Trap (2)
@@ -86,6 +90,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -654561093893138315, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 35070226861463035, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Name
       value: Fire Trap (3)
@@ -164,6 +172,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -1510238910388762688, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1510238910388762688, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1510238910388762688, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5c43b2ca6e13ac944b6c915841b99e81, type: 3}
     - target: {fileID: 35070226861463035, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
       propertyPath: m_Name
       value: Fire Trap Wall (5)
@@ -250,6 +270,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -1510238910388762688, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1510238910388762688, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1510238910388762688, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5c43b2ca6e13ac944b6c915841b99e81, type: 3}
     - target: {fileID: 35070226861463035, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
       propertyPath: m_Name
       value: Fire Trap Wall (7)
@@ -336,6 +368,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -654561093893138315, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 35070226861463035, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Name
       value: Fire Trap (4)
@@ -414,6 +450,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -1510238910388762688, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1510238910388762688, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1510238910388762688, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5c43b2ca6e13ac944b6c915841b99e81, type: 3}
     - target: {fileID: 35070226861463035, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
       propertyPath: m_Name
       value: Fire Trap Wall (3)
@@ -500,6 +548,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -1510238910388762688, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1510238910388762688, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1510238910388762688, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5c43b2ca6e13ac944b6c915841b99e81, type: 3}
     - target: {fileID: 35070226861463035, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
       propertyPath: m_Name
       value: Fire Trap Wall (6)
@@ -586,6 +646,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -654561093893138315, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 35070226861463035, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Name
       value: Fire Trap (6)
@@ -664,6 +728,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -1510238910388762688, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1510238910388762688, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1510238910388762688, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5c43b2ca6e13ac944b6c915841b99e81, type: 3}
     - target: {fileID: 35070226861463035, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
       propertyPath: m_Name
       value: Fire Trap Wall (4)
@@ -750,6 +826,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -1510238910388762688, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1510238910388762688, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1510238910388762688, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5c43b2ca6e13ac944b6c915841b99e81, type: 3}
     - target: {fileID: 35070226861463035, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
       propertyPath: m_Name
       value: Fire Trap Wall (8)
@@ -836,6 +924,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -1510238910388762688, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1510238910388762688, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1510238910388762688, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5c43b2ca6e13ac944b6c915841b99e81, type: 3}
     - target: {fileID: 35070226861463035, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
       propertyPath: m_Name
       value: Fire Trap Wall
@@ -922,6 +1022,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -1510238910388762688, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1510238910388762688, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1510238910388762688, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5c43b2ca6e13ac944b6c915841b99e81, type: 3}
     - target: {fileID: 35070226861463035, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
       propertyPath: m_Name
       value: Fire Trap Wall (9)
@@ -1008,6 +1120,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -654561093893138315, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 35070226861463035, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Name
       value: Fire Trap (7)
@@ -61574,6 +61690,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -1510238910388762688, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1510238910388762688, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1510238910388762688, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5c43b2ca6e13ac944b6c915841b99e81, type: 3}
     - target: {fileID: 35070226861463035, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
       propertyPath: m_Name
       value: Fire Trap Wall (1)
@@ -61660,6 +61788,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -654561093893138315, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 35070226861463035, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Name
       value: Fire Trap (1)
@@ -61738,6 +61870,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -654561093893138315, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 35070226861463035, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Name
       value: Fire Trap (5)
@@ -61782,6 +61918,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5c43b2ca6e13ac944b6c915841b99e81, type: 3}
     - target: {fileID: 3075455239308637999, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -61820,6 +61968,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -654561093893138315, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 35070226861463035, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Name
       value: Fire Trap
@@ -61898,6 +62050,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -1510238910388762688, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1510238910388762688, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1510238910388762688, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5c43b2ca6e13ac944b6c915841b99e81, type: 3}
     - target: {fileID: 35070226861463035, guid: b1ccfd96f7e4e574ab63ad830b32aab7, type: 3}
       propertyPath: m_Name
       value: Fire Trap Wall (2)

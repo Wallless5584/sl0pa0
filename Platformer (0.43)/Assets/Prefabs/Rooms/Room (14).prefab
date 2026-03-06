@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -654561093893138315, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 35070226861463035, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Name
       value: Fire Trap (25)
@@ -94,6 +98,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -654561093893138315, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 35070226861463035, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Name
       value: Fire Trap (28)
@@ -184,6 +192,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -654561093893138315, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 35070226861463035, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Name
       value: Fire Trap (4)
@@ -228,6 +240,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5c43b2ca6e13ac944b6c915841b99e81, type: 3}
     - target: {fileID: 3075455239308637999, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -270,6 +294,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -654561093893138315, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 35070226861463035, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Name
       value: Fire Trap (15)
@@ -314,6 +342,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5c43b2ca6e13ac944b6c915841b99e81, type: 3}
     - target: {fileID: 3075455239308637999, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -356,6 +396,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -654561093893138315, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 35070226861463035, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Name
       value: Fire Trap (16)
@@ -400,6 +444,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5c43b2ca6e13ac944b6c915841b99e81, type: 3}
     - target: {fileID: 3075455239308637999, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -442,6 +498,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -654561093893138315, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 35070226861463035, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Name
       value: Fire Trap (29)
@@ -572,6 +632,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5690923301073693621, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: useTimer
       value: 1
@@ -606,6 +670,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -654561093893138315, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 35070226861463035, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Name
       value: Fire Trap (23)
@@ -651,9 +719,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: MinDistance
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5c43b2ca6e13ac944b6c915841b99e81, type: 3}
     - target: {fileID: 3075455239308637999, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -740,6 +820,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5690923301073693621, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: useTimer
       value: 1
@@ -778,6 +862,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -654561093893138315, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 35070226861463035, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Name
       value: Fire Trap (31)
@@ -864,6 +952,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -654561093893138315, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 35070226861463035, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Name
       value: Fire Trap (11)
@@ -909,9 +1001,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: MinDistance
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5c43b2ca6e13ac944b6c915841b99e81, type: 3}
     - target: {fileID: 3075455239308637999, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -954,6 +1058,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -654561093893138315, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 35070226861463035, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Name
       value: Fire Trap (24)
@@ -999,9 +1107,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: MinDistance
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5c43b2ca6e13ac944b6c915841b99e81, type: 3}
     - target: {fileID: 3075455239308637999, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -42424,6 +42544,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -654561093893138315, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 35070226861463035, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Name
       value: Fire Trap (9)
@@ -42468,6 +42592,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5c43b2ca6e13ac944b6c915841b99e81, type: 3}
     - target: {fileID: 3075455239308637999, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -42510,6 +42646,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -654561093893138315, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 35070226861463035, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Name
       value: Fire Trap (5)
@@ -42554,6 +42694,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5c43b2ca6e13ac944b6c915841b99e81, type: 3}
     - target: {fileID: 3075455239308637999, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -42596,6 +42748,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -654561093893138315, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 35070226861463035, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Name
       value: Fire Trap (14)
@@ -42640,6 +42796,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5c43b2ca6e13ac944b6c915841b99e81, type: 3}
     - target: {fileID: 3075455239308637999, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -42682,6 +42850,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -654561093893138315, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 35070226861463035, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Name
       value: Fire Trap (19)
@@ -42768,6 +42940,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -654561093893138315, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 35070226861463035, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Name
       value: Fire Trap (26)
@@ -42854,6 +43030,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -654561093893138315, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 35070226861463035, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Name
       value: Fire Trap (20)
@@ -42940,6 +43120,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -654561093893138315, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 35070226861463035, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Name
       value: Fire Trap (22)
@@ -42985,9 +43169,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: MinDistance
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5c43b2ca6e13ac944b6c915841b99e81, type: 3}
     - target: {fileID: 3075455239308637999, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -43074,6 +43270,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5690923301073693621, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: useTimer
       value: 1
@@ -43108,6 +43308,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -654561093893138315, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 35070226861463035, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Name
       value: Fire Trap (27)
@@ -43198,6 +43402,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -654561093893138315, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 35070226861463035, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Name
       value: Fire Trap (18)
@@ -43284,6 +43492,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -654561093893138315, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 35070226861463035, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Name
       value: Fire Trap (13)
@@ -43328,6 +43540,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5c43b2ca6e13ac944b6c915841b99e81, type: 3}
     - target: {fileID: 3075455239308637999, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -43370,6 +43594,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -654561093893138315, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 35070226861463035, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Name
       value: Fire Trap (7)
@@ -43414,6 +43642,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5c43b2ca6e13ac944b6c915841b99e81, type: 3}
     - target: {fileID: 3075455239308637999, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -43456,6 +43696,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -654561093893138315, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 35070226861463035, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Name
       value: Fire Trap (30)
@@ -43594,6 +43838,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5690923301073693621, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: useTimer
       value: 1
@@ -43632,6 +43880,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -654561093893138315, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 35070226861463035, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Name
       value: Fire Trap (17)
@@ -43676,6 +43928,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5c43b2ca6e13ac944b6c915841b99e81, type: 3}
     - target: {fileID: 3075455239308637999, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -43718,6 +43982,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -654561093893138315, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 35070226861463035, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Name
       value: Fire Trap (8)
@@ -43762,6 +44030,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742026979935492348, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5c43b2ca6e13ac944b6c915841b99e81, type: 3}
     - target: {fileID: 3075455239308637999, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -43804,6 +44084,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -654561093893138315, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 35070226861463035, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Name
       value: Fire Trap (32)
@@ -43890,6 +44174,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 109838920531744471}
     m_Modifications:
+    - target: {fileID: -654561093893138315, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 35070226861463035, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Name
       value: Fire Trap (21)

@@ -17,6 +17,8 @@ public class JumpDownMoveState : JumpGroundMoveState
         slime.rb.gravityScale = 1f;
         slime.rb.AddForce(-forceDirection * slime.rb.velocity + forceDirection * slime.CurrentSlimeState.JumpPower);
         slime.ChangeDirection(Direction.JumpDown);
+        slime.JumpDownBoostParticles.Play();
+        Debug.Log("Jump Down Particles PLAYED!");
     }
 
     public override void UpdateState(SlimeController slime)
@@ -70,6 +72,7 @@ public class JumpDownMoveState : JumpGroundMoveState
             case Side.Bottom://sticks to the ground
                 if (Input.GetKey(KeyCode.Space))
                 {
+                    slime.JumpDownBoostParticles.Stop();
                     slime.EnterMoveState(MoveState.Jump);
                 }
                 ////else if (Input.GetKey(KeyCode.LeftShift))
@@ -78,26 +81,31 @@ public class JumpDownMoveState : JumpGroundMoveState
                 //}
                 else
                 {
+                    slime.JumpDownBoostParticles.Stop();
                     slime.EnterMoveState(MoveState.Ground);
                 }
                 break;
             case Side.Left://jumps off right
                 if (Input.GetKey(KeyCode.Space))
                 {
+                    slime.JumpDownBoostParticles.Stop();
                     slime.EnterMoveState(MoveState.JumpWallRight);
                 }
                 else
                 {
+                    slime.JumpDownBoostParticles.Stop();
                     slime.EnterMoveState(MoveState.Wall);
                 }
                 break;
             case Side.Right://jumps off left
                 if (Input.GetKey(KeyCode.Space))
                 {
+                    slime.JumpDownBoostParticles.Stop();
                     slime.EnterMoveState(MoveState.JumpWallLeft);
                 }
                 else
                 {
+                    slime.JumpDownBoostParticles.Stop();
                     slime.EnterMoveState(MoveState.Wall);
                 }
                 break;

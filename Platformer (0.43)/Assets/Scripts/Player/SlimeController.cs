@@ -95,6 +95,7 @@ public class SlimeController : MonoBehaviour
     bool debugVelocity = false;
     public Collider2D SlimeCollider;
     public ParticleSystem DirChangeParticles;
+    public ParticleSystem JumpDownBoostParticles;
     [HideInInspector] public Rigidbody2D rb;
     [HideInInspector] public SpriteRenderer sr;
     [SerializeField] public Transform face;
@@ -264,7 +265,7 @@ public class SlimeController : MonoBehaviour
     {
         if (debugVelocity)
         {
-            Debug.Log($"New Move: {Move}, Final Velocity: { rb.velocity}");
+            Debug.Log($"New Move: {Move}, Final Velocity: {rb.velocity}");
             //debugVelocity = false;
         }
         Move = rb.velocity;
