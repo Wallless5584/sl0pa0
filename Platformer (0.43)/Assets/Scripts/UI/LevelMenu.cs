@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelMenu : MonoBehaviour
@@ -13,7 +11,8 @@ public class LevelMenu : MonoBehaviour
     }
     public void BackButtonPressed()
     {
-        //GameManager.instance.SwitchState(GameManager.GameState.None);
+        GameManager.instance.SwitchState(GameManager.GameState.Menu);
+        UIManager.instance.SwitchState(UIManager.UIState.MainMenu);
     }
 
     public void UpdateLevelContent()

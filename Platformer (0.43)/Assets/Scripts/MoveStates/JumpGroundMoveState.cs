@@ -65,6 +65,7 @@ public class JumpGroundMoveState : SlimeMoveState
         if (exit_timer < 0)
         {
             exit_timer = c_exitTimeMaxValue;
+
             if (Input.GetKey(KeyCode.Space))
             {
                 slime.EnterMoveState(MoveState.JumpAir);

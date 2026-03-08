@@ -113,7 +113,7 @@ public class GameManager : MonoBehaviour
     {
         if (PlayerInstance == null)
         {
-            PlayerInstance = Instantiate(PlayerPrefab);
+            PlayerInstance = Instantiate(PlayerPrefab, SpawnedRooms[activeRoom].spawn.GetComponentInChildren<TriggerZone>().transform.position, Quaternion.identity);
         }
         else
         {
@@ -264,7 +264,10 @@ public class GameManager : MonoBehaviour
     public void ClearLevel()
     {
         Debug.Log("Clearing Level!");
-        Destroy(PlayerInstance.gameObject);
+
+        if(PlayerInstance)
+            Destroy(PlayerInstance.gameObject);
+
         foreach (RoomController room in SpawnedRooms)
         {
             Destroy(room.gameObject);

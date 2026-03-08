@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public enum MoveState
@@ -331,10 +330,12 @@ public class SlimeController : MonoBehaviour
                     break;
                 case Direction.CeilingRight:
                     sr.sprite = slime_ceiling_right;
+                    sr.flipY = false;
                     sr.flipX = false;
                     break;
                 case Direction.CeilingLeft:
                     sr.sprite = slime_ceiling_right;
+                    sr.flipY = false;
                     sr.flipX = true;
                     break;
                 case Direction.WallRight:
