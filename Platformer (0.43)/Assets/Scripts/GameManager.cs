@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEditor;
 using UnityEngine;
 
@@ -13,9 +14,10 @@ public class GameManager : MonoBehaviour
         Pause,
     }
 
-    [SerializeField] GameState CurrentState;
+    public GameState CurrentState;
     [SerializeField] int activeRoom;
     [SerializeField] SlimeController PlayerPrefab;
+    [SerializeField] GameObject ParallaxBG;
 
     public LevelSettings[] GameLevels;
     public ushort SelectedLevel;
@@ -46,8 +48,6 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         instance = this;
-
-        
     }
 
     private void Update()
@@ -75,32 +75,38 @@ public class GameManager : MonoBehaviour
         {
             case GameState.None:
                 //UIManager.instance.SwitchState(UIManager.UIState.LevelMenu);
+                ParallaxBG.gameObject.SetActive(false);
                 CurrentState = new_state;
                 break;
             case GameState.Menu:
+                ParallaxBG.gameObject.SetActive(false);
                 Time.timeScale = 1f;
                 UIManager.instance.SwitchState(UIManager.UIState.LevelMenu);
                 ClearLevel();
                 //Write code for deletion all spawned objects
                 CurrentState = new_state;
+                
                 break;
             case GameState.Load:
+                ParallaxBG.gameObject.SetActive(false);
                 UIManager.instance.SwitchState(UIManager.UIState.Load);
                 LoadLevel();
                 Respawn();
                 CurrentState = new_state;
                 LevelStartTime = Time.time;
-
                 SwitchState(GameState.Play);
                 break;
+
             case GameState.Play:
                 //PlayerInstance.transform.position = SpawnedRooms[activeRoom].spawn.GetComponentInChildren<TriggerZone>().transform.position;
+                ParallaxBG.gameObject.SetActive(true);
+                Debug.Log("ParallaxBG ON!");
                 UIManager.instance.SwitchState(UIManager.UIState.GameUI);
                 Time.timeScale = 1f;
                 CurrentState = new_state;
                 break;
             case GameState.Pause:
-                
+                ParallaxBG.gameObject.SetActive(false);
                 UIManager.instance.SwitchState(UIManager.UIState.GamePause);
                 Time.timeScale = 0f;
                 CurrentState = new_state;
