@@ -226,22 +226,6 @@ PrefabInstance:
       propertyPath: GameLevels.Array.data[7]
       value: 
       objectReference: {fileID: 11400000, guid: 5f0b5dda25272444fb34602eed259b08, type: 2}
-    - target: {fileID: 5116189678097515079, guid: 71d0cef69224c154fac7a1b14a7fb08b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5159295432248484665, guid: 71d0cef69224c154fac7a1b14a7fb08b, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 1330347bd1b57244ca761717e0d14532, type: 2}
-    - target: {fileID: 5554281275874917296, guid: 71d0cef69224c154fac7a1b14a7fb08b, type: 3}
-      propertyPath: ParallaxSpeed
-      value: 0.001
-      objectReference: {fileID: 0}
-    - target: {fileID: 6056438420166934375, guid: 71d0cef69224c154fac7a1b14a7fb08b, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 20
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 6322582776253675621, guid: 71d0cef69224c154fac7a1b14a7fb08b, type: 3}

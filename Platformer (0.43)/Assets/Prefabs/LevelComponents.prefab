@@ -509,7 +509,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3825c53ac5b08bd499d1c23cedc7010c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RefPoint: {x: 0, y: 0, z: 0}
+  RefPoint: {x: 0, y: 0.125, z: 0}
   ParallaxSpeed: 0.001
 --- !u!64 &4134820299929710892
 MeshCollider:
@@ -663,8 +663,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3825c53ac5b08bd499d1c23cedc7010c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RefPoint: {x: 0, y: 0, z: 0}
-  ParallaxSpeed: 0.1
+  RefPoint: {x: 0, y: 0.25, z: 0}
+  ParallaxSpeed: 0.004
 --- !u!64 &8104090019664775539
 MeshCollider:
   m_ObjectHideFlags: 0
