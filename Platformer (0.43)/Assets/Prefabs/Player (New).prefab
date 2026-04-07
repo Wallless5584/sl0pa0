@@ -9963,6 +9963,9 @@ MonoBehaviour:
   dryWater: 00000000
   dryElectricity: 01000000
   dryFrost: 01000000
+  dryAirSpace: {fileID: 11400000, guid: 0b82c4fc167a527498543d798713185a, type: 2}
+  dryWaterSpace: {fileID: 11400000, guid: f0884fadddde6d048b55a66e20e73e52, type: 2}
+  dryColdSpace: {fileID: 11400000, guid: dfdd4641c1f9c274d9c4225c7498aa79, type: 2}
   drySaltySaltPiece: 00000000
   drySaltySalt: 00000000
   drySaltyFire: 01000000
@@ -9983,6 +9986,9 @@ MonoBehaviour:
   normalWater: 00000000
   normalElectricity: 01000000
   normalFrost: 01000000
+  normalAirSpace: {fileID: 11400000, guid: 0b82c4fc167a527498543d798713185a, type: 2}
+  normalWaterSpace: {fileID: 11400000, guid: 675dd2a032a93ac439b0d7e2d27d38b2, type: 2}
+  normalColdSpace: {fileID: 11400000, guid: d6a8f8222924c6843b47e77b9309806f, type: 2}
   normalSaltySaltPiece: 00000000
   normalSaltySalt: 00000000
   normalSaltyFire: 01000000
@@ -10003,6 +10009,9 @@ MonoBehaviour:
   wetWater: 00000000
   wetElectricity: 01000000
   wetFrost: 01000000
+  wetAirSpace: {fileID: 11400000, guid: 0b82c4fc167a527498543d798713185a, type: 2}
+  wetWaterSpace: {fileID: 11400000, guid: 3323dbf1452949a45a0783ceb9ecbfbd, type: 2}
+  wetColdSpace: {fileID: 11400000, guid: 24575c0d474fd4d40a7ce7ffee7b4fb8, type: 2}
   slime_inAir: {fileID: 514861218, guid: d0da4340748768a418860c7123559fcb, type: 3}
   slime_ground: {fileID: 1965179034, guid: d0da4340748768a418860c7123559fcb, type: 3}
   slime_ground_right: {fileID: 2075577196, guid: d0da4340748768a418860c7123559fcb, type: 3}

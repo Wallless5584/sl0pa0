@@ -114,6 +114,9 @@ public class SlimeController : MonoBehaviour
     [SerializeField] Reaction[] dryWater;
     [SerializeField] Reaction[] dryElectricity;
     [SerializeField] Reaction[] dryFrost;
+    [SerializeField] SpaceState dryAirSpace;
+    [SerializeField] SpaceState dryWaterSpace;
+    [SerializeField] SpaceState dryColdSpace;
     [Header("Salty Dry state")]
     [SerializeField] Reaction[] drySaltySaltPiece;
     [SerializeField] Reaction[] drySaltySalt;
@@ -136,6 +139,9 @@ public class SlimeController : MonoBehaviour
     [SerializeField] Reaction[] normalWater;
     [SerializeField] Reaction[] normalElectricity;
     [SerializeField] Reaction[] normalFrost;
+    [SerializeField] SpaceState normalAirSpace;
+    [SerializeField] SpaceState normalWaterSpace;
+    [SerializeField] SpaceState normalColdSpace;
     [Header("Salty Normal state")]
     [SerializeField] Reaction[] normalSaltySaltPiece;
     [SerializeField] Reaction[] normalSaltySalt;
@@ -158,6 +164,9 @@ public class SlimeController : MonoBehaviour
     [SerializeField] Reaction[] wetWater;
     [SerializeField] Reaction[] wetElectricity;
     [SerializeField] Reaction[] wetFrost;
+    [SerializeField] SpaceState wetAirSpace;
+    [SerializeField] SpaceState wetWaterSpace;
+    [SerializeField] SpaceState wetColdSpace;
     [Header("Body Sprites")]
     public Sprite slime_inAir;
     public Sprite slime_ground;
@@ -386,19 +395,19 @@ public class SlimeController : MonoBehaviour
         SlimeStates = new SlimeState[]
         {
             new SlimeState(dryMaxSpeed, dryAcceleration, dryFrictionGround, dryFrictionCeiling, dryFrictionWall, dryFrictionWallUp, 
-            dryJumpPower, dryWallJumpPower, drySaltPiece, drySalt, dryFire, dryWater, dryElectricity, dryFrost),
+            dryJumpPower, dryWallJumpPower, drySaltPiece, drySalt, dryFire, dryWater, dryElectricity, dryFrost, dryAirSpace, dryWaterSpace, dryColdSpace),
 
             new SlimeState(dryMaxSpeed, dryAcceleration, dryFrictionGround, dryFrictionCeiling, dryFrictionWall, dryFrictionWallUp,
-            dryJumpPower, dryWallJumpPower, drySaltySaltPiece, drySaltySalt, drySaltyFire, drySaltyWater, drySaltyElectricity, drySaltyFrost),
+            dryJumpPower, dryWallJumpPower, drySaltySaltPiece, drySaltySalt, drySaltyFire, drySaltyWater, drySaltyElectricity, drySaltyFrost, dryAirSpace, dryWaterSpace, dryColdSpace),
 
             new SlimeState(normalMaxSpeed, normalAcceleration, normalFrictionGround, normalFrictionCeiling, normalFrictionWall, 
-            normalFrictionWallUp, normalJumpPower, normalWallJumpPower, normalSaltPiece, normalSalt, normalFire, normalWater, normalElectricity, normalFrost),
+            normalFrictionWallUp, normalJumpPower, normalWallJumpPower, normalSaltPiece, normalSalt, normalFire, normalWater, normalElectricity, normalFrost, normalAirSpace, normalWaterSpace, normalColdSpace),
 
              new SlimeState(normalMaxSpeed, normalAcceleration, normalFrictionGround, normalFrictionCeiling, normalFrictionWall,
-            normalFrictionWallUp, normalJumpPower, normalWallJumpPower, normalSaltySaltPiece, normalSaltySalt, normalSaltyFire, normalSaltyWater, normalSaltyElectricity, normalSaltyFrost),
+            normalFrictionWallUp, normalJumpPower, normalWallJumpPower, normalSaltySaltPiece, normalSaltySalt, normalSaltyFire, normalSaltyWater, normalSaltyElectricity, normalSaltyFrost, normalAirSpace, normalWaterSpace, normalColdSpace),
 
             new SlimeState(wetMaxSpeed, wetAcceleration, wetFrictionGround, wetFrictionCeiling, wetFrictionWall, wetFrictionWallUp, 
-            wetJumpPower, wetWallJumpPower, wetSaltPiece, wetSalt, wetFire, wetWater, wetElectricity, wetFrost),
+            wetJumpPower, wetWallJumpPower, wetSaltPiece, wetSalt, wetFire, wetWater, wetElectricity, wetFrost, wetAirSpace, wetWaterSpace, wetColdSpace),
         };
     }
 
@@ -573,10 +582,36 @@ public class SlimeController : MonoBehaviour
         }
     }
 
+    public void IdentifySpace(Collider2D collision)
+    {
+        if (collision.tag == "Water")
+        {
+            CurrentSlimeState.CurrentSpace = Space.Water;
+        }
+        else if (collision.tag == "ColdSpace")
+        {
+            CurrentSlimeState.CurrentSpace = Space.Cold;
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         IdentifyElement(collision);
     }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        CurrentSlimeState.CurrentSpace = Space.Air;
+        SlimeStates[0].CurrentSpace = Space.Air;
+        SlimeStates[1].CurrentSpace = Space.Air;
+        SlimeStates[2].CurrentSpace = Space.Air;
+        SlimeStates[3].CurrentSpace = Space.Air;
+        SlimeStates[4].CurrentSpace = Space.Air;
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        IdentifySpace(collision);
+    }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
