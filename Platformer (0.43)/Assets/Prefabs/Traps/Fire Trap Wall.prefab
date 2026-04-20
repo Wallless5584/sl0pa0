@@ -266,8 +266,8 @@ MonoBehaviour:
   mirrorPeriod: 0.1
   mirrorActivation: 0
   mirrorDectivation: 1
-  mirrorGloomEffect: 0
-  mirrorGloomPeriod: 0.01
+  mirrorBloomEffect: 0
+  mirrorBloomPeriod: 0
   sprites:
   - {fileID: 598924934, guid: 4dfb77794f32a254fbd386192494f89d, type: 3}
   - {fileID: -1019648277, guid: 4dfb77794f32a254fbd386192494f89d, type: 3}
@@ -275,7 +275,7 @@ MonoBehaviour:
   - {fileID: 1984506862, guid: 4dfb77794f32a254fbd386192494f89d, type: 3}
   - {fileID: -1739063295, guid: 4dfb77794f32a254fbd386192494f89d, type: 3}
   - {fileID: 1447392558, guid: 4dfb77794f32a254fbd386192494f89d, type: 3}
-  gloomEffectSR: {fileID: 3075455239308637999}
+  bloomEffectSR: {fileID: 3075455239308637999}
   energySR: {fileID: 8907109501343941243}
   OnActivating:
     m_PersistentCalls:

@@ -130,9 +130,29 @@ PrefabInstance:
       propertyPath: state
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5523538034663455661, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: activationTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5523538034663455661, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: deactivationTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5690923301073693621, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: useTimer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5690923301073693621, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: maxOffTime
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5690923301073693621, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: startState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5690923301073693621, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: maxActiveTime
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8907109501343941243, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Enabled
@@ -58508,6 +58528,14 @@ PrefabInstance:
       propertyPath: m_Tiles.Array.data[1623].second.m_TileObjectToInstantiateIndex
       value: 65535
       objectReference: {fileID: 0}
+    - target: {fileID: 8748787030608977614, guid: b8a280b3bd2699547977f8230329f7a5, type: 3}
+      propertyPath: buttonsInRoom.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8748787030608977614, guid: b8a280b3bd2699547977f8230329f7a5, type: 3}
+      propertyPath: buttonsInRoom.Array.data[0]
+      value: 
+      objectReference: {fileID: 5172491559762173278}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -58533,6 +58561,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5105679153348360464, guid: b8a280b3bd2699547977f8230329f7a5, type: 3}
   m_PrefabInstance: {fileID: 5142334283037061063}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5172491559762173278 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 42041348175966873, guid: b8a280b3bd2699547977f8230329f7a5, type: 3}
+  m_PrefabInstance: {fileID: 5142334283037061063}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e99dc659723fe564ebff8ae7b5863c7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6124467277722884708
 PrefabInstance:
   m_ObjectHideFlags: 0

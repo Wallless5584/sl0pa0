@@ -5,30 +5,30 @@ using UnityEngine.Events;
 [SelectionBase]
 public class RoomController : MonoBehaviour
 {
-    [SerializeField] Coin[] coinsInRoom;
-    List<Coin> pickedCoins = new List<Coin>();
+    [SerializeField] RoomButton[] buttonsInRoom;
+    List<RoomButton> pressedButtons = new List<RoomButton>();
     [SerializeField] DoorController exit;
     public SpawnPoint spawn;
     public UnityEvent OnRoomCompletion;
 
-    public void CoinPickedUp(Coin picked_coin)
+    public void RoomButtonPressed(RoomButton pressed_button)
     {
-        picked_coin.Collect();
-        pickedCoins.Add(picked_coin);
+        pressed_button.Collect();
+        pressedButtons.Add(pressed_button);
         Debug.Log("Coin picked up!");
         CheckRoomCompletion();
     }
 
     public bool CheckRoomCompletion()
     {
-        if (coinsInRoom.Length == pickedCoins.Count) 
+        if (buttonsInRoom.Length == pressedButtons.Count) 
         {
             //exit.SetState(true);
             OnRoomCompletion.Invoke();
             Debug.Log($"Level completed!");
             return true;
         }
-        Debug.Log($"Level incomplete! {pickedCoins.Count}/{coinsInRoom.Length} coins collected. ");
+        Debug.Log($"Level incomplete! {pressedButtons.Count}/{buttonsInRoom.Length} coins collected. ");
         return false;
     }
 
@@ -51,8 +51,8 @@ public class RoomController : MonoBehaviour
 
     public void ResetRoom()
     {
-        pickedCoins.Clear();
-        foreach (Coin item in coinsInRoom)
+        pressedButtons.Clear();
+        foreach (RoomButton item in buttonsInRoom)
         {
             item.ResetObject();
         }

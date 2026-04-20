@@ -5,12 +5,12 @@ public class AirMoveState : SlimeMoveState
     public override void EnterState(SlimeController slime)
     {
         Debug.Log("Entered Air State!");
-        slime.rb.gravityScale = 1f;
         //slime.sr.sprite = slime.slime_inAir;
     }
 
     public override void UpdateState(SlimeController slime)
     {
+        slime.rb.gravityScale = slime.CurrentSlimeState.SpaceGravityMod;
         moveX = 0;
         if (Input.GetKey(KeyCode.LeftShift))
         {

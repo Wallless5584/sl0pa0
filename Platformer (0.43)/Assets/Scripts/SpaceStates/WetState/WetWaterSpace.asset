@@ -10,10 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8bf4e12ec17e83d4bb975c645e4bddac, type: 3}
-  m_Name: ColdSpace
+  m_Name: WetWaterSpace
   m_EditorClassIdentifier: 
-  SlimeMaxSpeedMod: 1
-  SlimeAccelerationMod: 1
-  SlimeGravityMod: 1
-  SlimeWallJumpPowerMod: 1
-  SlimeJumpPowerMod: 1
+  SlimeMaxSpeedMod: 1.1
+  SlimeAccelerationMod: 0.7
+  SlimeFrictionGroundMod: 0.5
+  SlimeFrictionWallMod: 0.5
+  SlimeFrictionWallUpMod: 0.5
+  SlimeFrictionCeilingMod: 0.5
+  SlimeGravityMod: 0.3
+  SlimeBounceGravityMod: 0.8
+  SlimeDrag: 1
+  SlimeWallJumpPowerMod: 0.75
+  SlimeJumpPowerMod: 0.5

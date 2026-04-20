@@ -90897,20 +90897,24 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4482439227698753801, guid: 0c61b17c1278dc3449b5dd9d5f5af19d, type: 3}
-      propertyPath: coinsInRoom.Array.data[1]
-      value: 
-      objectReference: {fileID: 2862194205748009445}
+      propertyPath: buttonsInRoom.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4482439227698753801, guid: 0c61b17c1278dc3449b5dd9d5f5af19d, type: 3}
-      propertyPath: coinsInRoom.Array.data[2]
+      propertyPath: buttonsInRoom.Array.data[1]
       value: 
-      objectReference: {fileID: 2862194206774940165}
+      objectReference: {fileID: 835718918184577590}
+    - target: {fileID: 4482439227698753801, guid: 0c61b17c1278dc3449b5dd9d5f5af19d, type: 3}
+      propertyPath: buttonsInRoom.Array.data[2]
+      value: 
+      objectReference: {fileID: 835718919229399510}
     - target: {fileID: 5757692332715649355, guid: 0c61b17c1278dc3449b5dd9d5f5af19d, type: 3}
       propertyPath: m_ChunkCullingBounds.x
-      value: 0.13999999
+      value: 0.127451
       objectReference: {fileID: 0}
     - target: {fileID: 5757692332715649355, guid: 0c61b17c1278dc3449b5dd9d5f5af19d, type: 3}
       propertyPath: m_ChunkCullingBounds.y
-      value: 0.13999999
+      value: 0.127451
       objectReference: {fileID: 0}
     - target: {fileID: 6108035785003125245, guid: 0c61b17c1278dc3449b5dd9d5f5af19d, type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.size
@@ -93512,15 +93516,15 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a2848644ad74bb4ba2d6e7b22a93216, type: 3}
---- !u!114 &2862194205748009445 stripped
+--- !u!114 &835718918184577590 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6292481743989759578, guid: 9a2848644ad74bb4ba2d6e7b22a93216, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8895450752028142985, guid: 9a2848644ad74bb4ba2d6e7b22a93216, type: 3}
   m_PrefabInstance: {fileID: 8136857433468913599}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce181ee1689d705489f4cd10751249bb, type: 3}
+  m_Script: {fileID: 11500000, guid: e99dc659723fe564ebff8ae7b5863c7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &3006598640080590440 stripped
@@ -93589,15 +93593,15 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a2848644ad74bb4ba2d6e7b22a93216, type: 3}
---- !u!114 &2862194206774940165 stripped
+--- !u!114 &835718919229399510 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6292481743989759578, guid: 9a2848644ad74bb4ba2d6e7b22a93216, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8895450752028142985, guid: 9a2848644ad74bb4ba2d6e7b22a93216, type: 3}
   m_PrefabInstance: {fileID: 8136857434563251295}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce181ee1689d705489f4cd10751249bb, type: 3}
+  m_Script: {fileID: 11500000, guid: e99dc659723fe564ebff8ae7b5863c7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &3006598641200127368 stripped

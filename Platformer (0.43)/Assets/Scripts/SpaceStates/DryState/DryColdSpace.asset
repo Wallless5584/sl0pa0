@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8bf4e12ec17e83d4bb975c645e4bddac, type: 3}
-  m_Name: WaterSpace
+  m_Name: DryColdSpace
   m_EditorClassIdentifier: 
-  SlimeMaxSpeedMod: 0.75
-  SlimeAccelerationMod: 0.75
-  SlimeGravityMod: 0.75
-  SlimeWallJumpPowerMod: 0.6
-  SlimeJumpPowerMod: 0.6
+  SlimeMaxSpeedMod: 1
+  SlimeAccelerationMod: 1
+  SlimeGravityMod: 1
+  SlimeWallJumpPowerMod: 1
+  SlimeJumpPowerMod: 1

@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -15,7 +16,7 @@ public class TrapAnimator : MonoBehaviour
 
     const int c_activatingImageAmount = 3;
     const int c_activeImageAmount = 2;
-    const int c_dectivatingImageAmount = 1;
+    const int c_deactivatingImageAmount = 1;
     const int c_lastSpriteIndexOffset = 1;
 
     [SerializeField] TrapState state;
@@ -31,12 +32,12 @@ public class TrapAnimator : MonoBehaviour
     [SerializeField] float mirrorPeriod;
     [SerializeField] bool mirrorActivation;
     [SerializeField] bool mirrorDectivation;
-    [SerializeField] bool mirrorGloomEffect;
-    [SerializeField] float mirrorGloomPeriod;
+    [SerializeField] bool mirrorBloomEffect;
+    [SerializeField] float mirrorBloomPeriod;
 
     [Header("References:")]
     [SerializeField] Sprite[] sprites;
-    [SerializeField] SpriteRenderer gloomEffectSR;
+    [SerializeField] SpriteRenderer bloomEffectSR;
     [SerializeField] SpriteRenderer energySR;
 
     [Header("Events:")]
@@ -48,7 +49,7 @@ public class TrapAnimator : MonoBehaviour
     int currentImageIndex = 0;
     float imageChangeTimer = 0f;
     float mirrorTimer = 0f;
-    float mirrorGloomTimer = 0f;
+    float mirrorBloomTimer = 0f;
 
     void Start()
     {
@@ -75,9 +76,10 @@ public class TrapAnimator : MonoBehaviour
                     }
                     else
                     {
-                        energySR.sprite = sprites[currentImageIndex];
+                        energySR.sprite = sprites[currentImageIndex]; 
                     }
                 }
+                bloomEffectSR.color = new Color(1f, 1f, 1f, (activationTime / c_activatingImageAmount * currentImageIndex + imageChangeTimer) / activationTime);
                 break;
 
             case TrapState.Active:
@@ -112,7 +114,7 @@ public class TrapAnimator : MonoBehaviour
                 if (imageChangeTimer < 0)
                 {
                     currentImageIndex += 1;
-                    imageChangeTimer = deactivationTime / (c_dectivatingImageAmount + c_lastSpriteIndexOffset);
+                    imageChangeTimer = deactivationTime / (c_deactivatingImageAmount + c_lastSpriteIndexOffset);
                     if (currentImageIndex >= sprites.Length)
                     {
                         SwitchState(TrapState.Off);
@@ -120,31 +122,32 @@ public class TrapAnimator : MonoBehaviour
                     else
                         energySR.sprite = sprites[currentImageIndex];
                 }
+                bloomEffectSR.color = new Color(1f, 1f, 1f, deactivationTime/(deactivationTime / c_deactivatingImageAmount * currentImageIndex + imageChangeTimer));
                 break;
         }
 
-        if (mirrorGloomEffect)
+        if (mirrorBloomEffect)
         {
-            MirrorGloom();
+            MirrorBloom();
         }
     }
 
-    private void MirrorGloom()
+    private void MirrorBloom()
     {
-        mirrorGloomTimer -= Time.deltaTime;
-        if (mirrorGloomTimer < 0f)
+        mirrorBloomTimer -= Time.deltaTime;
+        if (mirrorBloomTimer < 0f)
         {
             if (Random.Range(0, 2) == 0)
             {
                 if (mirrorX)
                 {
-                    gloomEffectSR.flipX = !gloomEffectSR.flipX;
+                    bloomEffectSR.flipX = !bloomEffectSR.flipX;
                 }
                 else
                 {
                     if (mirrorY)
                     {
-                        gloomEffectSR.flipY = !gloomEffectSR.flipY;
+                        bloomEffectSR.flipY = !bloomEffectSR.flipY;
                     }
                 }
             }
@@ -152,17 +155,17 @@ public class TrapAnimator : MonoBehaviour
             {
                 if (mirrorY)
                 {
-                    gloomEffectSR.flipY = !gloomEffectSR.flipY;
+                    bloomEffectSR.flipY = !bloomEffectSR.flipY;
                 }
                 else
                 {
                     if (mirrorX)
                     {
-                        gloomEffectSR.flipX = !gloomEffectSR.flipX;
+                        bloomEffectSR.flipX = !bloomEffectSR.flipX;
                     }
                 }
             }
-            mirrorGloomTimer = mirrorGloomPeriod;
+            mirrorBloomTimer = mirrorBloomPeriod;
         }
     }
 
@@ -210,7 +213,7 @@ public class TrapAnimator : MonoBehaviour
             case TrapState.Activating:
                 state = TrapState.Activating;
                 energySR.enabled = true;
-                gloomEffectSR.enabled = false;
+                bloomEffectSR.enabled = true;
                 currentImageIndex = -1;
                 imageChangeTimer = 0f;
 
@@ -220,7 +223,8 @@ public class TrapAnimator : MonoBehaviour
             case TrapState.Active:
                 state = TrapState.Active;
                 energySR.enabled = true;
-                gloomEffectSR.enabled = true;
+                bloomEffectSR.enabled = true;
+                bloomEffectSR.color = Color.white;
                 currentImageIndex = c_activatingImageAmount -1;
                 imageChangeTimer = 0f;
 
@@ -230,9 +234,9 @@ public class TrapAnimator : MonoBehaviour
             case TrapState.Deactivating:
                 state = TrapState.Deactivating;
                 energySR.enabled = true;
-                gloomEffectSR.enabled = false;
+                bloomEffectSR.enabled = true;
                 currentImageIndex = c_activatingImageAmount + c_activeImageAmount -1;
-                imageChangeTimer = deactivationTime / (c_dectivatingImageAmount + c_lastSpriteIndexOffset);
+                imageChangeTimer = deactivationTime / (c_deactivatingImageAmount + c_lastSpriteIndexOffset);
                 
                 OnDeactivation.Invoke();
                 break;
@@ -240,7 +244,7 @@ public class TrapAnimator : MonoBehaviour
             case TrapState.Off:
                 state = TrapState.Off;
                 energySR.enabled = false;
-                gloomEffectSR.enabled = false;
+                bloomEffectSR.enabled = false;
                 currentImageIndex = 0;
                 imageChangeTimer = 0f;
                 

@@ -9,7 +9,7 @@ public class CeilingMoveState : SlimeMoveState
     public override void EnterState(SlimeController slime)
     {
         Debug.Log("Entered Ceiling State!");
-        slime.rb.gravityScale = -10f;
+        slime.rb.gravityScale = -10f * Mathf.Abs(slime.CurrentSlimeState.SpaceGravityMod);
         if (slime.CurrentSlimeState.FrictionCeiling == 1)
         {
             _move_vector.x *= 0;
@@ -72,6 +72,8 @@ public class CeilingMoveState : SlimeMoveState
         switch (touching_side)
         {
             case Side.None://falling
+                slime.Move.y = 0;
+                slime.rb.velocity = new Vector2(slime.rb.velocity.x, 0f);
                 slime.EnterMoveState(MoveState.Air);
                 break;
             case Side.Bottom://sticks to the ceiling

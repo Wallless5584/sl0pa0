@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.tag == "Coin")
         {
-            GameManager.instance.OnCoinPickUp(collision.gameObject.GetComponentInParent<Coin>());
+            //GameManager.instance.OnButtonPress(collision.gameObject.GetComponentInParent<Coin>());
             CoinCount++;
         }
         if (IsBouncing && collision.tag == "Ground")

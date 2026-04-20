@@ -2,6 +2,7 @@ public enum CollectableType
 {
     None,
     Coin,
+    Button,
 }
 
 public interface ICollectable

@@ -5,7 +5,7 @@ public class JumpWallRightMoveState : JumpGroundMoveState
     public override void EnterState(SlimeController slime)
     {
         Debug.Log("Entered Jump Wall Right State!");
-        slime.rb.gravityScale = 1f;
+        slime.rb.gravityScale = 1f * slime.CurrentSlimeState.SpaceGravityMod;
         slime.rb.AddForce(-new Vector2(slime.rb.velocity.x, 0) + Vector2.right * slime.CurrentSlimeState.WallJumpPower);
         slime.ChangeDirection(Direction.JumpWall);
         //slime.face.localPosition = new Vector2(0.1f, 0);

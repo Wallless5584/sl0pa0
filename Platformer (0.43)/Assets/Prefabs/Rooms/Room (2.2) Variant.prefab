@@ -66,6 +66,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6436340069258514903, guid: 9a2848644ad74bb4ba2d6e7b22a93216, type: 3}
   m_PrefabInstance: {fileID: 636998380517656043}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8333330511919278178 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8895450752028142985, guid: 9a2848644ad74bb4ba2d6e7b22a93216, type: 3}
+  m_PrefabInstance: {fileID: 636998380517656043}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e99dc659723fe564ebff8ae7b5863c7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1357600461213744571
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -132,6 +143,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6436340069258514903, guid: 9a2848644ad74bb4ba2d6e7b22a93216, type: 3}
   m_PrefabInstance: {fileID: 1357600461213744571}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7612727385390272562 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8895450752028142985, guid: 9a2848644ad74bb4ba2d6e7b22a93216, type: 3}
+  m_PrefabInstance: {fileID: 1357600461213744571}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e99dc659723fe564ebff8ae7b5863c7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4580265149166127406
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -153256,13 +153278,25 @@ PrefabInstance:
       propertyPath: m_Tiles.Array.data[4513].second.m_TileObjectToInstantiateIndex
       value: 65535
       objectReference: {fileID: 0}
+    - target: {fileID: 4482439227698753801, guid: 0c61b17c1278dc3449b5dd9d5f5af19d, type: 3}
+      propertyPath: buttonsInRoom.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4482439227698753801, guid: 0c61b17c1278dc3449b5dd9d5f5af19d, type: 3}
+      propertyPath: buttonsInRoom.Array.data[1]
+      value: 
+      objectReference: {fileID: 7612727385390272562}
+    - target: {fileID: 4482439227698753801, guid: 0c61b17c1278dc3449b5dd9d5f5af19d, type: 3}
+      propertyPath: buttonsInRoom.Array.data[2]
+      value: 
+      objectReference: {fileID: 8333330511919278178}
     - target: {fileID: 5757692332715649355, guid: 0c61b17c1278dc3449b5dd9d5f5af19d, type: 3}
       propertyPath: m_ChunkCullingBounds.x
-      value: 0.13999999
+      value: 0.127451
       objectReference: {fileID: 0}
     - target: {fileID: 5757692332715649355, guid: 0c61b17c1278dc3449b5dd9d5f5af19d, type: 3}
       propertyPath: m_ChunkCullingBounds.y
-      value: 0.13999999
+      value: 0.127451
       objectReference: {fileID: 0}
     - target: {fileID: 6108035785003125245, guid: 0c61b17c1278dc3449b5dd9d5f5af19d, type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.size

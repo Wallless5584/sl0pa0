@@ -996,6 +996,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7279212946921663102, guid: 12f1641e879277541b7a1bfa485dc705, type: 3}
+      propertyPath: m_text
+      value: Experiments
+      objectReference: {fileID: 0}
     - target: {fileID: 7378894131665098763, guid: 12f1641e879277541b7a1bfa485dc705, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1

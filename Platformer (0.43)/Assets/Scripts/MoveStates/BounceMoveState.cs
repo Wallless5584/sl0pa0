@@ -10,16 +10,14 @@ public class BounceMoveState : SlimeMoveState
     {
         Debug.Log("Entered Bounce State!");
         new_move = Vector2.zero;
-        slime.rb.sharedMaterial.bounciness = 1;
         slime.SlimeCollider.enabled = false;
         slime.SlimeCollider.enabled = true;
-        slime.rb.gravityScale = 1f;
+        slime.rb.gravityScale = 1f * slime.CurrentSlimeState.SpaceBounceGravityMod;
         slime.ChangeDirection(Direction.InAirRight);
     }
 
     public override void UpdateState(SlimeController slime)
     {
-
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             LeaveBounceState();
@@ -35,10 +33,8 @@ public class BounceMoveState : SlimeMoveState
         bounce_time += Time.deltaTime;
 
 
-
         void LeaveBounceState()
         {
-            slime.rb.sharedMaterial.bounciness = 0;
             slime.SlimeCollider.enabled = false;
             slime.SlimeCollider.enabled = true;
         }
@@ -48,12 +44,15 @@ public class BounceMoveState : SlimeMoveState
 
     public override void FixedUpdateState(SlimeController slime, Vector2 move_vector)
     {
-        move = move_vector;
-        if (new_move != Vector2.zero)
+        if (slime.CurrentSlimeState.CurrentSpace != Space.Water)
         {
-            slime.Move = new_move;
-            slime.rb.velocity = new_move;
-            new_move = Vector2.zero;
+            move = move_vector;
+            if (new_move != Vector2.zero)
+            {
+                slime.Move = new_move;
+                slime.rb.velocity = new_move;
+                new_move = Vector2.zero;
+            }
         }
     }
 

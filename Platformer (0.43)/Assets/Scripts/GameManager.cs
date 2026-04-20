@@ -164,12 +164,11 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
         SwitchState(GameState.Menu);
         //UIManager.instance.SwitchState(UIManager.UIState.LevelComplete);
-
     }
 
-    public void OnCoinPickUp(Coin coin)
+    public void OnRoomButtonPress(RoomButton button)
     {
-        SpawnedRooms[activeRoom].CoinPickedUp(coin);
+        SpawnedRooms[activeRoom].RoomButtonPressed(button);
     }
 
     public void ResetLevel()

@@ -50,10 +50,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 653f443f3a5f7ee478bb08a0f54e16d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinsInRoom:
-  - {fileID: 7776025720906133133}
-  - {fileID: 638254203076970191}
-  - {fileID: 5270133736257344883}
+  buttonsInRoom:
+  - {fileID: 5172491559762173278}
+  - {fileID: 2664467737873495324}
+  - {fileID: 7278618745714927264}
   exit: {fileID: 7842088832905645519}
   spawn: {fileID: 5053901481374803637}
   OnRoomCompletion:
@@ -29843,7 +29843,7 @@ TilemapRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -10
   m_ChunkSize: {x: 32, y: 32, z: 32}
-  m_ChunkCullingBounds: {x: 0.13999999, y: 0.13999999, z: 0}
+  m_ChunkCullingBounds: {x: 0.127451, y: 0.127451, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 0
@@ -29916,15 +29916,15 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6436340069258514903, guid: 9a2848644ad74bb4ba2d6e7b22a93216, type: 3}
   m_PrefabInstance: {fileID: 2193293130676570921}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5270133736257344883 stripped
+--- !u!114 &7278618745714927264 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6292481743989759578, guid: 9a2848644ad74bb4ba2d6e7b22a93216, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8895450752028142985, guid: 9a2848644ad74bb4ba2d6e7b22a93216, type: 3}
   m_PrefabInstance: {fileID: 2193293130676570921}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce181ee1689d705489f4cd10751249bb, type: 3}
+  m_Script: {fileID: 11500000, guid: e99dc659723fe564ebff8ae7b5863c7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &3618274959398500675
@@ -30065,22 +30065,22 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a2848644ad74bb4ba2d6e7b22a93216, type: 3}
---- !u!4 &7343371865639788800 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6436340069258514903, guid: 9a2848644ad74bb4ba2d6e7b22a93216, type: 3}
-  m_PrefabInstance: {fileID: 4375982607121969367}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &7776025720906133133 stripped
+--- !u!114 &5172491559762173278 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6292481743989759578, guid: 9a2848644ad74bb4ba2d6e7b22a93216, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8895450752028142985, guid: 9a2848644ad74bb4ba2d6e7b22a93216, type: 3}
   m_PrefabInstance: {fileID: 4375982607121969367}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce181ee1689d705489f4cd10751249bb, type: 3}
+  m_Script: {fileID: 11500000, guid: e99dc659723fe564ebff8ae7b5863c7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &7343371865639788800 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6436340069258514903, guid: 9a2848644ad74bb4ba2d6e7b22a93216, type: 3}
+  m_PrefabInstance: {fileID: 4375982607121969367}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6884009446229301397
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30147,15 +30147,15 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6436340069258514903, guid: 9a2848644ad74bb4ba2d6e7b22a93216, type: 3}
   m_PrefabInstance: {fileID: 6884009446229301397}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &638254203076970191 stripped
+--- !u!114 &2664467737873495324 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6292481743989759578, guid: 9a2848644ad74bb4ba2d6e7b22a93216, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8895450752028142985, guid: 9a2848644ad74bb4ba2d6e7b22a93216, type: 3}
   m_PrefabInstance: {fileID: 6884009446229301397}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce181ee1689d705489f4cd10751249bb, type: 3}
+  m_Script: {fileID: 11500000, guid: e99dc659723fe564ebff8ae7b5863c7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &7523096444577863709

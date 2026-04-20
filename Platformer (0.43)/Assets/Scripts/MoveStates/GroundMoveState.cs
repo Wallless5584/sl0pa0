@@ -6,11 +6,11 @@ public class GroundMoveState : SlimeMoveState
     public override void EnterState(SlimeController slime)
     {
         Debug.Log("Entered Ground State!");
-        slime.rb.gravityScale = 10f;
     }
 
     public override void UpdateState(SlimeController slime)
     {
+        slime.rb.gravityScale = 10f * Mathf.Abs(slime.CurrentSlimeState.SpaceGravityMod);
         if (Input.GetKey(KeyCode.LeftShift))
         {
             IsControlled = false;

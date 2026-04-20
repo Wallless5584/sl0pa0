@@ -60,7 +60,7 @@ public class JumpGroundMoveState : SlimeMoveState
         }
         if (exit_timer < c_timeJumpBalance)
         {
-            slime.rb.gravityScale = c_gravityJumpBalance;
+            slime.rb.gravityScale = c_gravityJumpBalance * slime.CurrentSlimeState.SpaceGravityMod;
         }
         if (exit_timer < 0)
         {

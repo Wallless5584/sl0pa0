@@ -507,8 +507,8 @@ MonoBehaviour:
   mirrorPeriod: 0.3
   mirrorActivation: 1
   mirrorDectivation: 1
-  mirrorGloomEffect: 1
-  mirrorGloomPeriod: 0.11
+  mirrorBloomEffect: 0
+  mirrorBloomPeriod: 0
   sprites:
   - {fileID: 149294977, guid: c09f0af8588c8d34fac689b565e5376a, type: 3}
   - {fileID: 251008385, guid: c09f0af8588c8d34fac689b565e5376a, type: 3}
@@ -516,7 +516,7 @@ MonoBehaviour:
   - {fileID: 690499777, guid: c09f0af8588c8d34fac689b565e5376a, type: 3}
   - {fileID: 1498290536, guid: c09f0af8588c8d34fac689b565e5376a, type: 3}
   - {fileID: -1445613463, guid: c09f0af8588c8d34fac689b565e5376a, type: 3}
-  gloomEffectSR: {fileID: 3075455239308637999}
+  bloomEffectSR: {fileID: 3075455239308637999}
   energySR: {fileID: 8907109501343941243}
   OnActivating:
     m_PersistentCalls:
@@ -1010,8 +1010,8 @@ MonoBehaviour:
   mirrorPeriod: 0.3
   mirrorActivation: 1
   mirrorDectivation: 1
-  mirrorGloomEffect: 1
-  mirrorGloomPeriod: 0.11
+  mirrorBloomEffect: 0
+  mirrorBloomPeriod: 0
   sprites:
   - {fileID: 149294977, guid: c09f0af8588c8d34fac689b565e5376a, type: 3}
   - {fileID: 251008385, guid: c09f0af8588c8d34fac689b565e5376a, type: 3}
@@ -1019,7 +1019,7 @@ MonoBehaviour:
   - {fileID: 690499777, guid: c09f0af8588c8d34fac689b565e5376a, type: 3}
   - {fileID: 1498290536, guid: c09f0af8588c8d34fac689b565e5376a, type: 3}
   - {fileID: -1445613463, guid: c09f0af8588c8d34fac689b565e5376a, type: 3}
-  gloomEffectSR: {fileID: 7816034323209488453}
+  bloomEffectSR: {fileID: 7816034323209488453}
   energySR: {fileID: 3276216932284867467}
   OnActivating:
     m_PersistentCalls:

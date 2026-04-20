@@ -553,7 +553,8 @@ public class SlimeController : MonoBehaviour
     {
         if(collision.tag == "Coin")
         {
-            GameManager.instance.OnCoinPickUp(collision.gameObject.GetComponentInParent<Coin>());
+            GameManager.instance.OnRoomButtonPress(collision.gameObject.GetComponentInParent<RoomButton>());
+            collision.gameObject.GetComponentInParent<RoomButton>().Collect();
             //CoinCount++;
         }
         else if (collision.tag == "SaltPiece")
@@ -592,6 +593,7 @@ public class SlimeController : MonoBehaviour
         {
             CurrentSlimeState.CurrentSpace = Space.Cold;
         }
+        rb.drag = CurrentSlimeState.SpaceDrag;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
