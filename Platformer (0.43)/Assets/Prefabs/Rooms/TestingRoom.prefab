@@ -1904,6 +1904,10 @@ PrefabInstance:
       propertyPath: m_Tiles.Array.data[4].second.m_TileSpriteIndex
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 4359097190326544764, guid: b8a280b3bd2699547977f8230329f7a5, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4392689740965464067, guid: b8a280b3bd2699547977f8230329f7a5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2
@@ -58632,6 +58636,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Water (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6083815725970896084, guid: c941daed8ced7f04e92f165b00e2e47a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -58693,6 +58701,10 @@ PrefabInstance:
     - target: {fileID: 6083815725970896084, guid: c941daed8ced7f04e92f165b00e2e47a, type: 3}
       propertyPath: m_Name
       value: Water
+      objectReference: {fileID: 0}
+    - target: {fileID: 6083815725970896084, guid: c941daed8ced7f04e92f165b00e2e47a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

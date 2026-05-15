@@ -551,10 +551,10 @@ public class SlimeController : MonoBehaviour
 
     void IdentifyElement(Collider2D collision)
     {
-        if(collision.tag == "Coin")
+        if (collision.tag == "Coin")
         {
-            GameManager.instance.OnRoomButtonPress(collision.gameObject.GetComponentInParent<RoomButton>());
-            collision.gameObject.GetComponentInParent<RoomButton>().Collect();
+            //GameManager.instance.OnRoomButtonPress(collision.gameObject.GetComponentInParent<RoomButton>());
+            //collision.gameObject.GetComponentInParent<RoomButton>().Collect();
             //CoinCount++;
         }
         else if (collision.tag == "SaltPiece")

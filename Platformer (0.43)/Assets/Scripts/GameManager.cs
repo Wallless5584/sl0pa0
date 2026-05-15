@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.WSA;
 
 public class GameManager : MonoBehaviour
 {
@@ -100,8 +101,9 @@ public class GameManager : MonoBehaviour
             case GameState.Play:
                 //PlayerInstance.transform.position = SpawnedRooms[activeRoom].spawn.GetComponentInChildren<TriggerZone>().transform.position;
                 ParallaxBG.gameObject.SetActive(true);
-                Debug.Log("ParallaxBG ON!");
+                //Debug.Log("ParallaxBG ON!");
                 UIManager.instance.SwitchState(UIManager.UIState.GameUI);
+                PrepareActiveRoom();
                 Time.timeScale = 1f;
                 CurrentState = new_state;
                 break;
@@ -140,8 +142,14 @@ public class GameManager : MonoBehaviour
                 return;
             }
             activeRoom++;
-            Debug.Log($"> Spawn Triggered! (Active room: {activeRoom}/{GameLevels[SelectedLevel].RoomCount})");
+            Debug.Log($"> Spawn Triggered! (Active room: {activeRoom}/{GameLevels[SelectedLevel].RoomCount}), Room name: {SpawnedRooms[activeRoom].gameObject.name}");
+            PrepareActiveRoom();
         }
+    }
+
+    public void PrepareActiveRoom()
+    {
+        SpawnedRooms[activeRoom].ActivateButtons();
     }
 
     public bool CheckLevelComplete()
@@ -178,6 +186,7 @@ public class GameManager : MonoBehaviour
             room.ResetRoom();
         }
         activeRoom = 0;
+        PrepareActiveRoom();
         Respawn();
     }
 

@@ -13,7 +13,7 @@ public class RoomController : MonoBehaviour
 
     public void RoomButtonPressed(RoomButton pressed_button)
     {
-        pressed_button.Collect();
+        //pressed_button.Collect();
         pressedButtons.Add(pressed_button);
         Debug.Log("Coin picked up!");
         CheckRoomCompletion();
@@ -28,7 +28,7 @@ public class RoomController : MonoBehaviour
             Debug.Log($"Level completed!");
             return true;
         }
-        Debug.Log($"Level incomplete! {pressedButtons.Count}/{buttonsInRoom.Length} coins collected. ");
+        //Debug.Log($"Level incomplete! {pressedButtons.Count}/{buttonsInRoom.Length} coins collected. ");
         return false;
     }
 
@@ -47,6 +47,14 @@ public class RoomController : MonoBehaviour
     {
         Debug.Log($"{gameObject.name}, Spawn pos: {spawn.transform.position}");
         return spawn.transform.position;
+    }
+
+    public void ActivateButtons()
+    {
+        foreach (RoomButton item in buttonsInRoom)
+        {
+            item.Activate();
+        }
     }
 
     public void ResetRoom()

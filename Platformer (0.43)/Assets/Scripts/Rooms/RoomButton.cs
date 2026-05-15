@@ -1,35 +1,58 @@
+using System.Threading;
+using TMPro;
 using UnityEngine;
 
 [SelectionBase]
 public class RoomButton : MonoBehaviour, ICollectable
 {
     public CollectableType Type { get; set; }
-    [SerializeField] SpriteRenderer SpriteRenderer;
+    [SerializeField] SpriteRenderer ActiveSR;
+    [SerializeField] SpriteRenderer InactiveSR;
+    [SerializeField] TMP_Text TimerText;
+
     [SerializeField] Sprite UnpressedActive;
     [SerializeField] Sprite PressedActive;
     [SerializeField] Sprite UnpressedInactive;
     [SerializeField] Sprite PressedInactive;
-    [SerializeField] TrapAnimator ButtonAnimator;
-    bool Active = true;
+    bool active = false;
+    float recordedTime;
+
+
 
     private void Start()
     {
-        SpriteRenderer.sprite = UnpressedActive;
-        ButtonAnimator.SwitchState(TrapState.Active);
+        ResetButton();
+    }
+
+    private void Update()
+    {
+        if (active)
+        {
+            recordedTime += Time.deltaTime;
+            int minTimer = (int)(recordedTime / 60);
+            float secTimer = recordedTime + Time.deltaTime - minTimer * 60;
+
+            float secDisplayTime = Mathf.Floor(secTimer * 1000f) / 1000;
+            TimerText.text = $"{minTimer:D2}:{secDisplayTime.ToString("00.000")}";
+        }
+        else
+        {
+            ActiveSR.color = new Color(1f, 1f, 1f, ActiveSR.color.a - Time.deltaTime);
+            if (ActiveSR.color.a <= 0f)
+            {
+                enabled = false;
+            }
+        }
     }
 
     public void Collect()
     {
-        if (Active == true)
+        ActiveSR.sprite = PressedActive;
+        InactiveSR.sprite = PressedInactive;
+        if (active == true)
         {
-            Active = false;
-            ButtonAnimator.SwitchState(TrapState.Off);
-            SpriteRenderer.sprite = PressedActive;
+            active = false;
             GameManager.instance.OnRoomButtonPress(this);
-        }
-        else
-        {
-            SpriteRenderer.sprite = PressedInactive;
         }
         //Debug.Log($"Enabled is {gameObject.active}!");
     }
@@ -41,25 +64,35 @@ public class RoomButton : MonoBehaviour, ICollectable
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (Active == true)
-        {
-            SpriteRenderer.sprite = UnpressedActive;
-        }
-        else
-        {
-            SpriteRenderer.sprite = UnpressedInactive;
-        }
+        ActiveSR.sprite = UnpressedActive;
+        InactiveSR.sprite = UnpressedInactive;
     }
 
     public void PlayerEntered()
     {
-        Collect();
+        //Collect();
+    }
+
+    void ResetButton()
+    {
+        enabled = true;
+        ActiveSR.sprite = UnpressedActive;
+        InactiveSR.sprite = UnpressedInactive;
+        ActiveSR.color = new Color(1f, 1f, 1f, 1f);
+        ActiveSR.sprite = UnpressedActive;
+        TimerText.text = "00:00.000";
+        recordedTime = 0f;
+    }
+
+    public void Activate()
+    {
+        active = true;
+        ResetButton();
     }
 
     public void ResetObject()
     {
-        Active = true;
-        ButtonAnimator.SwitchState(TrapState.Active);
-        SpriteRenderer.sprite = UnpressedActive;
+        active = false;
+        ResetButton();
     }
 }
