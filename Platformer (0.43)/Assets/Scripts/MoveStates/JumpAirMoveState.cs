@@ -5,7 +5,7 @@ public class JumpAirMoveState : SlimeMoveState
     public override void EnterState(SlimeController slime)
     {
         Debug.Log("Entered Jump Air State!");
-        slime.rb.gravityScale = 1f;
+        slime.rb.gravityScale = 1f * slime.CurrentSlimeState.SpaceGravityMod;
         //slime.sr.sprite = slime.slime_inAir;
     }
 
@@ -83,6 +83,9 @@ public class JumpAirMoveState : SlimeMoveState
                 break;
             case Side.Right://sticks to a right wall
                 slime.EnterMoveState(MoveState.Wall);
+                break;
+            case Side.None://sticks to a right wall
+                slime.rb.gravityScale = 1f * slime.CurrentSlimeState.SpaceGravityMod;
                 break;
         }
     }

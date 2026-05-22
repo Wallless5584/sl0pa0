@@ -80,6 +80,6 @@ public class BounceMoveState : SlimeMoveState
 
     public override void ReactToGround(Side side, SlimeController slime)
     {
-        
+        slime.rb.gravityScale = 1f * slime.CurrentSlimeState.SpaceBounceGravityMod;
     }
 }

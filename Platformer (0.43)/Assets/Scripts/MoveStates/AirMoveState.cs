@@ -83,6 +83,12 @@ public class AirMoveState : SlimeMoveState
             case Side.Right://sticks to a right wall
                 slime.EnterMoveState(MoveState.Wall);
                 break;
+            case Side.None:
+                if (slime.CurrentWetnessState == WetnessState.Dry && slime.CheckWaterSurface())
+                {
+                    slime.EnterMoveState(MoveState.WaterGlide);
+                }
+                break;
         }
     }
 }

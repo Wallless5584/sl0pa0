@@ -71,10 +71,19 @@ public class CeilingMoveState : SlimeMoveState
     {
         switch (touching_side)
         {
-            case Side.None://falling
-                slime.Move.y = 0;
-                slime.rb.velocity = new Vector2(slime.rb.velocity.x, 0f);
-                slime.EnterMoveState(MoveState.Air);
+            case Side.None://falling or Water
+                if (slime.CurrentWetnessState == WetnessState.Dry && slime.CheckWaterSurface())
+                {
+                    slime.Move.y = 0f;
+                    slime.EnterMoveState(MoveState.Ceiling);
+                    Debug.Log(">> Entered WATER glide!");
+                }
+                else
+                {
+                    slime.Move.y = 0;
+                    slime.rb.velocity = new Vector2(slime.rb.velocity.x, 0f);
+                    slime.EnterMoveState(MoveState.Air);
+                }
                 break;
             case Side.Bottom://sticks to the ceiling
                 slime.EnterMoveState(MoveState.Ground);

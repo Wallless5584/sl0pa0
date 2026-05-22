@@ -9942,6 +9942,9 @@ MonoBehaviour:
   GroundLayer:
     serializedVersion: 2
     m_Bits: 8
+  Water:
+    serializedVersion: 2
+    m_Bits: 16
   Move: {x: 0, y: 0}
   SlimeCollider: {fileID: 4494014164240872706}
   DirChangeParticles: {fileID: 6143420479076648472}
