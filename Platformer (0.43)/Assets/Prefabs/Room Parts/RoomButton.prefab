@@ -139,8 +139,8 @@ MonoBehaviour:
   TimerText: {fileID: 4626012250121907148}
   UnpressedActive: {fileID: -194286508, guid: 2f4ae69abfc5c624e8295bf8f41df5b5, type: 3}
   PressedActive: {fileID: 823532559, guid: 2f4ae69abfc5c624e8295bf8f41df5b5, type: 3}
-  UnpressedInactive: {fileID: 2121205599, guid: 2f4ae69abfc5c624e8295bf8f41df5b5, type: 3}
-  PressedInactive: {fileID: 1232276839, guid: 2f4ae69abfc5c624e8295bf8f41df5b5, type: 3}
+  UnpressedInactive: {fileID: 1232276839, guid: 2f4ae69abfc5c624e8295bf8f41df5b5, type: 3}
+  PressedInactive: {fileID: 2121205599, guid: 2f4ae69abfc5c624e8295bf8f41df5b5, type: 3}
 --- !u!61 &2195614706860844801
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -347,7 +347,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -3
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &4626012250121907148
 MonoBehaviour:
@@ -417,7 +417,7 @@ MonoBehaviour:
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
-  m_enableKerning: 1
+  m_enableKerning: 0
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -428,7 +428,7 @@ MonoBehaviour:
   m_verticalMapping: 0
   m_uvLineOffset: 0
   m_geometrySortingOrder: 0
-  m_IsTextObjectScaleStatic: 0
+  m_IsTextObjectScaleStatic: 1
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1

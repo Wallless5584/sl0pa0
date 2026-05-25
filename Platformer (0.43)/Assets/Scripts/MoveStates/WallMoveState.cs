@@ -6,11 +6,26 @@ public class WallMoveState : SlimeMoveState
     
     public override void EnterState(SlimeController slime)
     {
+        const float c_wall_hug_velocity = 0.5f;
+
+
         Debug.Log("Entered Wall State!");
         slime.rb.gravityScale = 0f;
-        if (slime.rb.velocity.y > 0.1f)
+        Vector2 slime_velocity = slime.rb.velocity;
+
+        if (slime_velocity.y > 0.1f)
         {
             WallBlockCounter = 1f;
+        }
+
+        switch (slime.CurrentSide)
+        {
+            case Side.Right:
+                slime.rb.AddForce(new Vector2(c_wall_hug_velocity,0));
+                break;
+            case Side.Left:
+                slime.rb.AddForce(new Vector2(-c_wall_hug_velocity, 0));
+                break;
         }
     }
 

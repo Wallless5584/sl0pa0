@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public enum MoveState
 {
@@ -245,7 +244,6 @@ public class SlimeController : MonoBehaviour
 
         if (Bot)
         {
-            //Debug.DrawLine(new Vector2(slime_pos_x, slime_pos_y - 0.5f), Bot.point, Color.red, 2f);
             CurrentSide = Side.Bottom;
             CurrentMoveState.ReactToGround(Side.Bottom, this);
         }

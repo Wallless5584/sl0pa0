@@ -12,22 +12,18 @@ public class JumpGroundMoveState : SlimeMoveState
 
 
 
-    public string debugStateName = "Jump State";
-    public Vector2 forceDirection = Vector2.up;
-    public Direction direction = Direction.JumpUp;
-    public SoundType sound = SoundType.Jump;
     bool JumpExt = true;
 
 
 
     public override void EnterState(SlimeController slime)
     { 
-        Debug.Log($"Entered {debugStateName}!");
+        Debug.Log($"Entered Jump State!");
         JumpExt = true;
         slime.rb.gravityScale = 0f;
-        slime.rb.AddForce(-forceDirection * slime.rb.velocity + forceDirection * slime.CurrentSlimeState.JumpPower);
-        slime.ChangeDirection(direction);
-        SlimeSoundManager.Instance.PlaySound(sound);
+        slime.rb.AddForce(-Vector2.up * slime.rb.velocity + Vector2.up * slime.CurrentSlimeState.JumpPower);
+        slime.ChangeDirection(Direction.JumpUp);
+        SlimeSoundManager.Instance.PlaySound(SoundType.Jump);
         //slime.face.localPosition = new Vector2(0,0.1f);
         //slime.sr.sprite = slime.slime_jump;
     }
@@ -84,6 +80,7 @@ public class JumpGroundMoveState : SlimeMoveState
 
     public override void FixedUpdateState(SlimeController slime, Vector2 move_vector)
     {
+
         if (IsControlled)
         {
             move_vector.x = Mathf.Clamp(

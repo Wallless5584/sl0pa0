@@ -22,4 +22,4 @@ MonoBehaviour:
   SlimeBounceGravityMod: 0.5
   SlimeDrag: 1
   SlimeWallJumpPowerMod: 0.75
-  SlimeJumpPowerMod: 0.7
+  SlimeJumpPowerMod: 0.55

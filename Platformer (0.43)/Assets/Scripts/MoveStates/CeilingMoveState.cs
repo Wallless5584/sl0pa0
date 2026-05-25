@@ -9,6 +9,7 @@ public class CeilingMoveState : SlimeMoveState
     public override void EnterState(SlimeController slime)
     {
         Debug.Log("Entered Ceiling State!");
+        _move_vector = slime.Move;
         slime.rb.gravityScale = -10f * Mathf.Abs(slime.CurrentSlimeState.SpaceGravityMod);
         if (slime.CurrentSlimeState.FrictionCeiling == 1)
         {
@@ -76,7 +77,6 @@ public class CeilingMoveState : SlimeMoveState
                 {
                     slime.Move.y = 0f;
                     slime.EnterMoveState(MoveState.Ceiling);
-                    Debug.Log(">> Entered WATER glide!");
                 }
                 else
                 {

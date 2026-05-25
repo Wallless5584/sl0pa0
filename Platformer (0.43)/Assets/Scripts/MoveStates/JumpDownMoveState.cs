@@ -5,17 +5,12 @@ using UnityEngine;
 public class JumpDownMoveState : JumpGroundMoveState
 {
 
-    public string debugStateName = "Jump Down State";
-    public Vector2 forceDirection = Vector2.down;
-    public Direction direction = Direction.JumpDown;
-    public SoundType sound = SoundType.Jump;
-
     public override void EnterState(SlimeController slime)
     {
         exit_timer = c_exitTimeMaxValue;
         Debug.Log("Entered Jump Down State!");
         slime.rb.gravityScale = 1f * slime.CurrentSlimeState.SpaceGravityMod;
-        slime.rb.AddForce(-forceDirection * slime.rb.velocity + forceDirection * slime.CurrentSlimeState.JumpPower);
+        slime.rb.AddForce(-Vector2.up * slime.rb.velocity + Vector2.up * slime.CurrentSlimeState.JumpPower);
         slime.ChangeDirection(Direction.JumpDown);
         slime.JumpDownBoostParticles.Play();
         Debug.Log("Jump Down Particles PLAYED!");

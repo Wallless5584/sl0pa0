@@ -1,4 +1,3 @@
-using System.Threading;
 using TMPro;
 using UnityEngine;
 
@@ -54,7 +53,6 @@ public class RoomButton : MonoBehaviour, ICollectable
             active = false;
             GameManager.instance.OnRoomButtonPress(this);
         }
-        //Debug.Log($"Enabled is {gameObject.active}!");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -66,11 +64,6 @@ public class RoomButton : MonoBehaviour, ICollectable
     {
         ActiveSR.sprite = UnpressedActive;
         InactiveSR.sprite = UnpressedInactive;
-    }
-
-    public void PlayerEntered()
-    {
-        //Collect();
     }
 
     void ResetButton()
