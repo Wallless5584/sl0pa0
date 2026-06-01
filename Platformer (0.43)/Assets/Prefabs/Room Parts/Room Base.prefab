@@ -1677,8 +1677,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1109604611
+  m_SortingLayer: 6
   m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0.127451, y: 0.127451, z: 0}
@@ -1736,8 +1736,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 653f443f3a5f7ee478bb08a0f54e16d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinsInRoom:
-  - {fileID: 3221415106253783370}
+  buttonsInRoom: []
   exit: {fileID: 3137196908856648200}
   spawn: {fileID: 107573296540076402}
   OnRoomCompletion:
@@ -2440,8 +2439,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1109604611
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0.127451, y: 0.127451, z: 0}
@@ -2746,8 +2745,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1974325025
+  m_SortingLayer: 1
   m_SortingOrder: -10
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -2977,14 +2976,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6436340069258514903, guid: 9a2848644ad74bb4ba2d6e7b22a93216, type: 3}
   m_PrefabInstance: {fileID: 8928282039727578896}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3221415106253783370 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6292481743989759578, guid: 9a2848644ad74bb4ba2d6e7b22a93216, type: 3}
-  m_PrefabInstance: {fileID: 8928282039727578896}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce181ee1689d705489f4cd10751249bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

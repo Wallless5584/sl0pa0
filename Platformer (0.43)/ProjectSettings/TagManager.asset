@@ -19,7 +19,7 @@ TagManager:
   - Water
   - UI
   - Trap
-  - 
+  - Slime
   - 
   - 
   - 
@@ -47,4 +47,28 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Back
+    uniqueID: 2320642271
+    locked: 0
+  - name: Buttons
+    uniqueID: 3570791331
+    locked: 0
+  - name: Traps
+    uniqueID: 4099723407
+    locked: 0
+  - name: Slime Particles
+    uniqueID: 3417188943
+    locked: 0
+  - name: Slime
+    uniqueID: 3441393755
+    locked: 0
+  - name: External Particles
+    uniqueID: 4113102931
+    locked: 0
+  - name: Water
+    uniqueID: 1873503167
+    locked: 0
+  - name: Front
+    uniqueID: 3185362685
     locked: 0

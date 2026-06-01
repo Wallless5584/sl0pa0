@@ -185,6 +185,10 @@ public class SlimeController : MonoBehaviour
     public Sprite slime_face_up;
     public Sprite slime_face_down;
     public Sprite slime_face_sad;
+    [Header("Particles")]
+    public ParticleSystem WaterSplash;
+    public ParticleSystem WaterBubbles;
+    public ParticleSystem WaterDrops;
 
     Vector2 contact_point;
     public SlimeMoveState CurrentMoveState;
@@ -428,6 +432,7 @@ public class SlimeController : MonoBehaviour
     {
         rb.velocity = Vector2.zero;
         Move = Vector2.zero;
+        CheckPlayParticles();
         ChangeSlimeState(WetnessState.Normal);
     }
 
@@ -624,18 +629,21 @@ public class SlimeController : MonoBehaviour
         }
     }
 
-    public void IdentifySpace(Collider2D collision)
+    public Space IdentifySpace(Collider2D collision)
     {
         if (collision.tag == "Water")
         {
             CurrentSlimeState.CurrentSpace = Space.Water;
+            rb.drag = CurrentSlimeState.SpaceDrag;
+            return Space.Water;
         }
         else if (collision.tag == "ColdSpace")
         {
             CurrentSlimeState.CurrentSpace = Space.Cold;
+            rb.drag = CurrentSlimeState.SpaceDrag;
+            return Space.Cold;
         }
-        rb.drag = CurrentSlimeState.SpaceDrag;
-
+        return Space.Air;
     }
 
     public bool CheckWaterSurface()
@@ -665,10 +673,41 @@ public class SlimeController : MonoBehaviour
         
     }
 
+    bool CheckEnteredNewSpaceState(Collider2D collision)
+    {
+        Space oldSpace = CurrentSlimeState.CurrentSpace;
+        return IdentifySpace(collision) != oldSpace;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         IdentifyElement(collision);
+        if (CheckEnteredNewSpaceState(collision))
+        {
+            CheckPlayParticles();
+        }
     }
+
+    void CheckPlayParticles()
+    {
+        switch (CurrentSlimeState.CurrentSpace)
+        {
+            case Space.Air:
+                WaterBubbles.Stop();
+                break;
+            case Space.Water:
+                WaterSplash.Play();
+                Invoke("BubblesPlay", 1f);
+                break;
+        }
+    }
+
+
+    void BubblesPlay()
+    {
+        WaterBubbles.Play();
+    }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         CurrentSlimeState.CurrentSpace = Space.Air;
@@ -677,7 +716,9 @@ public class SlimeController : MonoBehaviour
         SlimeStates[2].CurrentSpace = Space.Air;
         SlimeStates[3].CurrentSpace = Space.Air;
         SlimeStates[4].CurrentSpace = Space.Air;
+        CheckPlayParticles();
     }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         IdentifySpace(collision);

@@ -10,7 +10,7 @@ public class JumpDownMoveState : JumpGroundMoveState
         exit_timer = c_exitTimeMaxValue;
         Debug.Log("Entered Jump Down State!");
         slime.rb.gravityScale = 1f * slime.CurrentSlimeState.SpaceGravityMod;
-        slime.rb.AddForce(-Vector2.up * slime.rb.velocity + Vector2.up * slime.CurrentSlimeState.JumpPower);
+        slime.rb.AddForce(Vector2.up * slime.rb.velocity - Vector2.up * slime.CurrentSlimeState.JumpPower);
         slime.ChangeDirection(Direction.JumpDown);
         slime.JumpDownBoostParticles.Play();
         Debug.Log("Jump Down Particles PLAYED!");
