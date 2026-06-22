@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public enum MoveState
@@ -16,7 +17,7 @@ public enum MoveState
     WaterGlide,
 } 
 
-public enum Side
+[Flags] public enum Side
 {
     None,
     Top,
@@ -86,11 +87,15 @@ public enum Element
     Frost,
 }
 
+
+
+
 [RequireComponent(typeof(Rigidbody2D))]
 public class SlimeController : MonoBehaviour
 {
     [SerializeField] LayerMask GroundLayer;
     [SerializeField] LayerMask Water;
+    [SerializeField] LayerMask Fire;
     public Vector2 Move = Vector2.zero;
     const float c_MoveForce = 80;
     bool debugVelocity = false;
@@ -189,17 +194,34 @@ public class SlimeController : MonoBehaviour
     public ParticleSystem WaterSplash;
     public ParticleSystem WaterBubbles;
     public ParticleSystem WaterDrops;
+    public ParticleSystem HeatParticlesR;
+    public ParticleSystem HeatParticlesL;
+    public ParticleSystem HeatParticlesT;
+    public ParticleSystem HeatParticlesB;
 
     Vector2 contact_point;
     public SlimeMoveState CurrentMoveState;
+    Side CurrentWaterSides;
+    Side LastWaterSides;
+    Side HeatCollisionSides;
     public Side CurrentSide = Side.None;
     Direction CurrentDirection = Direction.None;
 
     float CurrentScale;
-    const float c_ColDisplacement = 0.5f;
-    const float c_WaterColScaleFactor = 2f;
-    const float c_ColliderThickness = 0.05f;
-    const float c_ColliderWidth = 0.9f;
+    const float c_GroundColOffset = 0.5f;
+    const float c_GroundColThickness = 0.05f;
+    const float c_GroundColWidth = 0.9f;
+
+    const float c_WaterColOffset = 0.475f;
+    const float c_WaterColThickness = 0.05f;
+    const float c_WaterColWidth = 0.9f;
+    const float c_UnderwaterSlideColThickness = 0.1f;
+    //const float c_WaterColScaleFactor = 2f;
+
+    const float c_HeatColOffset = 1.5f;
+    const float c_HeatColThickness = 1f;
+    const float c_HeatColWidth = 1f;
+    
 
     public SlimeMoveState[] MoveStates =
     {
@@ -226,52 +248,62 @@ public class SlimeController : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         sr = gameObject.GetComponent<SpriteRenderer>();
-        EnterMoveState(MoveState.Ground);
+        EnterMoveState(MoveState.Air);
         CreateStates();
         ChangeSlimeState(WetnessState.Normal);
     }
 
-    public void CheckSides()
+    public void CheckGroundSides()
     {
-        float slime_pos_x = gameObject.transform.position.x;
-        float slime_pos_y = gameObject.transform.position.y;
-        //Debug.Log($"Slime pos: ({slime_pos_x}, {slime_pos_y})");
-        //Bottom
-        Collider2D Bot = Physics2D.OverlapBox(new Vector2(slime_pos_x, slime_pos_y - c_ColDisplacement * CurrentScale), new Vector2(c_ColliderWidth, c_ColliderThickness) * CurrentScale, angle: 0, GroundLayer);
-        //Top
-        Collider2D Top = Physics2D.OverlapBox(new Vector2(slime_pos_x, slime_pos_y + c_ColDisplacement * CurrentScale), new Vector2(c_ColliderWidth, c_ColliderThickness) * CurrentScale, angle: 0, GroundLayer);
-        //Left
-        Collider2D Left = Physics2D.OverlapBox(new Vector2(slime_pos_x - c_ColDisplacement * CurrentScale, slime_pos_y), new Vector2(c_ColliderThickness, c_ColliderWidth) * CurrentScale, angle: 0, GroundLayer);
-        //Right
-        Collider2D Right = Physics2D.OverlapBox(new Vector2(slime_pos_x + c_ColDisplacement * CurrentScale, slime_pos_y), new Vector2(c_ColliderThickness, c_ColliderWidth) * CurrentScale, angle: 0, GroundLayer);
-        //TopWater
+        CurrentMoveState.ReactToGround(CheckSides(c_GroundColOffset, c_GroundColWidth, c_GroundColThickness, GroundLayer), this);
+    }
 
-        if (Bot)
+    public void CheckHeatSides()
+    {
+        
+        Physics2D.queriesHitTriggers = true;
+        Side collisionSides = CheckSides(c_HeatColOffset, c_HeatColWidth, c_HeatColThickness, Fire);
+        if (collisionSides != HeatCollisionSides)
         {
-            CurrentSide = Side.Bottom;
-            CurrentMoveState.ReactToGround(Side.Bottom, this);
+            if (collisionSides.HasFlag(Side.Right))
+            {
+                HeatParticlesR.Play();
+                Debug.Log("Evaportion R Particles PLAYED!");
+            }
+            else
+            {
+                HeatParticlesR.Stop();
+            }
+            if (collisionSides.HasFlag(Side.Left))
+            {
+                HeatParticlesL.Play();
+                Debug.Log("Evaportion L Particles PLAYED!");
+            }
+            else
+            {
+                HeatParticlesL.Stop();
+            }
+            if (collisionSides.HasFlag(Side.Top))
+            {
+                HeatParticlesT.Play();
+                Debug.Log("Evaportion T Particles PLAYED!");
+            }
+            else
+            {
+                HeatParticlesT.Stop();
+            }
+            if (collisionSides.HasFlag(Side.Bottom))
+            {
+                HeatParticlesB.Play();
+                Debug.Log("Evaportion B Particles PLAYED!");
+            }
+            else
+            {
+                HeatParticlesB.Stop();
+            }
         }
-        else if (Top)
-        {
-            CurrentSide = Side.Top;
-            CurrentMoveState.ReactToGround(Side.Top, this);
-        }
-        else if (Right)
-        {
-            CurrentSide = Side.Right;
-            CurrentMoveState.ReactToGround(Side.Right, this);
-        }
-        else if (Left)
-        {
-            CurrentSide = Side.Left;
-            CurrentMoveState.ReactToGround(Side.Left, this);
-        }
-        else
-        {
-            CurrentSide = Side.None;
-            CurrentMoveState.ReactToGround(Side.None, this);
-        }
-    } 
+        HeatCollisionSides = collisionSides;
+    }
 
     void Update()
     {
@@ -279,40 +311,40 @@ public class SlimeController : MonoBehaviour
         face.localPosition = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * 0.1f;
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        Collider2D TopWater = Physics2D.OverlapBox(
-            point: new Vector2(transform.position.x, transform.position.y + c_ColDisplacement * CurrentScale),
-            size: new Vector2(c_ColliderWidth, c_ColliderThickness * c_WaterColScaleFactor) * CurrentScale,
-            angle: 0, layerMask: Water);
+    //private void OnDrawGizmosSelected()
+    //{
+    //    Collider2D TopWater = Physics2D.OverlapBox(
+    //        point: new Vector2(transform.position.x, transform.position.y + c_GroundColOffset * CurrentScale),
+    //        size: new Vector2(c_GroundColWidth, c_GroundColThickness * c_WaterColScaleFactor) * CurrentScale,
+    //        angle: 0, layerMask: Water);
 
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(
-            center: new Vector3(transform.position.x, transform.position.y + c_ColDisplacement * CurrentScale, 0f),
-            size: new Vector3(c_ColliderWidth, c_ColliderThickness * c_WaterColScaleFactor, 0f) * CurrentScale);
+    //    Gizmos.color = Color.yellow;
+    //    Gizmos.DrawWireCube(
+    //        center: new Vector3(transform.position.x, transform.position.y + c_GroundColOffset * CurrentScale, 0f),
+    //        size: new Vector3(c_GroundColWidth, c_GroundColThickness * c_WaterColScaleFactor, 0f) * CurrentScale);
 
 
-        if (TopWater)
-        {
-            Collider2D TopNoWater = Physics2D.OverlapBox(
-            point: new Vector2(transform.position.x, transform.position.y + (c_ColDisplacement + c_ColliderThickness * c_WaterColScaleFactor) * CurrentScale),
-            size: new Vector2(c_ColliderWidth, c_ColliderThickness * c_WaterColScaleFactor) * CurrentScale,
-            angle: 0, layerMask: Water);
+    //    if (TopWater)
+    //    {
+    //        Collider2D TopNoWater = Physics2D.OverlapBox(
+    //        point: new Vector2(transform.position.x, transform.position.y + (c_GroundColOffset + c_GroundColThickness * c_WaterColScaleFactor) * CurrentScale),
+    //        size: new Vector2(c_GroundColWidth, c_GroundColThickness * c_WaterColScaleFactor) * CurrentScale,
+    //        angle: 0, layerMask: Water);
 
-            if (TopNoWater)
-            {
-                Gizmos.color = Color.red;
-            }
-            else
-            {
-                Gizmos.color = Color.green;
-            }
+    //        if (TopNoWater)
+    //        {
+    //            Gizmos.color = Color.red;
+    //        }
+    //        else
+    //        {
+    //            Gizmos.color = Color.green;
+    //        }
 
-            Gizmos.DrawWireCube(
-                center: new Vector3(transform.position.x, transform.position.y + (c_ColDisplacement + c_ColliderThickness * c_WaterColScaleFactor) * CurrentScale, 0f),
-                size: new Vector3(c_ColliderWidth, c_ColliderThickness * c_WaterColScaleFactor, 0f) * CurrentScale);
-        }
-    }
+    //        Gizmos.DrawWireCube(
+    //            center: new Vector3(transform.position.x, transform.position.y + (c_GroundColOffset + c_GroundColThickness * c_WaterColScaleFactor) * CurrentScale, 0f),
+    //            size: new Vector3(c_GroundColWidth, c_GroundColThickness * c_WaterColScaleFactor, 0f) * CurrentScale);
+    //    }
+    //}
 
     void FixedUpdate()
     {
@@ -324,7 +356,8 @@ public class SlimeController : MonoBehaviour
         Move = rb.velocity;
         CurrentMoveState.FixedUpdateState(this, Move);
         rb.AddForce(-(rb.velocity - Move) * c_MoveForce);
-        CheckSides();
+        CheckGroundSides();
+        CheckHeatSides();
     }
 
     public void EnterMoveState(MoveState new_move_state)
@@ -332,6 +365,8 @@ public class SlimeController : MonoBehaviour
         SlimeMoveState new_state = MoveStates[(int)new_move_state - 1];
         new_state.EnterState(this);
         CurrentMoveState = new_state;
+        //Debug.Log($"CURRENT SPACE STATE -> {CurrentSlimeState.CurrentSpace}");
+        //Debug.Log($"CURRENT GRAVITYMOD -> {CurrentSlimeState.SpaceGravityMod}");
     }
 
     public void ChangeDirection(Direction new_direction)
@@ -432,7 +467,7 @@ public class SlimeController : MonoBehaviour
     {
         rb.velocity = Vector2.zero;
         Move = Vector2.zero;
-        CheckPlayParticles();
+        PlayParticlesBySpace();
         ChangeSlimeState(WetnessState.Normal);
     }
 
@@ -631,10 +666,13 @@ public class SlimeController : MonoBehaviour
 
     public Space IdentifySpace(Collider2D collision)
     {
-        if (collision.tag == "Water")
-        {
-            CurrentSlimeState.CurrentSpace = Space.Water;
+        LastWaterSides = CurrentWaterSides;
+        CurrentWaterSides = CheckSides(c_WaterColOffset, c_WaterColWidth, c_WaterColThickness, Water);
+        if (CurrentWaterSides > 0) //collision.tag == "Water"
+        { 
+            CurrentSlimeState.CurrentSpace = Space.Water; 
             rb.drag = CurrentSlimeState.SpaceDrag;
+            if (LastWaterSides.HasFlag(Side.Top) & !CurrentWaterSides.HasFlag(Side.Top))
             return Space.Water;
         }
         else if (collision.tag == "ColdSpace")
@@ -643,6 +681,9 @@ public class SlimeController : MonoBehaviour
             rb.drag = CurrentSlimeState.SpaceDrag;
             return Space.Cold;
         }
+        CurrentSlimeState.CurrentSpace = Space.Air;
+        
+        rb.drag = CurrentSlimeState.SpaceDrag;
         return Space.Air;
     }
 
@@ -651,15 +692,15 @@ public class SlimeController : MonoBehaviour
         Physics2D.queriesHitTriggers = true;
 
         Collider2D TopWater = Physics2D.OverlapBox(
-            point: new Vector2(transform.position.x, transform.position.y + c_ColDisplacement * CurrentScale),
-            size: new Vector2(c_ColliderWidth, c_ColliderThickness * c_WaterColScaleFactor) * CurrentScale,
+            point: new Vector2(transform.position.x, transform.position.y + c_GroundColOffset * CurrentScale),
+            size: new Vector2(c_GroundColWidth, c_UnderwaterSlideColThickness) * CurrentScale,
             angle: 0, layerMask: Water);
 
         if (TopWater)
         {
             Collider2D TopNoWater = Physics2D.OverlapBox(
-            point: new Vector2(transform.position.x, transform.position.y + (c_ColDisplacement + c_ColliderThickness * c_WaterColScaleFactor) * CurrentScale),
-            size: new Vector2(c_ColliderWidth, c_ColliderThickness * c_WaterColScaleFactor) * CurrentScale,
+            point: new Vector2(transform.position.x, transform.position.y + (c_GroundColOffset + c_UnderwaterSlideColThickness) * CurrentScale),
+            size: new Vector2(c_GroundColWidth, c_UnderwaterSlideColThickness) * CurrentScale,
             angle: 0, layerMask: Water);
 
             Physics2D.queriesHitTriggers = false;
@@ -679,21 +720,52 @@ public class SlimeController : MonoBehaviour
         return IdentifySpace(collision) != oldSpace;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    
+
+    Side CheckSides(float colOffset, float colWidth, float colThickness, LayerMask layer)
     {
-        IdentifyElement(collision);
-        if (CheckEnteredNewSpaceState(collision))
+        float slime_pos_x = gameObject.transform.position.x;
+        float slime_pos_y = gameObject.transform.position.y;
+        Side current_sides = Side.None;
+
+        //Water Bottom
+        Collider2D Bot = Physics2D.OverlapBox(new Vector2(slime_pos_x, slime_pos_y - colOffset * CurrentScale), new Vector2(colWidth, colThickness) * CurrentScale, angle: 0, layer);
+        //Water Top
+        Collider2D Top = Physics2D.OverlapBox(new Vector2(slime_pos_x, slime_pos_y + colOffset * CurrentScale), new Vector2(colWidth, colThickness) * CurrentScale, angle: 0, layer);
+        //Water Left
+        Collider2D Left = Physics2D.OverlapBox(new Vector2(slime_pos_x - colOffset * CurrentScale, slime_pos_y), new Vector2(colThickness, colWidth) * CurrentScale, angle: 0, layer);
+        //Water Right
+        Collider2D Right = Physics2D.OverlapBox(new Vector2(slime_pos_x + colOffset * CurrentScale, slime_pos_y), new Vector2(colThickness, colWidth) * CurrentScale, angle: 0, layer);
+
+        //Debug.Log($"Slime pos: ({slime_pos_x}, {slime_pos_y})");
+
+        if (Bot)
         {
-            CheckPlayParticles();
+            current_sides |= Side.Bottom;
         }
+        if (Top)
+        {
+            current_sides |= Side.Top;
+        }
+        if (Right)
+        {
+            current_sides |= Side.Right;
+        }
+        if (Left)
+        {
+            current_sides |= Side.Left;
+        }
+
+        return current_sides;
     }
 
-    void CheckPlayParticles()
+    void PlayParticlesBySpace()
     {
         switch (CurrentSlimeState.CurrentSpace)
         {
             case Space.Air:
                 WaterBubbles.Stop();
+                CancelInvoke("BubblesPlay");
                 break;
             case Space.Water:
                 WaterSplash.Play();
@@ -708,6 +780,16 @@ public class SlimeController : MonoBehaviour
         WaterBubbles.Play();
     }
 
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        IdentifyElement(collision);
+        //if (CheckEnteredNewSpaceState(collision))
+        //{
+        //    PlayParticlesBySpace();
+        //}
+    }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         CurrentSlimeState.CurrentSpace = Space.Air;
@@ -716,7 +798,7 @@ public class SlimeController : MonoBehaviour
         SlimeStates[2].CurrentSpace = Space.Air;
         SlimeStates[3].CurrentSpace = Space.Air;
         SlimeStates[4].CurrentSpace = Space.Air;
-        CheckPlayParticles();
+        PlayParticlesBySpace();
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -729,6 +811,7 @@ public class SlimeController : MonoBehaviour
     {
         contact_point = collision.contacts[0].normal;
         CurrentMoveState.OnCollisionEnterState(this, contact_point);
+        IdentifyElement(collision.collider);
     }
 
     private void OnCollisionExit2D(Collision2D collision)

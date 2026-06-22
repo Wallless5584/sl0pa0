@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5690923301073693621}
   - component: {fileID: -654561093893138315}
   - component: {fileID: 1742026979935492348}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Fire Trap
   m_TagString: Fire
   m_Icon: {fileID: 0}
@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 3981116422696034881}
   - component: {fileID: 5523538034663455661}
   - component: {fileID: 5600329063425135277}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Trap Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -457,7 +457,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5159743371514634278}
   - component: {fileID: 3075455239308637999}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Gloom Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -541,7 +541,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1556853320361620427}
   - component: {fileID: 8907109501343941243}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Energy
   m_TagString: Untagged
   m_Icon: {fileID: 0}

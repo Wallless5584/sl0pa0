@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SaltPiece
       objectReference: {fileID: 0}
+    - target: {fileID: 3068165779276775150, guid: b90ac6196e3c49d4d83dc4d5a06c4d5e, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

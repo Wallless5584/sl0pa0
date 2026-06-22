@@ -23,6 +23,7 @@ public struct SlimeState
     public float SpaceDrag { get => SpaceStates[(int)CurrentSpace].SlimeDrag; }
     public float SpaceGravityMod { get => SpaceStates[(int)CurrentSpace].SlimeGravityMod; }
     public float SpaceBounceGravityMod { get => SpaceStates[(int)CurrentSpace].SlimeBounceGravityMod; }
+
     public Reaction[] SaltPiece;
     public Reaction[] Salt;
     public Reaction[] Fire;

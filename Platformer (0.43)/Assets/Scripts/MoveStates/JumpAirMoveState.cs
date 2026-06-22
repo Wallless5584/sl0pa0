@@ -5,7 +5,7 @@ public class JumpAirMoveState : SlimeMoveState
     public override void EnterState(SlimeController slime)
     {
         Debug.Log("Entered Jump Air State!");
-        slime.rb.gravityScale = 1f * slime.CurrentSlimeState.SpaceGravityMod;
+        slime.rb.gravityScale = slime.CurrentSlimeState.SpaceGravityMod;
         //slime.sr.sprite = slime.slime_inAir;
     }
 

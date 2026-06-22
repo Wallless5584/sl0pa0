@@ -20,24 +20,24 @@ public class BounceMoveState : SlimeMoveState
     {
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            LeaveBounceState();
+            //LeaveBounceState();
             slime.EnterMoveState(MoveState.Air);
             return;
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            LeaveBounceState();
+            //LeaveBounceState();
             slime.EnterMoveState(MoveState.JumpAir);
             return;
         }
         bounce_time += Time.deltaTime;
 
 
-        void LeaveBounceState()
-        {
-            slime.SlimeCollider.enabled = false;
-            slime.SlimeCollider.enabled = true;
-        }
+        //void LeaveBounceState()
+        //{
+        //    slime.SlimeCollider.enabled = false;
+        //    slime.SlimeCollider.enabled = true;
+        //}
     }
 
     
