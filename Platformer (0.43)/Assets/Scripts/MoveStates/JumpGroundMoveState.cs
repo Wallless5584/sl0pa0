@@ -5,7 +5,7 @@ public class JumpGroundMoveState : SlimeMoveState
     protected const float c_exitTimeMaxValue = 0.4f;
     protected float c_exitTimeMinValue = 0.2f;
 
-    protected float exit_timer = c_exitTimeMaxValue;
+    protected float exitTimer = c_exitTimeMaxValue;
 
     protected const float c_gravityJumpBalance = 2.4f;
     protected const float c_timeJumpBalance = 0.2f;
@@ -32,10 +32,10 @@ public class JumpGroundMoveState : SlimeMoveState
     {
         if (Input.GetKeyUp(KeyCode.Space) && JumpExt == true)
         {
-            exit_timer = Mathf.Clamp(c_exitTimeMaxValue * exit_timer, c_exitTimeMinValue, c_exitTimeMaxValue);
+            exitTimer = Mathf.Clamp(c_exitTimeMaxValue * exitTimer, c_exitTimeMinValue, c_exitTimeMaxValue);
             JumpExt = false;
         }
-        exit_timer -= Time.deltaTime;
+        exitTimer -= Time.deltaTime;
         moveX = 0;
         
         if (Input.GetKey(KeyCode.D))
@@ -54,13 +54,13 @@ public class JumpGroundMoveState : SlimeMoveState
         {
             IsControlled = false;
         }
-        if (exit_timer < c_timeJumpBalance)
+        if (exitTimer < c_timeJumpBalance)
         {
             slime.rb.gravityScale = c_gravityJumpBalance * slime.CurrentSlimeState.SpaceGravityMod;
         }
-        if (exit_timer < 0)
+        if (exitTimer < 0)
         {
-            exit_timer = c_exitTimeMaxValue;
+            exitTimer = c_exitTimeMaxValue;
 
             if (Input.GetKey(KeyCode.Space))
             {

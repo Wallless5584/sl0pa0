@@ -18,7 +18,7 @@ public class WallMoveState : SlimeMoveState
             WallBlockCounter = 1f;
         }
 
-        switch (slime.CurrentSide)
+        switch (slime.CurrentSides)
         {
             case Side.Right:
                 slime.rb.AddForce(new Vector2(c_wall_hug_velocity,0));
@@ -40,7 +40,7 @@ public class WallMoveState : SlimeMoveState
         if (Input.GetKey(KeyCode.Space))
         {
             FixedUpdateState(slime, slime.Move);
-            if (slime.CurrentSide == Side.Left) 
+            if (slime.CurrentSides.HasFlag(Side.Left)) 
             {
                 slime.EnterMoveState(MoveState.JumpWallRight);
                 return;
@@ -83,7 +83,7 @@ public class WallMoveState : SlimeMoveState
         if (move_vector.y < 0.1f && move_vector.y > -0.1f)
         {
             move_vector.y = 0;
-            if (slime.CurrentSide == Side.Left)
+            if (slime.CurrentSides == Side.Left)
             {
                 slime.ChangeDirection(Direction.WallLeft);
             }
@@ -95,7 +95,7 @@ public class WallMoveState : SlimeMoveState
         else if (move_vector.y > 0f)
         {
             move_vector.y = Mathf.Sign(move_vector.y) * Mathf.Lerp(Mathf.Abs(move_vector.y), 0, slime.CurrentSlimeState.FrictionWallUp);
-            if (slime.CurrentSide == Side.Left)
+            if (slime.CurrentSides == Side.Left)
             {
                 slime.ChangeDirection(Direction.WallLeftUp);
             }
@@ -107,7 +107,7 @@ public class WallMoveState : SlimeMoveState
         else
         {
             move_vector.y = Mathf.Sign(move_vector.y) * Mathf.Lerp(Mathf.Abs(move_vector.y), WallBlockCounter, slime.CurrentSlimeState.FrictionWall);
-            if (slime.CurrentSide == Side.Left)
+            if (slime.CurrentSides == Side.Left)
             {
                 slime.ChangeDirection(Direction.WallLeftDown);
             }
@@ -129,7 +129,7 @@ public class WallMoveState : SlimeMoveState
             case Side.None://falling
                 slime.EnterMoveState(MoveState.Air);
                 break;
-            case Side.Bottom://sticks to the ceiling
+            case Side.Bottom://goes to ground
                 slime.EnterMoveState(MoveState.Ground);
                 break;
         }

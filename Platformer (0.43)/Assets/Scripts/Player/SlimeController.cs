@@ -19,11 +19,11 @@ public enum MoveState
 
 [Flags] public enum Side
 {
-    None,
-    Top,
-    Bottom,
-    Left, 
-    Right,
+    None = 0,
+    Top = 1,
+    Bottom = 1 << 1,
+    Left = 1 << 2, 
+    Right = 1 << 3
 }
 
 public enum Direction
@@ -36,7 +36,8 @@ public enum Direction
 
     JumpUp,
     JumpDown,
-    JumpWall,
+    JumpWallRight,
+    JumpWallLeft,
 
     InAir,
     InAirLeft,
@@ -201,10 +202,12 @@ public class SlimeController : MonoBehaviour
 
     Vector2 contact_point;
     public SlimeMoveState CurrentMoveState;
-    Side CurrentWaterSides;
-    Side LastWaterSides;
-    Side HeatCollisionSides;
-    public Side CurrentSide = Side.None;
+
+    Side currentSides;
+    public Side CurrentSides { get => currentSides; }
+    Side waterSides;
+    Side heatSides;
+
     Direction CurrentDirection = Direction.None;
 
     float CurrentScale;
@@ -255,20 +258,19 @@ public class SlimeController : MonoBehaviour
 
     public void CheckGroundSides()
     {
-        CurrentMoveState.ReactToGround(CheckSides(c_GroundColOffset, c_GroundColWidth, c_GroundColThickness, GroundLayer), this);
+        currentSides = CheckSides(c_GroundColOffset, c_GroundColWidth, c_GroundColThickness, GroundLayer);
+        CurrentMoveState.ReactToGround(currentSides, this);
     }
 
     public void CheckHeatSides()
     {
-        
         Physics2D.queriesHitTriggers = true;
         Side collisionSides = CheckSides(c_HeatColOffset, c_HeatColWidth, c_HeatColThickness, Fire);
-        if (collisionSides != HeatCollisionSides)
+        if (collisionSides != heatSides)
         {
             if (collisionSides.HasFlag(Side.Right))
             {
                 HeatParticlesR.Play();
-                Debug.Log("Evaportion R Particles PLAYED!");
             }
             else
             {
@@ -277,7 +279,6 @@ public class SlimeController : MonoBehaviour
             if (collisionSides.HasFlag(Side.Left))
             {
                 HeatParticlesL.Play();
-                Debug.Log("Evaportion L Particles PLAYED!");
             }
             else
             {
@@ -286,7 +287,6 @@ public class SlimeController : MonoBehaviour
             if (collisionSides.HasFlag(Side.Top))
             {
                 HeatParticlesT.Play();
-                Debug.Log("Evaportion T Particles PLAYED!");
             }
             else
             {
@@ -295,14 +295,13 @@ public class SlimeController : MonoBehaviour
             if (collisionSides.HasFlag(Side.Bottom))
             {
                 HeatParticlesB.Play();
-                Debug.Log("Evaportion B Particles PLAYED!");
             }
             else
             {
                 HeatParticlesB.Stop();
             }
         }
-        HeatCollisionSides = collisionSides;
+        heatSides = collisionSides;
     }
 
     void Update()
@@ -397,6 +396,7 @@ public class SlimeController : MonoBehaviour
                     break;
                 case Direction.JumpUp:
                     sr.sprite = slime_jump;
+                    sr.flipY = false;
                     break;
                 case Direction.JumpDown:
                     sr.sprite = slime_jump;
@@ -439,6 +439,7 @@ public class SlimeController : MonoBehaviour
                     break;
                 case Direction.WallRightDown:
                     sr.sprite = slime_wall_slide;
+                    sr.flipY = false;
                     sr.flipX = false;
                     break;
                 case Direction.WallLeft:
@@ -453,9 +454,14 @@ public class SlimeController : MonoBehaviour
                     break;
                 case Direction.WallLeftDown:
                     sr.sprite = slime_wall_slide;
+                    sr.flipY = false;
                     sr.flipX = true;
                     break;
-                case Direction.JumpWall:
+                case Direction.JumpWallRight:
+                    sr.sprite = slime_wall_jump;
+                    sr.flipX = false;
+                    break;
+                case Direction.JumpWallLeft:
                     sr.sprite = slime_wall_jump;
                     sr.flipX = true;
                     break;
@@ -666,13 +672,12 @@ public class SlimeController : MonoBehaviour
 
     public Space IdentifySpace(Collider2D collision)
     {
-        LastWaterSides = CurrentWaterSides;
-        CurrentWaterSides = CheckSides(c_WaterColOffset, c_WaterColWidth, c_WaterColThickness, Water);
-        if (CurrentWaterSides > 0) //collision.tag == "Water"
+        Side currentWaterSides = CheckSides(c_WaterColOffset, c_WaterColWidth, c_WaterColThickness, Water);
+        if (currentWaterSides > 0) //collision.tag == "Water"
         { 
             CurrentSlimeState.CurrentSpace = Space.Water; 
             rb.drag = CurrentSlimeState.SpaceDrag;
-            if (LastWaterSides.HasFlag(Side.Top) & !CurrentWaterSides.HasFlag(Side.Top))
+            if (waterSides.HasFlag(Side.Top) & !currentWaterSides.HasFlag(Side.Top))
             return Space.Water;
         }
         else if (collision.tag == "ColdSpace")

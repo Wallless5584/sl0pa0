@@ -7,7 +7,7 @@ public class JumpWallLeftMoveState : JumpWallRightMoveState
         Debug.Log("Entered Jump Wall Left State!");
         slime.rb.gravityScale = 1f * slime.CurrentSlimeState.SpaceGravityMod;
         slime.rb.AddForce(-new Vector2(slime.rb.velocity.x, 0) + Vector2.left * slime.CurrentSlimeState.WallJumpPower);
-        slime.ChangeDirection(Direction.JumpWall);
+        slime.ChangeDirection(Direction.JumpWallLeft);
         //slime.face.localPosition = new Vector2(-0.1f, 0);
     }
 
