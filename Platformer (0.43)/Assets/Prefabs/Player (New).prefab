@@ -4858,7 +4858,7 @@ Transform:
   m_GameObject: {fileID: 2994492234569526524}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.25, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5000,7 +5000,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3
+      scalar: 4
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -5442,7 +5442,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.75
+      scalar: 0.9
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -5501,7 +5501,7 @@ ParticleSystem:
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
     donutRadius: 0.2
-    m_Position: {x: 0, y: 0, z: 0}
+    m_Position: {x: 0, y: -0.5, z: 0}
     m_Rotation: {x: 0, y: 0, z: 30}
     m_Scale: {x: 1, y: 1, z: 1}
     placementMode: 0
@@ -19764,10 +19764,16 @@ MonoBehaviour:
   WaterSplash: {fileID: 6174664684200316886}
   WaterBubbles: {fileID: 7143200591493101378}
   WaterDrops: {fileID: 0}
-  HeatParticlesR: {fileID: 2242526370172007070}
-  HeatParticlesL: {fileID: 5366306975500358876}
-  HeatParticlesT: {fileID: 3733784575071222547}
-  HeatParticlesB: {fileID: 2249837716237256392}
+  HeatParticles:
+    Right: {fileID: 2242526370172007070}
+    Left: {fileID: 5366306975500358876}
+    Top: {fileID: 3733784575071222547}
+    Bottom: {fileID: 2249837716237256392}
+  SplashParticles:
+    Right: {fileID: 7067074072345806983}
+    Left: {fileID: 7086408202816130015}
+    Top: {fileID: 71282670893085207}
+    Bottom: {fileID: 4978354884536399401}
 --- !u!114 &6852754279284834464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20015,6 +20021,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SlimeHeatParticlesL
       objectReference: {fileID: 0}
+    - target: {fileID: 5104232087587519792, guid: 5ada1d1d4e6c21148992e0585a068d61, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 7746033109122292955, guid: 5ada1d1d4e6c21148992e0585a068d61, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -20082,6 +20092,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: WaterSplashParticlesT
       objectReference: {fileID: 0}
+    - target: {fileID: 1848276007052485059, guid: feebac963475c4e4c9cde6c75a791109, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3664434905888587670, guid: feebac963475c4e4c9cde6c75a791109, type: 3}
+      propertyPath: TriggerModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7837525862717555887, guid: feebac963475c4e4c9cde6c75a791109, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -20127,6 +20145,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: feebac963475c4e4c9cde6c75a791109, type: 3}
+--- !u!198 &71282670893085207 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3664434905888587670, guid: feebac963475c4e4c9cde6c75a791109, type: 3}
+  m_PrefabInstance: {fileID: 3614014558714121601}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6837576015154858286 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7837525862717555887, guid: feebac963475c4e4c9cde6c75a791109, type: 3}
@@ -20143,6 +20166,14 @@ PrefabInstance:
     - target: {fileID: 1848276007052485059, guid: feebac963475c4e4c9cde6c75a791109, type: 3}
       propertyPath: m_Name
       value: WaterSplashParticlesL
+      objectReference: {fileID: 0}
+    - target: {fileID: 1848276007052485059, guid: feebac963475c4e4c9cde6c75a791109, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3664434905888587670, guid: feebac963475c4e4c9cde6c75a791109, type: 3}
+      propertyPath: TriggerModule.enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7837525862717555887, guid: feebac963475c4e4c9cde6c75a791109, type: 3}
       propertyPath: m_LocalPosition.x
@@ -20194,6 +20225,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7837525862717555887, guid: feebac963475c4e4c9cde6c75a791109, type: 3}
   m_PrefabInstance: {fileID: 5804377506249372745}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &7086408202816130015 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3664434905888587670, guid: feebac963475c4e4c9cde6c75a791109, type: 3}
+  m_PrefabInstance: {fileID: 5804377506249372745}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5821459201025406737
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20205,6 +20241,14 @@ PrefabInstance:
     - target: {fileID: 1848276007052485059, guid: feebac963475c4e4c9cde6c75a791109, type: 3}
       propertyPath: m_Name
       value: WaterSplashParticlesR
+      objectReference: {fileID: 0}
+    - target: {fileID: 1848276007052485059, guid: feebac963475c4e4c9cde6c75a791109, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3664434905888587670, guid: feebac963475c4e4c9cde6c75a791109, type: 3}
+      propertyPath: TriggerModule.enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7837525862717555887, guid: feebac963475c4e4c9cde6c75a791109, type: 3}
       propertyPath: m_LocalPosition.x
@@ -20256,6 +20300,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7837525862717555887, guid: feebac963475c4e4c9cde6c75a791109, type: 3}
   m_PrefabInstance: {fileID: 5821459201025406737}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &7067074072345806983 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3664434905888587670, guid: feebac963475c4e4c9cde6c75a791109, type: 3}
+  m_PrefabInstance: {fileID: 5821459201025406737}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6775476809364571164
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20283,6 +20332,10 @@ PrefabInstance:
     - target: {fileID: 5104232087587519792, guid: 5ada1d1d4e6c21148992e0585a068d61, type: 3}
       propertyPath: m_Name
       value: SlimeHeatParticlesB
+      objectReference: {fileID: 0}
+    - target: {fileID: 5104232087587519792, guid: 5ada1d1d4e6c21148992e0585a068d61, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7746033109122292955, guid: 5ada1d1d4e6c21148992e0585a068d61, type: 3}
       propertyPath: m_LocalPosition.x
@@ -20350,6 +20403,10 @@ PrefabInstance:
     - target: {fileID: 5104232087587519792, guid: 5ada1d1d4e6c21148992e0585a068d61, type: 3}
       propertyPath: m_Name
       value: SlimeHeatParticlesR
+      objectReference: {fileID: 0}
+    - target: {fileID: 5104232087587519792, guid: 5ada1d1d4e6c21148992e0585a068d61, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7746033109122292955, guid: 5ada1d1d4e6c21148992e0585a068d61, type: 3}
       propertyPath: m_LocalPosition.x
@@ -20434,6 +20491,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SlimeHeatParticlesT
       objectReference: {fileID: 0}
+    - target: {fileID: 5104232087587519792, guid: 5ada1d1d4e6c21148992e0585a068d61, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 7746033109122292955, guid: 5ada1d1d4e6c21148992e0585a068d61, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -20501,6 +20562,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: WaterSplashParticlesB
       objectReference: {fileID: 0}
+    - target: {fileID: 1848276007052485059, guid: feebac963475c4e4c9cde6c75a791109, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3664434905888587670, guid: feebac963475c4e4c9cde6c75a791109, type: 3}
+      propertyPath: TriggerModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7837525862717555887, guid: feebac963475c4e4c9cde6c75a791109, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -20549,5 +20618,10 @@ PrefabInstance:
 --- !u!4 &1947920615133351184 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7837525862717555887, guid: feebac963475c4e4c9cde6c75a791109, type: 3}
+  m_PrefabInstance: {fileID: 8632304572663630271}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &4978354884536399401 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3664434905888587670, guid: feebac963475c4e4c9cde6c75a791109, type: 3}
   m_PrefabInstance: {fileID: 8632304572663630271}
   m_PrefabAsset: {fileID: 0}

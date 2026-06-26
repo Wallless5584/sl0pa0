@@ -195,10 +195,8 @@ public class SlimeController : MonoBehaviour
     public ParticleSystem WaterSplash;
     public ParticleSystem WaterBubbles;
     public ParticleSystem WaterDrops;
-    public ParticleSystem HeatParticlesR;
-    public ParticleSystem HeatParticlesL;
-    public ParticleSystem HeatParticlesT;
-    public ParticleSystem HeatParticlesB;
+    public SideParticles HeatParticles;
+    public SideParticles SplashParticles;
 
     Vector2 contact_point;
     public SlimeMoveState CurrentMoveState;
@@ -219,6 +217,7 @@ public class SlimeController : MonoBehaviour
     const float c_WaterColThickness = 0.05f;
     const float c_WaterColWidth = 0.9f;
     const float c_UnderwaterSlideColThickness = 0.1f;
+    const float c_SplashColWidth = 0.1f;
     //const float c_WaterColScaleFactor = 2f;
 
     const float c_HeatColOffset = 1.5f;
@@ -264,44 +263,58 @@ public class SlimeController : MonoBehaviour
 
     public void CheckHeatSides()
     {
+        CheckSideParticles(c_HeatColOffset, c_HeatColWidth, c_HeatColThickness, Fire, HeatParticles, ref heatSides);
+    }
+
+    public void CheckSplashSides()
+    {
+        CheckSideParticles(c_WaterColOffset, c_SplashColWidth, c_WaterColThickness, Water, SplashParticles, ref waterSides);
+    }
+
+    public void CheckSideParticles(
+        float colOffset, float colWidth, float colThickness, LayerMask layer,
+        SideParticles particles, ref Side currentSides
+        )
+    {
         Physics2D.queriesHitTriggers = true;
-        Side collisionSides = CheckSides(c_HeatColOffset, c_HeatColWidth, c_HeatColThickness, Fire);
-        if (collisionSides != heatSides)
+        Side collisionSides = CheckSides(colOffset, colWidth, colThickness, layer);
+        if (collisionSides != currentSides)
         {
             if (collisionSides.HasFlag(Side.Right))
             {
-                HeatParticlesR.Play();
+                particles.Right.Play();
             }
             else
             {
-                HeatParticlesR.Stop();
+                particles.Right.Stop();
             }
             if (collisionSides.HasFlag(Side.Left))
             {
-                HeatParticlesL.Play();
+                particles.Left.Play();
             }
             else
             {
-                HeatParticlesL.Stop();
+                particles.Left.Stop();
             }
             if (collisionSides.HasFlag(Side.Top))
             {
-                HeatParticlesT.Play();
+                particles.Top.Play();
             }
             else
             {
-                HeatParticlesT.Stop();
+                particles.Top.Stop();
             }
             if (collisionSides.HasFlag(Side.Bottom))
             {
-                HeatParticlesB.Play();
+                particles.Bottom.Play();
             }
             else
             {
-                HeatParticlesB.Stop();
+                particles.Bottom.Stop();
             }
         }
-        heatSides = collisionSides;
+        currentSides = collisionSides;
+        Physics2D.queriesHitTriggers = false;
     }
 
     void Update()
@@ -357,6 +370,7 @@ public class SlimeController : MonoBehaviour
         rb.AddForce(-(rb.velocity - Move) * c_MoveForce);
         CheckGroundSides();
         CheckHeatSides();
+        CheckSplashSides();
     }
 
     public void EnterMoveState(MoveState new_move_state)
@@ -670,7 +684,7 @@ public class SlimeController : MonoBehaviour
         }
     }
 
-    public Space IdentifySpace(Collider2D collision)
+    public Space IdentifySpace()//Collider2D collision
     {
         Side currentWaterSides = CheckSides(c_WaterColOffset, c_WaterColWidth, c_WaterColThickness, Water);
         if (currentWaterSides > 0) //collision.tag == "Water"
@@ -678,16 +692,16 @@ public class SlimeController : MonoBehaviour
             CurrentSlimeState.CurrentSpace = Space.Water; 
             rb.drag = CurrentSlimeState.SpaceDrag;
             if (waterSides.HasFlag(Side.Top) & !currentWaterSides.HasFlag(Side.Top))
+            Debug.Log("Current Space is WATER!");
             return Space.Water;
         }
-        else if (collision.tag == "ColdSpace")
-        {
-            CurrentSlimeState.CurrentSpace = Space.Cold;
-            rb.drag = CurrentSlimeState.SpaceDrag;
-            return Space.Cold;
-        }
+        //else if (collision.tag == "ColdSpace")
+        //{
+        //    CurrentSlimeState.CurrentSpace = Space.Cold;
+        //    rb.drag = CurrentSlimeState.SpaceDrag;
+        //    return Space.Cold;
+        //}
         CurrentSlimeState.CurrentSpace = Space.Air;
-        
         rb.drag = CurrentSlimeState.SpaceDrag;
         return Space.Air;
     }
@@ -719,10 +733,10 @@ public class SlimeController : MonoBehaviour
         
     }
 
-    bool CheckEnteredNewSpaceState(Collider2D collision)
+    bool CheckEnteredNewSpaceState()
     {
         Space oldSpace = CurrentSlimeState.CurrentSpace;
-        return IdentifySpace(collision) != oldSpace;
+        return IdentifySpace() != oldSpace;
     }
 
     
@@ -789,6 +803,7 @@ public class SlimeController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         IdentifyElement(collision);
+        //CheckSplashSides();
         //if (CheckEnteredNewSpaceState(collision))
         //{
         //    PlayParticlesBySpace();
@@ -808,7 +823,7 @@ public class SlimeController : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        IdentifySpace(collision);
+        IdentifySpace();
     }
 
 
@@ -823,4 +838,13 @@ public class SlimeController : MonoBehaviour
     {
         //CurrentMoveState.OnCollisionExitState(this, contact_point);
     }
+}
+
+
+[Serializable] public struct SideParticles
+{
+    public ParticleSystem Right;
+    public ParticleSystem Left;
+    public ParticleSystem Top;
+    public ParticleSystem Bottom;
 }
