@@ -97,6 +97,7 @@ public class SlimeController : MonoBehaviour
     [SerializeField] LayerMask GroundLayer;
     [SerializeField] LayerMask Water;
     [SerializeField] LayerMask Fire;
+    [SerializeField] LayerMask ReactElements;
     public Vector2 Move = Vector2.zero;
     const float c_MoveForce = 80;
     bool debugVelocity = false;
@@ -114,6 +115,7 @@ public class SlimeController : MonoBehaviour
     [SerializeField] float dryFrictionCeiling;
     [SerializeField] float dryFrictionWall;
     [SerializeField] float dryFrictionWallUp;
+    [SerializeField] float dryFrictionBounce;
     [SerializeField] float dryJumpPower;
     [SerializeField] float dryWallJumpPower;
     [SerializeField] Reaction[] drySaltPiece;
@@ -139,6 +141,7 @@ public class SlimeController : MonoBehaviour
     [SerializeField] float normalFrictionCeiling;
     [SerializeField] float normalFrictionWall;
     [SerializeField] float normalFrictionWallUp;
+    [SerializeField] float normalFrictionBounce;
     [SerializeField] float normalJumpPower;
     [SerializeField] float normalWallJumpPower;
     [SerializeField] Reaction[] normalSaltPiece;
@@ -164,6 +167,7 @@ public class SlimeController : MonoBehaviour
     [SerializeField] float wetFrictionCeiling;
     [SerializeField] float wetFrictionWall;
     [SerializeField] float wetFrictionWallUp;
+    [SerializeField] float wetFrictionBounce;
     [SerializeField] float wetJumpPower;
     [SerializeField] float wetWallJumpPower;
     [SerializeField] Reaction[] wetSaltPiece;
@@ -253,6 +257,7 @@ public class SlimeController : MonoBehaviour
         EnterMoveState(MoveState.Air);
         CreateStates();
         ChangeSlimeState(WetnessState.Normal);
+        Physics2D.queriesHitTriggers = true;
     }
 
     public void CheckGroundSides()
@@ -276,7 +281,6 @@ public class SlimeController : MonoBehaviour
         SideParticles particles, ref Side currentSides
         )
     {
-        Physics2D.queriesHitTriggers = true;
         Side collisionSides = CheckSides(colOffset, colWidth, colThickness, layer);
         if (collisionSides != currentSides)
         {
@@ -314,7 +318,7 @@ public class SlimeController : MonoBehaviour
             }
         }
         currentSides = collisionSides;
-        Physics2D.queriesHitTriggers = false;
+        //Physics2D.queriesHitTriggers = false;
     }
 
     void Update()
@@ -371,6 +375,8 @@ public class SlimeController : MonoBehaviour
         CheckGroundSides();
         CheckHeatSides();
         CheckSplashSides();
+        IdentifyElement(Physics2D.OverlapBox(transform.position, transform.localScale, angle: 0, ReactElements));
+        IdentifySpace();
     }
 
     public void EnterMoveState(MoveState new_move_state)
@@ -495,19 +501,19 @@ public class SlimeController : MonoBehaviour
     {
         SlimeStates = new SlimeState[]
         {
-            new SlimeState(dryMaxSpeed, dryAcceleration, dryFrictionGround, dryFrictionCeiling, dryFrictionWall, dryFrictionWallUp, 
+            new SlimeState(dryMaxSpeed, dryAcceleration, dryFrictionGround, dryFrictionCeiling, dryFrictionWall, dryFrictionWallUp, dryFrictionBounce,
             dryJumpPower, dryWallJumpPower, drySaltPiece, drySalt, dryFire, dryWater, dryElectricity, dryFrost, dryAirSpace, dryWaterSpace, dryColdSpace),
 
-            new SlimeState(dryMaxSpeed, dryAcceleration, dryFrictionGround, dryFrictionCeiling, dryFrictionWall, dryFrictionWallUp,
+            new SlimeState(dryMaxSpeed, dryAcceleration, dryFrictionGround, dryFrictionCeiling, dryFrictionWall, dryFrictionWallUp, dryFrictionBounce,
             dryJumpPower, dryWallJumpPower, drySaltySaltPiece, drySaltySalt, drySaltyFire, drySaltyWater, drySaltyElectricity, drySaltyFrost, dryAirSpace, dryWaterSpace, dryColdSpace),
 
-            new SlimeState(normalMaxSpeed, normalAcceleration, normalFrictionGround, normalFrictionCeiling, normalFrictionWall, 
+            new SlimeState(normalMaxSpeed, normalAcceleration, normalFrictionGround, normalFrictionCeiling, normalFrictionWall, normalFrictionBounce,
             normalFrictionWallUp, normalJumpPower, normalWallJumpPower, normalSaltPiece, normalSalt, normalFire, normalWater, normalElectricity, normalFrost, normalAirSpace, normalWaterSpace, normalColdSpace),
 
-             new SlimeState(normalMaxSpeed, normalAcceleration, normalFrictionGround, normalFrictionCeiling, normalFrictionWall,
+             new SlimeState(normalMaxSpeed, normalAcceleration, normalFrictionGround, normalFrictionCeiling, normalFrictionWall, normalFrictionBounce,
             normalFrictionWallUp, normalJumpPower, normalWallJumpPower, normalSaltySaltPiece, normalSaltySalt, normalSaltyFire, normalSaltyWater, normalSaltyElectricity, normalSaltyFrost, normalAirSpace, normalWaterSpace, normalColdSpace),
 
-            new SlimeState(wetMaxSpeed, wetAcceleration, wetFrictionGround, wetFrictionCeiling, wetFrictionWall, wetFrictionWallUp, 
+            new SlimeState(wetMaxSpeed, wetAcceleration, wetFrictionGround, wetFrictionCeiling, wetFrictionWall, wetFrictionWallUp, wetFrictionBounce,
             wetJumpPower, wetWallJumpPower, wetSaltPiece, wetSalt, wetFire, wetWater, wetElectricity, wetFrost, wetAirSpace, wetWaterSpace, wetColdSpace),
         };
     }
@@ -652,35 +658,45 @@ public class SlimeController : MonoBehaviour
 
     void IdentifyElement(Collider2D collision)
     {
-        if (collision.tag == "Coin")
-        {
+        //if (collision.tag == "Coin")
+        //{
             //GameManager.instance.OnRoomButtonPress(collision.gameObject.GetComponentInParent<RoomButton>());
             //collision.gameObject.GetComponentInParent<RoomButton>().Collect();
             //CoinCount++;
+        //}
+        if (collision == null)
+        {
+            return;
         }
-        else if (collision.tag == "SaltPiece")
+        if (collision.tag == "SaltPiece")
         {
             ReactToElement(Element.SaltPiece, collision);
+            Debug.Log("Salt Piece IDENTIFIED!");
         }
         else if (collision.tag == "Salt")
         {
             ReactToElement(Element.Salt, collision);
+            Debug.Log("Salt IDENTIFIED!");
         }
         else if (collision.tag == "Fire")
         {
             ReactToElement(Element.Fire, collision);
+            Debug.Log("Fire IDENTIFIED!");
         }
         else if (collision.tag == "Water")
         {
             ReactToElement(Element.Water, collision);
+            Debug.Log("Water IDENTIFIED!");
         }
         else if (collision.tag == "Electricity")
         {
             ReactToElement(Element.Electricity, collision);
+            Debug.Log("Electricity IDENTIFIED!");
         }
         else if (collision.tag == "Frost")
         {
             ReactToElement(Element.Frost, collision);
+            Debug.Log("Frost IDENTIFIED!");
         }
     }
 
@@ -708,7 +724,7 @@ public class SlimeController : MonoBehaviour
 
     public bool CheckWaterSurface()
     {
-        Physics2D.queriesHitTriggers = true;
+        //Physics2D.queriesHitTriggers = true;
 
         Collider2D TopWater = Physics2D.OverlapBox(
             point: new Vector2(transform.position.x, transform.position.y + c_GroundColOffset * CurrentScale),
@@ -722,12 +738,12 @@ public class SlimeController : MonoBehaviour
             size: new Vector2(c_GroundColWidth, c_UnderwaterSlideColThickness) * CurrentScale,
             angle: 0, layerMask: Water);
 
-            Physics2D.queriesHitTriggers = false;
+            //Physics2D.queriesHitTriggers = false;
             return !TopNoWater;
         }
         else
         {
-            Physics2D.queriesHitTriggers = false;
+            //Physics2D.queriesHitTriggers = false;
             return false;
         }
         
@@ -802,7 +818,7 @@ public class SlimeController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        IdentifyElement(collision);
+        //IdentifyElement(collision);
         //CheckSplashSides();
         //if (CheckEnteredNewSpaceState(collision))
         //{
@@ -831,7 +847,7 @@ public class SlimeController : MonoBehaviour
     {
         contact_point = collision.contacts[0].normal;
         CurrentMoveState.OnCollisionEnterState(this, contact_point);
-        IdentifyElement(collision.collider);
+        //IdentifyElement(collision.collider);
     }
 
     private void OnCollisionExit2D(Collision2D collision)

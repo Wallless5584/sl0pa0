@@ -21,12 +21,18 @@ public class BounceMoveState : SlimeMoveState
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             //LeaveBounceState();
+            slime.SlimeCollider.enabled = false;
+            slime.rb.sharedMaterial.friction = 0f;
+            slime.SlimeCollider.enabled = true;
             slime.EnterMoveState(MoveState.Air);
             return;
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            //LeaveBounceState();
+            //LeaveBounceState
+            slime.SlimeCollider.enabled = false;
+            slime.rb.sharedMaterial.friction = 0f;
+            slime.SlimeCollider.enabled = true;
             slime.EnterMoveState(MoveState.JumpAir);
             return;
         }
@@ -81,5 +87,6 @@ public class BounceMoveState : SlimeMoveState
     public override void ReactToGround(Side side, SlimeController slime)
     {
         slime.rb.gravityScale = 1f * slime.CurrentSlimeState.SpaceBounceGravityMod;
+        slime.rb.sharedMaterial.friction = slime.CurrentSlimeState.FrictionBounce;
     }
 }

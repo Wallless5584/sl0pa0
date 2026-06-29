@@ -6,6 +6,7 @@ public struct SlimeState
     float _frictionCeiling;
     float _frictionWall;
     float _frictionWallUp;
+    float _frictionBounce;
     float _jumpPower;
     float _wallJumpPower;
 
@@ -15,8 +16,10 @@ public struct SlimeState
     public float FrictionCeiling { get => _frictionCeiling * SpaceStates[(int)CurrentSpace].SlimeFrictionCeilingMod; }
     public float FrictionWall { get => _frictionWall * SpaceStates[(int)CurrentSpace].SlimeFrictionWallMod; }
     public float FrictionWallUp { get => _frictionWallUp * SpaceStates[(int)CurrentSpace].SlimeFrictionWallUpMod; }
+    public float FrictionBounce { get => _frictionBounce * SpaceStates[(int)CurrentSpace].SlimeFrictionBounceMod; }
     public float JumpPower { get => _jumpPower * SpaceStates[(int)CurrentSpace].SlimeJumpPowerMod; }
     public float WallJumpPower { get => _wallJumpPower * SpaceStates[(int)CurrentSpace].SlimeWallJumpPowerMod; }
+
 
     public Space CurrentSpace;
     SpaceState[] SpaceStates;
@@ -34,8 +37,8 @@ public struct SlimeState
 
 
     public SlimeState(
-        float maxSpeed, float acceleration, float frictionGround, float frictionCeiling, float frictionWall, 
-        float frictionWallUp, float jumpPower, float wallJumpPower, Reaction[] saltPiece, Reaction[] salt, Reaction[] fire, Reaction[] water, Reaction[] electricity, Reaction[] frost,
+        float maxSpeed, float acceleration, float frictionGround, float frictionCeiling, float frictionWall, float frictionWallUp, float frictionBounce,
+        float jumpPower, float wallJumpPower, Reaction[] saltPiece, Reaction[] salt, Reaction[] fire, Reaction[] water, Reaction[] electricity, Reaction[] frost,
         SpaceState airSpace, SpaceState waterSpace, SpaceState coldSpace)
     {
         CurrentSpace = Space.Air;
@@ -45,6 +48,7 @@ public struct SlimeState
         _frictionCeiling = frictionCeiling;
         _frictionWall = frictionWall;
         _frictionWallUp = frictionWallUp;
+        _frictionBounce = frictionBounce;
         _jumpPower = jumpPower;
         _wallJumpPower = wallJumpPower;
         SpaceStates = new SpaceState[3] {airSpace, waterSpace, coldSpace};  

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3068165779276775148}
   - component: {fileID: 3068165779276775151}
   - component: {fileID: 5967286164886342511}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SaltPiece
   m_TagString: SaltPiece
   m_Icon: {fileID: 0}

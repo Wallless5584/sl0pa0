@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4593333046881465644}
   - component: {fileID: 1861502545612390628}
   - component: {fileID: 1342567227425149290}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Fire
   m_TagString: Fire
   m_Icon: {fileID: 0}

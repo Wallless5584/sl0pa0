@@ -19677,6 +19677,9 @@ MonoBehaviour:
   Fire:
     serializedVersion: 2
     m_Bits: 128
+  ReactElements:
+    serializedVersion: 2
+    m_Bits: 1232
   Move: {x: 0, y: 0}
   SlimeCollider: {fileID: 4494014164240872706}
   DirChangeParticles: {fileID: 6143420479076648472}
@@ -19690,6 +19693,7 @@ MonoBehaviour:
   dryFrictionCeiling: 1
   dryFrictionWall: 1
   dryFrictionWallUp: 1
+  dryFrictionBounce: 0.01
   dryJumpPower: 400
   dryWallJumpPower: 500
   drySaltPiece: 03000000
@@ -19713,6 +19717,7 @@ MonoBehaviour:
   normalFrictionCeiling: 0.25
   normalFrictionWall: 0.05
   normalFrictionWallUp: 1
+  normalFrictionBounce: 0.35
   normalJumpPower: 400
   normalWallJumpPower: 500
   normalSaltPiece: 03000000
@@ -19736,6 +19741,7 @@ MonoBehaviour:
   wetFrictionCeiling: 0.05
   wetFrictionWall: 0
   wetFrictionWallUp: 0.04
+  wetFrictionBounce: 0.1
   wetJumpPower: 400
   wetWallJumpPower: 500
   wetSaltPiece: 00000000

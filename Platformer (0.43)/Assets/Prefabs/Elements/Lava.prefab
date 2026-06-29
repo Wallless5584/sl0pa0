@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6959822757224493668}
   - component: {fileID: 8050637380691174834}
   - component: {fileID: 5739852593280780407}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Lava
   m_TagString: Fire
   m_Icon: {fileID: 0}
