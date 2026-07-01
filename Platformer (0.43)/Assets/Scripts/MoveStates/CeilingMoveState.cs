@@ -68,30 +68,30 @@ public class CeilingMoveState : SlimeMoveState
         slime.Move = _move_vector;
     }
 
-    public override void ReactToGround(Side touching_side, SlimeController slime)
+    public override void ReactToGround(Sides touching_side, SlimeController slime)
     {
         switch (touching_side)
         {
-            case Side.None://falling or Water
-                if (slime.CurrentWetnessState == WetnessState.Dry && slime.CheckWaterSurface())
-                {
-                    slime.Move.y = 0f;
-                    slime.EnterMoveState(MoveState.Ceiling);
-                }
-                else
-                {
+            case Sides.None://falling or Water
+                //if (slime.CurrentWetnessState == WetnessState.Dry && slime.CheckWaterSurface())
+                //{
+                //    slime.Move.y = 0f;
+                //    slime.EnterMoveState(MoveState.Ceiling);
+                //}
+                //else
+                //{
                     slime.Move.y = 0;
                     slime.rb.velocity = new Vector2(slime.rb.velocity.x, 0f);
                     slime.EnterMoveState(MoveState.Air);
-                }
+                //}
                 break;
-            case Side.Bottom://sticks to the ceiling
+            case Sides.Bottom://sticks to the ceiling
                 slime.EnterMoveState(MoveState.Ground);
                 break;
-            case Side.Left://sticks to a left wall
+            case Sides.Left://sticks to a left wall
                 slime.EnterMoveState(MoveState.Wall);
                 break;
-            case Side.Right://sticks to a right wall
+            case Sides.Right://sticks to a right wall
                 slime.EnterMoveState(MoveState.Wall);
                 break;
         }

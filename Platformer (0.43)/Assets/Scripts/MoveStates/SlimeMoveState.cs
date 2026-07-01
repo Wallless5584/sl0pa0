@@ -14,5 +14,5 @@ public abstract class SlimeMoveState
 
     public virtual void OnCollisionEnterState(SlimeController slime, Vector2 normal) { }
 
-    public abstract void ReactToGround(Side side, SlimeController slime);
+    public abstract void ReactToGround(Sides side, SlimeController slime);
 }

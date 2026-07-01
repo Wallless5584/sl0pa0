@@ -84,7 +84,7 @@ public class BounceMoveState : SlimeMoveState
         bounce_time = 0;
     }
 
-    public override void ReactToGround(Side side, SlimeController slime)
+    public override void ReactToGround(Sides side, SlimeController slime)
     {
         slime.rb.gravityScale = 1f * slime.CurrentSlimeState.SpaceBounceGravityMod;
         slime.rb.sharedMaterial.friction = slime.CurrentSlimeState.FrictionBounce;

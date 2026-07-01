@@ -12,33 +12,33 @@ public class WaterGlideMoveState : CeilingMoveState
         slime.rb.gravityScale = 0f;
     }
 
-    public override void ReactToGround(Side touching_side, SlimeController slime)
+    public override void ReactToGround(Sides touching_side, SlimeController slime)
     {
         switch (touching_side)
         {
-            case Side.None://gliding on Water
-                //if (slime.CurrentWetnessState == WetnessState.Dry && slime.CheckWaterSurface())
-                //{
-                //    slime.Move.y = 0f;
-                //    break;
-                //}
-                //else
-                //{
-                //    slime.Move.y = 0;
-                //    slime.rb.velocity = new Vector2(slime.rb.velocity.x, 0f);
-                //    slime.EnterMoveState(MoveState.Air);
-                //}
+            case Sides.None://gliding on Water
+                if (slime.CurrentWetnessState == WetnessState.Dry && slime.CheckWaterSurface())
+                {
+                    slime.Move.y = 0f;
+                    break;
+                }
+                else
+                {
+                    slime.Move.y = 0;
+                    slime.rb.velocity = new Vector2(slime.rb.velocity.x, 0f);
+                    slime.EnterMoveState(MoveState.Air);
+                }
                 break;
-            case Side.Top://sticks to the ceiling
+            case Sides.Top://sticks to the ceiling
                 slime.EnterMoveState(MoveState.Ceiling);
                 break;
-            case Side.Bottom://sticks to the ceiling
+            case Sides.Bottom://sticks to the ceiling
                 slime.EnterMoveState(MoveState.Ground);
                 break;
-            case Side.Left://sticks to a left wall
+            case Sides.Left://sticks to a left wall
                 slime.EnterMoveState(MoveState.Wall);
                 break;
-            case Side.Right://sticks to a right wall
+            case Sides.Right://sticks to a right wall
                 slime.EnterMoveState(MoveState.Wall);
                 break;
         }

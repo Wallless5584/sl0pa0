@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+#region Enums
 public enum MoveState
 {
     None,
@@ -17,7 +18,7 @@ public enum MoveState
     WaterGlide,
 } 
 
-[Flags] public enum Side
+[Flags] public enum Sides
 {
     None = 0,
     Top = 1,
@@ -87,17 +88,18 @@ public enum Element
     Electricity,
     Frost,
 }
-
-
+#endregion
 
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class SlimeController : MonoBehaviour
 {
+    #region Fields
     [SerializeField] LayerMask GroundLayer;
     [SerializeField] LayerMask Water;
     [SerializeField] LayerMask Fire;
     [SerializeField] LayerMask ReactElements;
+    [SerializeField] LayerMask Spaces;
     public Vector2 Move = Vector2.zero;
     const float c_MoveForce = 80;
     bool debugVelocity = false;
@@ -205,10 +207,10 @@ public class SlimeController : MonoBehaviour
     Vector2 contact_point;
     public SlimeMoveState CurrentMoveState;
 
-    Side currentSides;
-    public Side CurrentSides { get => currentSides; }
-    Side waterSides;
-    Side heatSides;
+    SideData currentSides;
+    public Sides CurrentSides { get => currentSides.Flags; }
+    SideData waterSides;
+    SideData heatSides;
 
     Direction CurrentDirection = Direction.None;
 
@@ -221,6 +223,7 @@ public class SlimeController : MonoBehaviour
     const float c_WaterColThickness = 0.05f;
     const float c_WaterColWidth = 0.9f;
     const float c_UnderwaterSlideColThickness = 0.1f;
+    const float c_UnderwaterSlideColWidth = 0.1f;
     const float c_SplashColWidth = 0.1f;
     //const float c_WaterColScaleFactor = 2f;
 
@@ -249,7 +252,10 @@ public class SlimeController : MonoBehaviour
     public SlimeState CurrentSlimeState;
 
     public SlimeState[] SlimeStates;
+    #endregion
 
+
+    #region Unity Messages
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -260,71 +266,35 @@ public class SlimeController : MonoBehaviour
         Physics2D.queriesHitTriggers = true;
     }
 
-    public void CheckGroundSides()
-    {
-        currentSides = CheckSides(c_GroundColOffset, c_GroundColWidth, c_GroundColThickness, GroundLayer);
-        CurrentMoveState.ReactToGround(currentSides, this);
-    }
-
-    public void CheckHeatSides()
-    {
-        CheckSideParticles(c_HeatColOffset, c_HeatColWidth, c_HeatColThickness, Fire, HeatParticles, ref heatSides);
-    }
-
-    public void CheckSplashSides()
-    {
-        CheckSideParticles(c_WaterColOffset, c_SplashColWidth, c_WaterColThickness, Water, SplashParticles, ref waterSides);
-    }
-
-    public void CheckSideParticles(
-        float colOffset, float colWidth, float colThickness, LayerMask layer,
-        SideParticles particles, ref Side currentSides
-        )
-    {
-        Side collisionSides = CheckSides(colOffset, colWidth, colThickness, layer);
-        if (collisionSides != currentSides)
-        {
-            if (collisionSides.HasFlag(Side.Right))
-            {
-                particles.Right.Play();
-            }
-            else
-            {
-                particles.Right.Stop();
-            }
-            if (collisionSides.HasFlag(Side.Left))
-            {
-                particles.Left.Play();
-            }
-            else
-            {
-                particles.Left.Stop();
-            }
-            if (collisionSides.HasFlag(Side.Top))
-            {
-                particles.Top.Play();
-            }
-            else
-            {
-                particles.Top.Stop();
-            }
-            if (collisionSides.HasFlag(Side.Bottom))
-            {
-                particles.Bottom.Play();
-            }
-            else
-            {
-                particles.Bottom.Stop();
-            }
-        }
-        currentSides = collisionSides;
-        //Physics2D.queriesHitTriggers = false;
-    }
-
     void Update()
     {
         CurrentMoveState.UpdateState(this);
         face.localPosition = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * 0.1f;
+    }
+
+    void FixedUpdate()
+    {
+        if (debugVelocity)
+        {
+            Debug.Log($"New Move: {Move}, Final Velocity: {rb.velocity}");
+            //debugVelocity = false;
+        }
+        Move = rb.velocity;
+        CurrentMoveState.FixedUpdateState(this, Move);
+        rb.AddForce(-(rb.velocity - Move) * c_MoveForce);
+
+        CheckGroundSides();
+
+        CheckHeatParticles();
+        CheckWaterParticles();
+
+        IdentifyElement(Physics2D.OverlapBox(transform.position, transform.localScale, angle: 0, ReactElements));
+        //IdentifySpace();
+        if (CheckEnteredNewSpace())
+        {
+            PlayParticlesBySpace();
+        }
+
     }
 
     //private void OnDrawGizmosSelected()
@@ -362,141 +332,43 @@ public class SlimeController : MonoBehaviour
     //    }
     //}
 
-    void FixedUpdate()
-    {
-        if (debugVelocity)
-        {
-            Debug.Log($"New Move: {Move}, Final Velocity: {rb.velocity}");
-            //debugVelocity = false;
-        }
-        Move = rb.velocity;
-        CurrentMoveState.FixedUpdateState(this, Move);
-        rb.AddForce(-(rb.velocity - Move) * c_MoveForce);
-        CheckGroundSides();
-        CheckHeatSides();
-        CheckSplashSides();
-        IdentifyElement(Physics2D.OverlapBox(transform.position, transform.localScale, angle: 0, ReactElements));
-        IdentifySpace();
-    }
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    IdentifyElement(collision);
+    //    CheckSplashSides();
+    //    if (CheckEnteredNewSpace())
+    //    {
+    //        PlayParticlesBySpace();
+    //    }
+    //}
+    //private void OnTriggerStay2D(Collider2D collision)
+    //{
+    //    IdentifySpace();
+    //}
+    //private void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    CurrentSlimeState.CurrentSpace = Space.Air;
+    //    SlimeStates[0].CurrentSpace = Space.Air;
+    //    SlimeStates[1].CurrentSpace = Space.Air;
+    //    SlimeStates[2].CurrentSpace = Space.Air;
+    //    SlimeStates[3].CurrentSpace = Space.Air;
+    //    SlimeStates[4].CurrentSpace = Space.Air;
+    //}
 
-    public void EnterMoveState(MoveState new_move_state)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        SlimeMoveState new_state = MoveStates[(int)new_move_state - 1];
-        new_state.EnterState(this);
-        CurrentMoveState = new_state;
-        //Debug.Log($"CURRENT SPACE STATE -> {CurrentSlimeState.CurrentSpace}");
-        //Debug.Log($"CURRENT GRAVITYMOD -> {CurrentSlimeState.SpaceGravityMod}");
+        contact_point = collision.contacts[0].normal;
+        CurrentMoveState.OnCollisionEnterState(this, contact_point);
+        //IdentifyElement(collision.collider);
     }
+    //private void OnCollisionExit2D(Collision2D collision)
+    //{
+    //    //CurrentMoveState.OnCollisionExitState(this, contact_point);
+    //}
+    #endregion
 
-    public void ChangeDirection(Direction new_direction)
-    {
-        if (new_direction == CurrentDirection)
-        {
-            return;
-        }
-        else
-        {
-            switch (new_direction)
-            {
-                case Direction.None:
-                    break;
-                case Direction.Ground:
-                    sr.sprite = slime_ground;
-                    sr.flipY = false;
-                    break;
-                case Direction.GroundRight:
-                    sr.sprite = slime_ground_right;
-                    sr.flipX = false;
-                    sr.flipY = false;
-                    break;
-                case Direction.GroundLeft:
-                    sr.sprite = slime_ground_right;
-                    sr.flipX = true;
-                    sr.flipY = false;
-                    break;
-                case Direction.JumpUp:
-                    sr.sprite = slime_jump;
-                    sr.flipY = false;
-                    break;
-                case Direction.JumpDown:
-                    sr.sprite = slime_jump;
-                    sr.flipY = true;
-                    break;
-                case Direction.InAir:
-                    sr.sprite = slime_inAir;
-                    break;
-                case Direction.InAirRight:
-                    sr.sprite = slime_inAir;
-                    sr.flipX = false;
-                    break;
-                case Direction.InAirLeft:
-                    sr.sprite = slime_inAir;
-                    sr.flipX = true;
-                    break;
-                case Direction.Ceiling:
-                    sr.sprite = slime_ceiling;
-                    sr.flipY = false;
-                    break;
-                case Direction.CeilingRight:
-                    sr.sprite = slime_ceiling_right;
-                    sr.flipY = false;
-                    sr.flipX = false;
-                    break;
-                case Direction.CeilingLeft:
-                    sr.sprite = slime_ceiling_right;
-                    sr.flipY = false;
-                    sr.flipX = true;
-                    break;
-                case Direction.WallRight:
-                    sr.sprite = slime_wall;
-                    sr.flipX = false;
-                    sr.flipY = false;
-                    break;
-                case Direction.WallRightUp:
-                    sr.sprite = slime_wall_slide;
-                    sr.flipY = true;
-                    sr.flipX = false;
-                    break;
-                case Direction.WallRightDown:
-                    sr.sprite = slime_wall_slide;
-                    sr.flipY = false;
-                    sr.flipX = false;
-                    break;
-                case Direction.WallLeft:
-                    sr.sprite = slime_wall;
-                    sr.flipX = true;
-                    sr.flipY = false;
-                    break;
-                case Direction.WallLeftUp:
-                    sr.sprite = slime_wall_slide;
-                    sr.flipY = true;
-                    sr.flipX = true;
-                    break;
-                case Direction.WallLeftDown:
-                    sr.sprite = slime_wall_slide;
-                    sr.flipY = false;
-                    sr.flipX = true;
-                    break;
-                case Direction.JumpWallRight:
-                    sr.sprite = slime_wall_jump;
-                    sr.flipX = false;
-                    break;
-                case Direction.JumpWallLeft:
-                    sr.sprite = slime_wall_jump;
-                    sr.flipX = true;
-                    break;
-            }
-        }
-    }
 
-    public void ResetSlime()
-    {
-        rb.velocity = Vector2.zero;
-        Move = Vector2.zero;
-        PlayParticlesBySpace();
-        ChangeSlimeState(WetnessState.Normal);
-    }
-
+    #region Move and Wetness States
     void CreateStates()
     {
         SlimeStates = new SlimeState[]
@@ -516,6 +388,130 @@ public class SlimeController : MonoBehaviour
             new SlimeState(wetMaxSpeed, wetAcceleration, wetFrictionGround, wetFrictionCeiling, wetFrictionWall, wetFrictionWallUp, wetFrictionBounce,
             wetJumpPower, wetWallJumpPower, wetSaltPiece, wetSalt, wetFire, wetWater, wetElectricity, wetFrost, wetAirSpace, wetWaterSpace, wetColdSpace),
         };
+    }
+    public void EnterMoveState(MoveState new_move_state)
+    {
+        SlimeMoveState new_state = MoveStates[(int)new_move_state - 1];
+        new_state.EnterState(this);
+        CurrentMoveState = new_state;
+        //Debug.Log($"CURRENT SPACE STATE -> {CurrentSlimeState.CurrentSpace}");
+        //Debug.Log($"CURRENT GRAVITYMOD -> {CurrentSlimeState.SpaceGravityMod}");
+    }
+
+    void ChangeSlimeState(WetnessState newSlimeState)
+    {
+        Debug.Log($"{gameObject.name} changed slime (wetness) state!");
+        CurrentSlimeState = SlimeStates[(int)newSlimeState - 1];
+        CurrentWetnessState = newSlimeState;
+        switch (newSlimeState)
+        {
+            case WetnessState.DrySalty:
+            case WetnessState.Dry:
+                gameObject.transform.localScale = new Vector2(0.7f, 0.7f);
+                break;
+            case WetnessState.NormalSalty:
+            case WetnessState.Normal:
+                gameObject.transform.localScale = new Vector2(1f, 1f);
+                break;
+            case WetnessState.Wet:
+                gameObject.transform.localScale = new Vector2(1.2f, 1.2f);
+                break;
+        }
+        CurrentScale = gameObject.transform.localScale.x;
+    }
+    #endregion
+
+
+    #region Space
+    public Space IdentifySpace()//Collider2D collision
+    {
+        const byte c_min_colliders_for_water_space = 2;
+        //Sides currentWaterSides = CheckSides(c_WaterColOffset, c_WaterColWidth, c_WaterColThickness, Water, out byte flagCount);
+        if (waterSides.FlagCount >= c_min_colliders_for_water_space) //collision.tag == "Water"
+        { 
+            CurrentSlimeState.CurrentSpace = Space.Water;
+            rb.drag = CurrentSlimeState.SpaceDrag;
+            //if (waterSides.HasFlag(Side.Top) & !currentWaterSides.HasFlag(Side.Top))
+            //Debug.Log("Current Space is WATER!");
+            return Space.Water;
+        }
+        //else if (collision.tag == "ColdSpace")
+        //{
+        //    CurrentSlimeState.CurrentSpace = Space.Cold;
+        //    rb.drag = CurrentSlimeState.SpaceDrag;
+        //    return Space.Cold;
+        //}
+        CurrentSlimeState.CurrentSpace = Space.Air;
+        rb.drag = CurrentSlimeState.SpaceDrag;
+        return Space.Air;
+    }
+
+    bool CheckEnteredNewSpace()
+    {
+        Space old_Space = CurrentSlimeState.CurrentSpace;
+        Space new_Space = IdentifySpace();
+
+        if (new_Space == old_Space)
+        {
+            return false;
+        }
+        else
+        {
+            CurrentSlimeState.CurrentSpace = new_Space;
+            SlimeStates[0].CurrentSpace = new_Space;
+            SlimeStates[1].CurrentSpace = new_Space;
+            SlimeStates[2].CurrentSpace = new_Space;
+            SlimeStates[3].CurrentSpace = new_Space;
+            SlimeStates[4].CurrentSpace = new_Space;
+            return true;
+        }
+    }
+    #endregion
+
+
+    #region Elements and Reactions
+    void IdentifyElement(Collider2D collision)
+    {
+        //if (collision.tag == "Coin")
+        //{
+        //GameManager.instance.OnRoomButtonPress(collision.gameObject.GetComponentInParent<RoomButton>());
+        //collision.gameObject.GetComponentInParent<RoomButton>().Collect();
+        //CoinCount++;
+        //}
+        if (collision == null)
+        {
+            return;
+        }
+        if (collision.tag == "SaltPiece")
+        {
+            ReactToElement(Element.SaltPiece, collision);
+            //Debug.Log("Salt Piece IDENTIFIED!");
+        }
+        else if (collision.tag == "Salt")
+        {
+            ReactToElement(Element.Salt, collision);
+            //Debug.Log("Salt IDENTIFIED!");
+        }
+        else if (collision.tag == "Fire")
+        {
+            ReactToElement(Element.Fire, collision);
+            //Debug.Log("Fire IDENTIFIED!");
+        }
+        else if (collision.tag == "Water")
+        {
+            ReactToElement(Element.Water, collision);
+            //Debug.Log("Water IDENTIFIED!");
+        }
+        else if (collision.tag == "Electricity")
+        {
+            ReactToElement(Element.Electricity, collision);
+            //Debug.Log("Electricity IDENTIFIED!");
+        }
+        else if (collision.tag == "Frost")
+        {
+            ReactToElement(Element.Frost, collision);
+            //Debug.Log("Frost IDENTIFIED!");
+        }
     }
 
     void ReactToElement(Element element, Collider2D collision)
@@ -628,98 +624,14 @@ public class SlimeController : MonoBehaviour
         }
         Debug.Log(txt);
     }
+    #endregion
 
-    void ChangeSlimeState(WetnessState newSlimeState)
-    {
-        Debug.Log($"{gameObject.name} changed slime (wetness) state!");
-        CurrentSlimeState = SlimeStates[(int)newSlimeState - 1];
-        CurrentWetnessState = newSlimeState;
-        switch (newSlimeState)
-        {
-            case WetnessState.DrySalty:
-            case WetnessState.Dry:
-                gameObject.transform.localScale = new Vector2(0.7f, 0.7f);
-                break;
-            case WetnessState.NormalSalty:
-            case WetnessState.Normal:
-                gameObject.transform.localScale = new Vector2(1f, 1f);
-                break;
-            case WetnessState.Wet:
-                gameObject.transform.localScale = new Vector2(1.2f, 1.2f);
-                break;
-        }
-        CurrentScale = gameObject.transform.localScale.x;
-    }
 
-    void Die()
+    #region Physics Checks
+    public void CheckGroundSides()
     {
-        GameManager.instance.Respawn();
-    }
-
-    void IdentifyElement(Collider2D collision)
-    {
-        //if (collision.tag == "Coin")
-        //{
-            //GameManager.instance.OnRoomButtonPress(collision.gameObject.GetComponentInParent<RoomButton>());
-            //collision.gameObject.GetComponentInParent<RoomButton>().Collect();
-            //CoinCount++;
-        //}
-        if (collision == null)
-        {
-            return;
-        }
-        if (collision.tag == "SaltPiece")
-        {
-            ReactToElement(Element.SaltPiece, collision);
-            Debug.Log("Salt Piece IDENTIFIED!");
-        }
-        else if (collision.tag == "Salt")
-        {
-            ReactToElement(Element.Salt, collision);
-            Debug.Log("Salt IDENTIFIED!");
-        }
-        else if (collision.tag == "Fire")
-        {
-            ReactToElement(Element.Fire, collision);
-            Debug.Log("Fire IDENTIFIED!");
-        }
-        else if (collision.tag == "Water")
-        {
-            ReactToElement(Element.Water, collision);
-            Debug.Log("Water IDENTIFIED!");
-        }
-        else if (collision.tag == "Electricity")
-        {
-            ReactToElement(Element.Electricity, collision);
-            Debug.Log("Electricity IDENTIFIED!");
-        }
-        else if (collision.tag == "Frost")
-        {
-            ReactToElement(Element.Frost, collision);
-            Debug.Log("Frost IDENTIFIED!");
-        }
-    }
-
-    public Space IdentifySpace()//Collider2D collision
-    {
-        Side currentWaterSides = CheckSides(c_WaterColOffset, c_WaterColWidth, c_WaterColThickness, Water);
-        if (currentWaterSides > 0) //collision.tag == "Water"
-        { 
-            CurrentSlimeState.CurrentSpace = Space.Water; 
-            rb.drag = CurrentSlimeState.SpaceDrag;
-            if (waterSides.HasFlag(Side.Top) & !currentWaterSides.HasFlag(Side.Top))
-            Debug.Log("Current Space is WATER!");
-            return Space.Water;
-        }
-        //else if (collision.tag == "ColdSpace")
-        //{
-        //    CurrentSlimeState.CurrentSpace = Space.Cold;
-        //    rb.drag = CurrentSlimeState.SpaceDrag;
-        //    return Space.Cold;
-        //}
-        CurrentSlimeState.CurrentSpace = Space.Air;
-        rb.drag = CurrentSlimeState.SpaceDrag;
-        return Space.Air;
+        currentSides = CheckSides(c_GroundColOffset, c_GroundColWidth, c_GroundColThickness, GroundLayer);
+        CurrentMoveState.ReactToGround(currentSides.Flags, this);
     }
 
     public bool CheckWaterSurface()
@@ -728,14 +640,14 @@ public class SlimeController : MonoBehaviour
 
         Collider2D TopWater = Physics2D.OverlapBox(
             point: new Vector2(transform.position.x, transform.position.y + c_GroundColOffset * CurrentScale),
-            size: new Vector2(c_GroundColWidth, c_UnderwaterSlideColThickness) * CurrentScale,
+            size: new Vector2(c_UnderwaterSlideColWidth, c_UnderwaterSlideColThickness) * CurrentScale,
             angle: 0, layerMask: Water);
 
         if (TopWater)
         {
             Collider2D TopNoWater = Physics2D.OverlapBox(
             point: new Vector2(transform.position.x, transform.position.y + (c_GroundColOffset + c_UnderwaterSlideColThickness) * CurrentScale),
-            size: new Vector2(c_GroundColWidth, c_UnderwaterSlideColThickness) * CurrentScale,
+            size: new Vector2(c_UnderwaterSlideColWidth, c_UnderwaterSlideColThickness) * CurrentScale,
             angle: 0, layerMask: Water);
 
             //Physics2D.queriesHitTriggers = false;
@@ -748,20 +660,243 @@ public class SlimeController : MonoBehaviour
         }
         
     }
+    #endregion
 
-    bool CheckEnteredNewSpaceState()
+
+    #region Gameplay
+    public void ResetSlime()
     {
-        Space oldSpace = CurrentSlimeState.CurrentSpace;
-        return IdentifySpace() != oldSpace;
+        rb.velocity = Vector2.zero;
+        Move = Vector2.zero;
+        //PlayParticlesBySpace();
+        ChangeSlimeState(WetnessState.Normal);
+    }
+    void Die()
+    {
+        //Play death effect
+        GameManager.instance.Respawn();
+    }
+    #endregion
+
+
+    #region Slime Display
+    public void ChangeDirection(Direction new_direction)
+    {
+        if (new_direction == CurrentDirection)
+        {
+            return;
+        }
+        else
+        {
+            switch (new_direction)
+            {
+                case Direction.None:
+                    break;
+                case Direction.Ground:
+                    sr.sprite = slime_ground;
+                    sr.flipY = false;
+                    break;
+                case Direction.GroundRight:
+                    sr.sprite = slime_ground_right;
+                    sr.flipX = false;
+                    sr.flipY = false;
+                    break;
+                case Direction.GroundLeft:
+                    sr.sprite = slime_ground_right;
+                    sr.flipX = true;
+                    sr.flipY = false;
+                    break;
+                case Direction.JumpUp:
+                    sr.sprite = slime_jump;
+                    sr.flipY = false;
+                    break;
+                case Direction.JumpDown:
+                    sr.sprite = slime_jump;
+                    sr.flipY = true;
+                    break;
+                case Direction.InAir:
+                    sr.sprite = slime_inAir;
+                    break;
+                case Direction.InAirRight:
+                    sr.sprite = slime_inAir;
+                    sr.flipX = false;
+                    break;
+                case Direction.InAirLeft:
+                    sr.sprite = slime_inAir;
+                    sr.flipX = true;
+                    break;
+                case Direction.Ceiling:
+                    sr.sprite = slime_ceiling;
+                    sr.flipY = false;
+                    break;
+                case Direction.CeilingRight:
+                    sr.sprite = slime_ceiling_right;
+                    sr.flipY = false;
+                    sr.flipX = false;
+                    break;
+                case Direction.CeilingLeft:
+                    sr.sprite = slime_ceiling_right;
+                    sr.flipY = false;
+                    sr.flipX = true;
+                    break;
+                case Direction.WallRight:
+                    sr.sprite = slime_wall;
+                    sr.flipX = false;
+                    sr.flipY = false;
+                    break;
+                case Direction.WallRightUp:
+                    sr.sprite = slime_wall_slide;
+                    sr.flipY = true;
+                    sr.flipX = false;
+                    break;
+                case Direction.WallRightDown:
+                    sr.sprite = slime_wall_slide;
+                    sr.flipY = false;
+                    sr.flipX = false;
+                    break;
+                case Direction.WallLeft:
+                    sr.sprite = slime_wall;
+                    sr.flipX = true;
+                    sr.flipY = false;
+                    break;
+                case Direction.WallLeftUp:
+                    sr.sprite = slime_wall_slide;
+                    sr.flipY = true;
+                    sr.flipX = true;
+                    break;
+                case Direction.WallLeftDown:
+                    sr.sprite = slime_wall_slide;
+                    sr.flipY = false;
+                    sr.flipX = true;
+                    break;
+                case Direction.JumpWallRight:
+                    sr.sprite = slime_wall_jump;
+                    sr.flipX = false;
+                    break;
+                case Direction.JumpWallLeft:
+                    sr.sprite = slime_wall_jump;
+                    sr.flipX = true;
+                    break;
+            }
+        }
+    }
+    #endregion
+
+
+    #region Particle effects
+    public void CheckHeatParticles()
+    {
+        CheckPlaySideParticles(c_HeatColOffset, c_HeatColWidth, c_HeatColThickness, Fire, HeatParticles, ref heatSides);
     }
 
-    
+    public void CheckWaterParticles()
+    {
+        const float c_particle_velocity_mod = 0.5f;
 
-    Side CheckSides(float colOffset, float colWidth, float colThickness, LayerMask layer)
+        SplashParticles.SetRadialVelocity(Move.magnitude * c_particle_velocity_mod);
+
+        CheckPlaySideParticlesDoublesided(c_WaterColOffset, c_SplashColWidth, c_WaterColThickness, Water, SplashParticles, ref waterSides);
+    }
+
+    public void CheckPlaySideParticles(float colOffset, float colWidth, float colThickness, LayerMask layer,
+        SideParticles particles, ref SideData currentSides)
+    {
+        SideData collisionSides = CheckSides(colOffset, colWidth, colThickness, layer);
+
+        if (currentSides.Flags == collisionSides.Flags)
+        {
+            return;
+        }
+        else
+        {
+            if (collisionSides.HasFlag(Sides.Right) != currentSides.HasFlag(Sides.Right))
+            {
+                if (collisionSides.HasFlag(Sides.Right))
+                {
+                    particles.Right.Play();
+                }
+                else
+                {
+                    particles.Right.Stop();
+                }
+            }
+            if (collisionSides.HasFlag(Sides.Left) != currentSides.HasFlag(Sides.Left))
+            {
+                if (collisionSides.HasFlag(Sides.Left))
+                {
+                    particles.Left.Play();
+                }
+                else
+                {
+                    particles.Left.Stop();
+                }
+            }
+            if (collisionSides.HasFlag(Sides.Top) != currentSides.HasFlag(Sides.Top))
+            {
+                if (collisionSides.HasFlag(Sides.Top))
+                {
+                    particles.Top.Play();
+                }
+                else
+                {
+                    particles.Top.Stop();
+                }
+            }
+            if (collisionSides.HasFlag(Sides.Bottom) != currentSides.HasFlag(Sides.Bottom))
+            {
+                if (collisionSides.HasFlag(Sides.Bottom))
+                {
+                    particles.Bottom.Play();
+                }
+                else
+                {
+                    particles.Bottom.Stop();
+                }
+            }
+            currentSides = collisionSides;
+
+            return;
+        }
+        //Physics2D.queriesHitTriggers = false;
+    }
+
+    public void CheckPlaySideParticlesDoublesided(float colOffset, float colWidth, float colThickness, LayerMask layer,
+        SideParticles particles, ref SideData currentSides)
+    {
+        SideData collisionSides = CheckSides(colOffset, colWidth, colThickness, layer);
+        if (currentSides.Flags == collisionSides.Flags)
+        {
+            //do nothing
+            return;
+        }
+        else
+        {
+            if (collisionSides.HasFlag(Sides.Top) != currentSides.HasFlag(Sides.Top))
+            {
+                particles.Top.Play();
+            }
+            if (collisionSides.HasFlag(Sides.Bottom) != currentSides.HasFlag(Sides.Bottom))
+            {
+                particles.Bottom.Play();
+            }
+            if (collisionSides.HasFlag(Sides.Left) != currentSides.HasFlag(Sides.Left))
+            {
+                particles.Left.Play();
+            }
+            if (collisionSides.HasFlag(Sides.Right) != currentSides.HasFlag(Sides.Right))
+            {
+                particles.Right.Play();
+            }
+            currentSides = collisionSides;
+        }
+        //Physics2D.queriesHitTriggers = false;
+    }
+
+    SideData CheckSides(float colOffset, float colWidth, float colThickness, LayerMask layer)
     {
         float slime_pos_x = gameObject.transform.position.x;
         float slime_pos_y = gameObject.transform.position.y;
-        Side current_sides = Side.None;
+        Sides current_sides = Sides.None;
 
         //Water Bottom
         Collider2D Bot = Physics2D.OverlapBox(new Vector2(slime_pos_x, slime_pos_y - colOffset * CurrentScale), new Vector2(colWidth, colThickness) * CurrentScale, angle: 0, layer);
@@ -774,24 +909,29 @@ public class SlimeController : MonoBehaviour
 
         //Debug.Log($"Slime pos: ({slime_pos_x}, {slime_pos_y})");
 
+        byte flagCount = new byte();
         if (Bot)
         {
-            current_sides |= Side.Bottom;
+            current_sides |= Sides.Bottom;
+            flagCount++;
         }
         if (Top)
         {
-            current_sides |= Side.Top;
+            current_sides |= Sides.Top;
+            flagCount++;
         }
         if (Right)
         {
-            current_sides |= Side.Right;
+            current_sides |= Sides.Right;
+            flagCount++;
         }
         if (Left)
         {
-            current_sides |= Side.Left;
+            current_sides |= Sides.Left;
+            flagCount++;
         }
 
-        return current_sides;
+        return new SideData(current_sides, flagCount);
     }
 
     void PlayParticlesBySpace()
@@ -800,67 +940,54 @@ public class SlimeController : MonoBehaviour
         {
             case Space.Air:
                 WaterBubbles.Stop();
-                CancelInvoke("BubblesPlay");
                 break;
             case Space.Water:
-                WaterSplash.Play();
-                Invoke("BubblesPlay", 1f);
+                WaterBubbles.Play();
                 break;
         }
     }
 
-
-    void BubblesPlay()
-    {
-        WaterBubbles.Play();
-    }
-
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        //IdentifyElement(collision);
-        //CheckSplashSides();
-        //if (CheckEnteredNewSpaceState(collision))
-        //{
-        //    PlayParticlesBySpace();
-        //}
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        CurrentSlimeState.CurrentSpace = Space.Air;
-        SlimeStates[0].CurrentSpace = Space.Air;
-        SlimeStates[1].CurrentSpace = Space.Air;
-        SlimeStates[2].CurrentSpace = Space.Air;
-        SlimeStates[3].CurrentSpace = Space.Air;
-        SlimeStates[4].CurrentSpace = Space.Air;
-        PlayParticlesBySpace();
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        IdentifySpace();
-    }
-
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        contact_point = collision.contacts[0].normal;
-        CurrentMoveState.OnCollisionEnterState(this, contact_point);
-        //IdentifyElement(collision.collider);
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        //CurrentMoveState.OnCollisionExitState(this, contact_point);
-    }
+    #endregion
 }
 
-
+#region Structs
 [Serializable] public struct SideParticles
 {
     public ParticleSystem Right;
     public ParticleSystem Left;
     public ParticleSystem Top;
     public ParticleSystem Bottom;
+
+    public void SetRadialVelocity(float speedMod)
+    {
+        var emitter = Right.velocityOverLifetime;
+        emitter.radial = speedMod;
+
+        emitter = Left.velocityOverLifetime;
+        emitter.radial = speedMod;
+
+        emitter = Top.velocityOverLifetime;
+        emitter.radial = speedMod;
+
+        emitter = Bottom.velocityOverLifetime;
+        emitter.radial = speedMod;
+    }
 }
+
+public struct SideData
+{
+    public Sides Flags;
+    public byte FlagCount;
+
+    public SideData(Sides flags, byte flagCount)
+    {
+        Flags = flags;
+        FlagCount = flagCount;
+    }
+
+    public bool HasFlag(Sides flag)
+    {
+        return Flags.HasFlag(flag);
+    }
+}
+#endregion

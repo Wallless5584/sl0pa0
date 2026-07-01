@@ -67,25 +67,25 @@ public class AirMoveState : SlimeMoveState
         slime.Move = move_vector;
     }
 
-    public override void ReactToGround(Side touching_side, SlimeController slime)
+    public override void ReactToGround(Sides touching_side, SlimeController slime)
     {
         switch (touching_side)
         {
-            case Side.Top://sticks to the ceiling
+            case Sides.Top://sticks to the ceiling
                 slime.EnterMoveState(MoveState.Ceiling);
                 break;
-            case Side.Bottom://sticks to the ground
+            case Sides.Bottom://sticks to the ground
                 slime.EnterMoveState(MoveState.Ground);
                 break; 
-            case Side.Left://sticks to a left wall
+            case Sides.Left://sticks to a left wall
                 Debug.Log("Hit a wall left!");
                 slime.EnterMoveState(MoveState.Wall);
                 break;
-            case Side.Right://sticks to a right wall
+            case Sides.Right://sticks to a right wall
                 Debug.Log("Hit a wall right!");
                 slime.EnterMoveState(MoveState.Wall);
                 break;
-            case Side.None:
+            case Sides.None:
                 if (slime.CurrentWetnessState == WetnessState.Dry && slime.CheckWaterSurface())
                 {
                     slime.EnterMoveState(MoveState.WaterGlide);

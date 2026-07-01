@@ -96,11 +96,11 @@ public class JumpGroundMoveState : SlimeMoveState
         slime.Move = move_vector;
     }
 
-    public override void ReactToGround(Side touching_side, SlimeController slime)
+    public override void ReactToGround(Sides touching_side, SlimeController slime)
     {
         switch (touching_side)
         {
-            case Side.Top://sticks to the ceiling
+            case Sides.Top://sticks to the ceiling
                 if (Input.GetKey(KeyCode.Space))
                 {
                     slime.EnterMoveState(MoveState.JumpDown);
@@ -110,7 +110,7 @@ public class JumpGroundMoveState : SlimeMoveState
                     slime.EnterMoveState(MoveState.Ceiling);
                 }
                 break;
-            case Side.Left://jumps off right
+            case Sides.Left://jumps off right
                 if (Input.GetKey(KeyCode.Space))
                 {
                     slime.EnterMoveState(MoveState.JumpWallRight);
@@ -120,7 +120,7 @@ public class JumpGroundMoveState : SlimeMoveState
                     slime.EnterMoveState(MoveState.Wall);
                 }
                 break;
-            case Side.Right://jumps off left
+            case Sides.Right://jumps off left
                 if (Input.GetKey(KeyCode.Space))
                 {
                     slime.EnterMoveState(MoveState.JumpWallLeft);
