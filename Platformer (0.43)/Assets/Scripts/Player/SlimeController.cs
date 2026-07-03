@@ -668,8 +668,11 @@ public class SlimeController : MonoBehaviour
     {
         rb.velocity = Vector2.zero;
         Move = Vector2.zero;
+        waterSides = new SideData();
+        heatSides = new SideData();
         //PlayParticlesBySpace();
         ChangeSlimeState(WetnessState.Normal);
+
     }
     void Die()
     {
