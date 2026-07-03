@@ -1,15 +1,19 @@
+using System;
 using UnityEngine;
 
 public class BounceMoveState : SlimeMoveState
 {
     Vector2 move;
-    Vector2 new_move;
-    float bounce_time;
+    Vector2 reflectMove;
+    float bounceTime;
+    float groundTime;
+    const float c_maxGroundTime = 0.1f;
 
     public override void EnterState(SlimeController slime)
     {
         Debug.Log("Entered Bounce State!");
-        new_move = Vector2.zero;
+        reflectMove = Vector2.zero;
+        groundTime = 0;
         slime.SlimeCollider.enabled = false;
         slime.SlimeCollider.enabled = true;
         slime.rb.gravityScale = 1f * slime.CurrentSlimeState.SpaceBounceGravityMod;
@@ -22,7 +26,7 @@ public class BounceMoveState : SlimeMoveState
         {
             //LeaveBounceState();
             slime.SlimeCollider.enabled = false;
-            slime.rb.sharedMaterial.friction = 0f;
+            //slime.rb.sharedMaterial.friction = 0f;
             slime.SlimeCollider.enabled = true;
             slime.EnterMoveState(MoveState.Air);
             return;
@@ -31,12 +35,12 @@ public class BounceMoveState : SlimeMoveState
         {
             //LeaveBounceState
             slime.SlimeCollider.enabled = false;
-            slime.rb.sharedMaterial.friction = 0f;
+            //slime.rb.sharedMaterial.friction = 0f;
             slime.SlimeCollider.enabled = true;
             slime.EnterMoveState(MoveState.JumpAir);
             return;
         }
-        bounce_time += Time.deltaTime;
+        bounceTime += Time.deltaTime;
 
 
         //void LeaveBounceState()
@@ -53,11 +57,24 @@ public class BounceMoveState : SlimeMoveState
         if (slime.CurrentSlimeState.CurrentSpace != Space.Water)
         {
             move = move_vector;
-            if (new_move != Vector2.zero)
+            if (reflectMove != Vector2.zero)
             {
-                slime.Move = new_move;
-                slime.rb.velocity = new_move;
-                new_move = Vector2.zero;
+                slime.Move = reflectMove;
+                slime.rb.velocity = reflectMove;
+                reflectMove = Vector2.zero;
+            }
+            if (slime.CurrentSides != Sides.None)
+            {
+                groundTime += Time.fixedDeltaTime;
+            }
+            else
+            {
+                groundTime = 0;
+            }
+            if (groundTime > c_maxGroundTime)
+            {
+                move.x = Mathf.Sign(move.x) * Mathf.Lerp(Mathf.Abs(move.x), 0, slime.CurrentSlimeState.FrictionBounce * Time.fixedDeltaTime);
+                slime.Move = reflectMove;
             }
         }
     }
@@ -70,7 +87,7 @@ public class BounceMoveState : SlimeMoveState
         Vector2 delta_direction = Vector2.zero;
         string debug_text = "Slime BOUNCED!";
         delta_direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        if (Vector2.Angle(velocity, delta_direction) < 5 || Vector2.Angle(velocity, delta_direction) > 175 || bounce_time < 0.1f)
+        if (Vector2.Angle(velocity, delta_direction) < 5 || Vector2.Angle(velocity, delta_direction) > 175 || bounceTime < 0.1f)
         {
             delta_direction = Vector2.zero;
         }
@@ -79,14 +96,14 @@ public class BounceMoveState : SlimeMoveState
             slime.DirChangeParticles.Play();
             delta_direction = delta_direction.normalized;
         }
-        new_move = Vector2.Reflect((velocity.normalized + delta_direction/5).normalized * velocity.magnitude * 0.99f, normal);
+        reflectMove = Vector2.Reflect((velocity.normalized + delta_direction/5).normalized * velocity.magnitude * 0.99f, normal);
         Debug.Log($"{debug_text}, Velocity (norm): {velocity.normalized}, Delta dir: {delta_direction}, Normal: {normal}");
-        bounce_time = 0;
+        bounceTime = 0;
     }
 
     public override void ReactToGround(Sides side, SlimeController slime)
     {
         slime.rb.gravityScale = 1f * slime.CurrentSlimeState.SpaceBounceGravityMod;
-        slime.rb.sharedMaterial.friction = slime.CurrentSlimeState.FrictionBounce;
+        //slime.rb.sharedMaterial.friction = slime.CurrentSlimeState.FrictionBounce;
     }
 }

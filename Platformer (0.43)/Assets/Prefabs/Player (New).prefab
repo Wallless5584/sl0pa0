@@ -19764,7 +19764,7 @@ MonoBehaviour:
   face: {fileID: 7339289571983882125}
   dryMaxSpeed: 8
   dryAcceleration: 0.5
-  dryFrictionGround: 0.35
+  dryFrictionGround: 1
   dryFrictionCeiling: 1
   dryFrictionWall: 1
   dryFrictionWallUp: 1
