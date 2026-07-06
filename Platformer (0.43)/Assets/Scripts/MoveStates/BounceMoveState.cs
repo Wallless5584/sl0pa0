@@ -14,8 +14,8 @@ public class BounceMoveState : SlimeMoveState
         Debug.Log("Entered Bounce State!");
         reflectMove = Vector2.zero;
         groundTime = 0;
-        slime.SlimeCollider.enabled = false;
-        slime.SlimeCollider.enabled = true;
+        //slime.SlimeCollider.enabled = false;
+        //slime.SlimeCollider.enabled = true;
         slime.rb.gravityScale = 1f * slime.CurrentSlimeState.SpaceBounceGravityMod;
         slime.ChangeDirection(Direction.InAirRight);
     }
@@ -25,18 +25,18 @@ public class BounceMoveState : SlimeMoveState
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             //LeaveBounceState();
-            slime.SlimeCollider.enabled = false;
+            //slime.SlimeCollider.enabled = false;
             //slime.rb.sharedMaterial.friction = 0f;
-            slime.SlimeCollider.enabled = true;
+            //slime.SlimeCollider.enabled = true;
             slime.EnterMoveState(MoveState.Air);
             return;
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
             //LeaveBounceState
-            slime.SlimeCollider.enabled = false;
+            //slime.SlimeCollider.enabled = false;
             //slime.rb.sharedMaterial.friction = 0f;
-            slime.SlimeCollider.enabled = true;
+            //slime.SlimeCollider.enabled = true;
             slime.EnterMoveState(MoveState.JumpAir);
             return;
         }
@@ -63,18 +63,20 @@ public class BounceMoveState : SlimeMoveState
                 slime.rb.velocity = reflectMove;
                 reflectMove = Vector2.zero;
             }
-            if (slime.CurrentSides != Sides.None)
+            if (slime.CurrentSides > Sides.None)
             {
                 groundTime += Time.fixedDeltaTime;
+
+                if (groundTime > c_maxGroundTime)
+                {
+                    move.x = Mathf.Sign(move.x) * Mathf.Lerp(Mathf.Abs(move.x), 0, slime.CurrentSlimeState.FrictionBounce);
+                    slime.Move = move;
+                    slime.rb.velocity = move;
+                }
             }
             else
             {
                 groundTime = 0;
-            }
-            if (groundTime > c_maxGroundTime)
-            {
-                move.x = Mathf.Sign(move.x) * Mathf.Lerp(Mathf.Abs(move.x), 0, slime.CurrentSlimeState.FrictionBounce * Time.fixedDeltaTime);
-                slime.Move = reflectMove;
             }
         }
     }
@@ -82,11 +84,12 @@ public class BounceMoveState : SlimeMoveState
     public override void OnCollisionEnterState(SlimeController slime, Vector2 normal)
     {
         //Debug.Log($"Collided with {CurrentSide}!");
+        string debug_text = "Slime BOUNCED!";
+
         SlimeSoundManager.Instance.PlaySound(SoundType.Bounce);
         Vector2 velocity = move;
-        Vector2 delta_direction = Vector2.zero;
-        string debug_text = "Slime BOUNCED!";
-        delta_direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        Vector2 delta_direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        
         if (Vector2.Angle(velocity, delta_direction) < 5 || Vector2.Angle(velocity, delta_direction) > 175 || bounceTime < 0.1f)
         {
             delta_direction = Vector2.zero;
@@ -103,7 +106,7 @@ public class BounceMoveState : SlimeMoveState
 
     public override void ReactToGround(Sides side, SlimeController slime)
     {
-        slime.rb.gravityScale = 1f * slime.CurrentSlimeState.SpaceBounceGravityMod;
+        slime.rb.gravityScale = slime.CurrentSlimeState.SpaceBounceGravityMod;
         //slime.rb.sharedMaterial.friction = slime.CurrentSlimeState.FrictionBounce;
     }
 }

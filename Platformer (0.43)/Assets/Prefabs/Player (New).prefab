@@ -19768,7 +19768,7 @@ MonoBehaviour:
   dryFrictionCeiling: 1
   dryFrictionWall: 1
   dryFrictionWallUp: 1
-  dryFrictionBounce: 0.01
+  dryFrictionBounce: 0.03
   dryJumpPower: 400
   dryWallJumpPower: 500
   drySaltPiece: 03000000
