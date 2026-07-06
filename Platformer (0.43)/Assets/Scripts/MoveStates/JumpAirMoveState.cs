@@ -55,7 +55,7 @@ public class JumpAirMoveState : SlimeMoveState
         if (IsControlled)
         {
             move_vector.x = Mathf.Clamp(
-               move_vector.x + slime.CurrentSlimeState.Acceleration * moveX,
+               move_vector.x + slime.CurrentSlimeState.AccelerationAir * moveX,
                -slime.CurrentSlimeState.MaxSpeed,
                slime.CurrentSlimeState.MaxSpeed);
         }

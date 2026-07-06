@@ -111,76 +111,85 @@ public class SlimeController : MonoBehaviour
     [SerializeField] public Transform face;
 
     [Header("Dry state")]
-    [SerializeField] float dryMaxSpeed;
-    [SerializeField] float dryAcceleration;
-    [SerializeField] float dryFrictionGround;
-    [SerializeField] float dryFrictionCeiling;
-    [SerializeField] float dryFrictionWall;
-    [SerializeField] float dryFrictionWallUp;
-    [SerializeField] float dryFrictionBounce;
-    [SerializeField] float dryJumpPower;
-    [SerializeField] float dryWallJumpPower;
-    [SerializeField] Reaction[] drySaltPiece;
-    [SerializeField] Reaction[] drySalt;
-    [SerializeField] Reaction[] dryFire;
-    [SerializeField] Reaction[] dryWater;
-    [SerializeField] Reaction[] dryElectricity;
-    [SerializeField] Reaction[] dryFrost;
-    [SerializeField] SpaceState dryAirSpace;
-    [SerializeField] SpaceState dryWaterSpace;
-    [SerializeField] SpaceState dryColdSpace;
+    [SerializeField] SlimeState dry;
+    //[SerializeField] float dryMaxSpeed;
+    //[SerializeField] float dryAcceleration;
+    //[SerializeField] float dryAirAcceleration;
+    //[SerializeField] float dryFrictionGround;
+    //[SerializeField] float dryFrictionCeiling;
+    //[SerializeField] float dryFrictionWall;
+    //[SerializeField] float dryFrictionWallUp;
+    //[SerializeField] float dryFrictionBounce;
+    //[SerializeField] float dryJumpPower;
+    //[SerializeField] float dryWallJumpPower;
+    //[SerializeField] Reaction[] drySaltPiece;
+    //[SerializeField] Reaction[] drySalt;
+    //[SerializeField] Reaction[] dryFire;
+    //[SerializeField] Reaction[] dryWater;
+    //[SerializeField] Reaction[] dryElectricity;
+    //[SerializeField] Reaction[] dryFrost;
+    //[SerializeField] SpaceState dryAirSpace;
+    //[SerializeField] SpaceState dryWaterSpace;
+    //[SerializeField] SpaceState dryColdSpace;
     [Header("Salty Dry state")]
-    [SerializeField] Reaction[] drySaltySaltPiece;
-    [SerializeField] Reaction[] drySaltySalt;
-    [SerializeField] Reaction[] drySaltyFire;
-    [SerializeField] Reaction[] drySaltyWater;
-    [SerializeField] Reaction[] drySaltyElectricity;
-    [SerializeField] Reaction[] drySaltyFrost;
+    [SerializeField] SlimeState drySalty;
+    //[SerializeField] Reaction[] drySaltySaltPiece;
+    //[SerializeField] Reaction[] drySaltySalt;
+    //[SerializeField] Reaction[] drySaltyFire;
+    //[SerializeField] Reaction[] drySaltyWater;
+    //[SerializeField] Reaction[] drySaltyElectricity;
+    //[SerializeField] Reaction[] drySaltyFrost;
     [Header("Normal state")]
-    [SerializeField] float normalMaxSpeed;
-    [SerializeField] float normalAcceleration;
-    [SerializeField] float normalFrictionGround;
-    [SerializeField] float normalFrictionCeiling;
-    [SerializeField] float normalFrictionWall;
-    [SerializeField] float normalFrictionWallUp;
-    [SerializeField] float normalFrictionBounce;
-    [SerializeField] float normalJumpPower;
-    [SerializeField] float normalWallJumpPower;
-    [SerializeField] Reaction[] normalSaltPiece;
-    [SerializeField] Reaction[] normalSalt;
-    [SerializeField] Reaction[] normalFire;
-    [SerializeField] Reaction[] normalWater;
-    [SerializeField] Reaction[] normalElectricity;
-    [SerializeField] Reaction[] normalFrost;
-    [SerializeField] SpaceState normalAirSpace;
-    [SerializeField] SpaceState normalWaterSpace;
-    [SerializeField] SpaceState normalColdSpace;
+    [SerializeField] SlimeState normal;
+    //[SerializeField] float normalMaxSpeed;
+    //[SerializeField] float normalAcceleration;
+    //[SerializeField] float normalAirAcceleration;
+    //[SerializeField] float normalFrictionGround;
+    //[SerializeField] float normalFrictionCeiling;
+    //[SerializeField] float normalFrictionWall;
+    //[SerializeField] float normalFrictionWallUp;
+    //[SerializeField] float normalFrictionBounce;
+    //[SerializeField] float normalJumpPower;
+    //[SerializeField] float normalWallJumpPower;
+    //[SerializeField] Reaction[] normalSaltPiece;
+    //[SerializeField] Reaction[] normalSalt;
+    //[SerializeField] Reaction[] normalFire;
+    //[SerializeField] Reaction[] normalWater;
+    //[SerializeField] Reaction[] normalElectricity;
+    //[SerializeField] Reaction[] normalFrost;
+    //[SerializeField] SpaceState normalAirSpace;
+    //[SerializeField] SpaceState normalWaterSpace;
+    //[SerializeField] SpaceState normalColdSpace;
     [Header("Salty Normal state")]
-    [SerializeField] Reaction[] normalSaltySaltPiece;
-    [SerializeField] Reaction[] normalSaltySalt;
-    [SerializeField] Reaction[] normalSaltyFire;
-    [SerializeField] Reaction[] normalSaltyWater;
-    [SerializeField] Reaction[] normalSaltyElectricity;
-    [SerializeField] Reaction[] normalSaltyFrost;
+    [SerializeField] SlimeState normalSalty;
+    //[SerializeField] Reaction[] normalSaltySaltPiece;
+    //[SerializeField] Reaction[] normalSaltySalt;
+    //[SerializeField] Reaction[] normalSaltyFire;
+    //[SerializeField] Reaction[] normalSaltyWater;
+    //[SerializeField] Reaction[] normalSaltyElectricity;
+    //[SerializeField] Reaction[] normalSaltyFrost;
     [Header("Wet state")]
-    [SerializeField] float wetMaxSpeed;
-    [SerializeField] float wetAcceleration;
-    [SerializeField] float wetFrictionGround;
-    [SerializeField] float wetFrictionCeiling;
-    [SerializeField] float wetFrictionWall;
-    [SerializeField] float wetFrictionWallUp;
-    [SerializeField] float wetFrictionBounce;
-    [SerializeField] float wetJumpPower;
-    [SerializeField] float wetWallJumpPower;
-    [SerializeField] Reaction[] wetSaltPiece;
-    [SerializeField] Reaction[] wetSalt;
-    [SerializeField] Reaction[] wetFire;
-    [SerializeField] Reaction[] wetWater;
-    [SerializeField] Reaction[] wetElectricity;
-    [SerializeField] Reaction[] wetFrost;
-    [SerializeField] SpaceState wetAirSpace;
-    [SerializeField] SpaceState wetWaterSpace;
-    [SerializeField] SpaceState wetColdSpace;
+    [SerializeField] SlimeState wet;
+    //[SerializeField] float wetMaxSpeed;
+    //[SerializeField] float wetAcceleration;
+    //[SerializeField] float wetAirAcceleration;
+    //[SerializeField] float wetFrictionGround;
+    //[SerializeField] float wetFrictionCeiling;
+    //[SerializeField] float wetFrictionWall;
+    //[SerializeField] float wetFrictionWallUp;
+    //[SerializeField] float wetFrictionBounce;
+    //[SerializeField] float wetJumpPower;
+    //[SerializeField] float wetWallJumpPower;
+    //[SerializeField] Reaction[] wetSaltPiece;
+    //[SerializeField] Reaction[] wetSalt;
+    //[SerializeField] Reaction[] wetFire;
+    //[SerializeField] Reaction[] wetWater;
+    //[SerializeField] Reaction[] wetElectricity;
+    //[SerializeField] Reaction[] wetFrost;
+    //[SerializeField] SpaceState wetAirSpace;
+    //[SerializeField] SpaceState wetWaterSpace;
+    //[SerializeField] SpaceState wetColdSpace;
+
     [Header("Body Sprites")]
     public Sprite slime_inAir;
     public Sprite slime_ground;
@@ -373,22 +382,29 @@ public class SlimeController : MonoBehaviour
     {
         SlimeStates = new SlimeState[]
         {
-            new SlimeState(dryMaxSpeed, dryAcceleration, dryFrictionGround, dryFrictionCeiling, dryFrictionWall, dryFrictionWallUp, dryFrictionBounce,
-            dryJumpPower, dryWallJumpPower, drySaltPiece, drySalt, dryFire, dryWater, dryElectricity, dryFrost, dryAirSpace, dryWaterSpace, dryColdSpace),
+            //new SlimeState(dryMaxSpeed, dryAcceleration, dryFrictionGround, dryFrictionCeiling, dryFrictionWall, dryFrictionWallUp, dryFrictionBounce,
+            //dryJumpPower, dryWallJumpPower, drySaltPiece, drySalt, dryFire, dryWater, dryElectricity, dryFrost, dryAirSpace, dryWaterSpace, dryColdSpace),
+            
+            //new SlimeState(dryMaxSpeed, dryAcceleration, dryFrictionGround, dryFrictionCeiling, dryFrictionWall, dryFrictionWallUp, dryFrictionBounce,
+            //dryJumpPower, dryWallJumpPower, drySaltySaltPiece, drySaltySalt, drySaltyFire, drySaltyWater, drySaltyElectricity, drySaltyFrost, dryAirSpace, dryWaterSpace, dryColdSpace),
+            
+            //new SlimeState(normalMaxSpeed, normalAcceleration, normalFrictionGround, normalFrictionCeiling, normalFrictionWall, normalFrictionBounce,
+            //normalFrictionWallUp, normalJumpPower, normalWallJumpPower, normalSaltPiece, normalSalt, normalFire, normalWater, normalElectricity, normalFrost, normalAirSpace, normalWaterSpace, normalColdSpace),
+            
+            //new SlimeState(normalMaxSpeed, normalAcceleration, normalFrictionGround, normalFrictionCeiling, normalFrictionWall, normalFrictionBounce,
+            //normalFrictionWallUp, normalJumpPower, normalWallJumpPower, normalSaltySaltPiece, normalSaltySalt, normalSaltyFire, normalSaltyWater, normalSaltyElectricity, normalSaltyFrost, normalAirSpace, normalWaterSpace, normalColdSpace),
+            
+            //new SlimeState(wetMaxSpeed, wetAcceleration, wetFrictionGround, wetFrictionCeiling, wetFrictionWall, wetFrictionWallUp, wetFrictionBounce,
+            //wetJumpPower, wetWallJumpPower, wetSaltPiece, wetSalt, wetFire, wetWater, wetElectricity, wetFrost, wetAirSpace, wetWaterSpace, wetColdSpace),
 
-            new SlimeState(dryMaxSpeed, dryAcceleration, dryFrictionGround, dryFrictionCeiling, dryFrictionWall, dryFrictionWallUp, dryFrictionBounce,
-            dryJumpPower, dryWallJumpPower, drySaltySaltPiece, drySaltySalt, drySaltyFire, drySaltyWater, drySaltyElectricity, drySaltyFrost, dryAirSpace, dryWaterSpace, dryColdSpace),
-
-            new SlimeState(normalMaxSpeed, normalAcceleration, normalFrictionGround, normalFrictionCeiling, normalFrictionWall, normalFrictionBounce,
-            normalFrictionWallUp, normalJumpPower, normalWallJumpPower, normalSaltPiece, normalSalt, normalFire, normalWater, normalElectricity, normalFrost, normalAirSpace, normalWaterSpace, normalColdSpace),
-
-             new SlimeState(normalMaxSpeed, normalAcceleration, normalFrictionGround, normalFrictionCeiling, normalFrictionWall, normalFrictionBounce,
-            normalFrictionWallUp, normalJumpPower, normalWallJumpPower, normalSaltySaltPiece, normalSaltySalt, normalSaltyFire, normalSaltyWater, normalSaltyElectricity, normalSaltyFrost, normalAirSpace, normalWaterSpace, normalColdSpace),
-
-            new SlimeState(wetMaxSpeed, wetAcceleration, wetFrictionGround, wetFrictionCeiling, wetFrictionWall, wetFrictionWallUp, wetFrictionBounce,
-            wetJumpPower, wetWallJumpPower, wetSaltPiece, wetSalt, wetFire, wetWater, wetElectricity, wetFrost, wetAirSpace, wetWaterSpace, wetColdSpace),
+            dry,
+            drySalty,
+            normal,
+            normalSalty,
+            wet
         };
     }
+
     public void EnterMoveState(MoveState new_move_state)
     {
         SlimeMoveState new_state = MoveStates[(int)new_move_state - 1];

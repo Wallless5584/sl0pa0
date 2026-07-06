@@ -19762,72 +19762,116 @@ MonoBehaviour:
   rb: {fileID: 0}
   sr: {fileID: 0}
   face: {fileID: 7339289571983882125}
-  dryMaxSpeed: 8
-  dryAcceleration: 0.5
-  dryFrictionGround: 1
-  dryFrictionCeiling: 1
-  dryFrictionWall: 1
-  dryFrictionWallUp: 1
-  dryFrictionBounce: 0.03
-  dryJumpPower: 400
-  dryWallJumpPower: 500
-  drySaltPiece: 03000000
-  drySalt: 01000000
-  dryFire: 01000000
-  dryWater: 00000000
-  dryElectricity: 01000000
-  dryFrost: 01000000
-  dryAirSpace: {fileID: 11400000, guid: 0b82c4fc167a527498543d798713185a, type: 2}
-  dryWaterSpace: {fileID: 11400000, guid: ae8f4b1f1b3b3d44dbf1533b9662b78b, type: 2}
-  dryColdSpace: {fileID: 11400000, guid: dfdd4641c1f9c274d9c4225c7498aa79, type: 2}
-  drySaltySaltPiece: 00000000
-  drySaltySalt: 00000000
-  drySaltyFire: 01000000
-  drySaltyWater: 06000000
-  drySaltyElectricity: 0500000002000000
-  drySaltyFrost: 00000000
-  normalMaxSpeed: 8
-  normalAcceleration: 0.5
-  normalFrictionGround: 0.35
-  normalFrictionCeiling: 0.25
-  normalFrictionWall: 0.05
-  normalFrictionWallUp: 1
-  normalFrictionBounce: 0.35
-  normalJumpPower: 400
-  normalWallJumpPower: 500
-  normalSaltPiece: 03000000
-  normalSalt: 05000000
-  normalFire: 01000000
-  normalWater: 00000000
-  normalElectricity: 01000000
-  normalFrost: 01000000
-  normalAirSpace: {fileID: 11400000, guid: 0b82c4fc167a527498543d798713185a, type: 2}
-  normalWaterSpace: {fileID: 11400000, guid: 675dd2a032a93ac439b0d7e2d27d38b2, type: 2}
-  normalColdSpace: {fileID: 11400000, guid: d6a8f8222924c6843b47e77b9309806f, type: 2}
-  normalSaltySaltPiece: 00000000
-  normalSaltySalt: 00000000
-  normalSaltyFire: 01000000
-  normalSaltyWater: 07000000
-  normalSaltyElectricity: 0600000002000000
-  normalSaltyFrost: 00000000
-  wetMaxSpeed: 10
-  wetAcceleration: 0.15
-  wetFrictionGround: 0.075
-  wetFrictionCeiling: 0.05
-  wetFrictionWall: 0
-  wetFrictionWallUp: 0.04
-  wetFrictionBounce: 0.1
-  wetJumpPower: 400
-  wetWallJumpPower: 500
-  wetSaltPiece: 00000000
-  wetSalt: 06000000
-  wetFire: 0600000002000000
-  wetWater: 00000000
-  wetElectricity: 01000000
-  wetFrost: 01000000
-  wetAirSpace: {fileID: 11400000, guid: 0b82c4fc167a527498543d798713185a, type: 2}
-  wetWaterSpace: {fileID: 11400000, guid: 904a30aba6141dc4e8f3b827808e5e8c, type: 2}
-  wetColdSpace: {fileID: 11400000, guid: 24575c0d474fd4d40a7ce7ffee7b4fb8, type: 2}
+  dry:
+    _maxSpeed: 8
+    _acceleration: 0
+    _accelerationAir: 0.5
+    _frictionGround: 1
+    _frictionCeiling: 1
+    _frictionWall: 1
+    _frictionWallUp: 1
+    _frictionBounce: 0.02
+    _jumpPower: 400
+    _wallJumpPower: 500
+    CurrentSpace: 0
+    SpaceStates:
+    - {fileID: 11400000, guid: 0b82c4fc167a527498543d798713185a, type: 2}
+    - {fileID: 11400000, guid: ae8f4b1f1b3b3d44dbf1533b9662b78b, type: 2}
+    - {fileID: 11400000, guid: dfdd4641c1f9c274d9c4225c7498aa79, type: 2}
+    SaltPiece: 03000000
+    Salt: 01000000
+    Fire: 01000000
+    Water: 00000000
+    Electricity: 01000000
+    Frost: 01000000
+  drySalty:
+    _maxSpeed: 8
+    _acceleration: 0
+    _accelerationAir: 0.5
+    _frictionGround: 1
+    _frictionCeiling: 1
+    _frictionWall: 1
+    _frictionWallUp: 1
+    _frictionBounce: 0.02
+    _jumpPower: 400
+    _wallJumpPower: 500
+    CurrentSpace: 0
+    SpaceStates:
+    - {fileID: 11400000, guid: 0b82c4fc167a527498543d798713185a, type: 2}
+    - {fileID: 11400000, guid: ae8f4b1f1b3b3d44dbf1533b9662b78b, type: 2}
+    - {fileID: 11400000, guid: dfdd4641c1f9c274d9c4225c7498aa79, type: 2}
+    SaltPiece: 00000000
+    Salt: 00000000
+    Fire: 01000000
+    Water: 06000000
+    Electricity: 0200000005000000
+    Frost: 00000000
+  normal:
+    _maxSpeed: 8
+    _acceleration: 0.5
+    _accelerationAir: 0.4
+    _frictionGround: 0.35
+    _frictionCeiling: 0.25
+    _frictionWall: 0.5
+    _frictionWallUp: 1
+    _frictionBounce: 0.35
+    _jumpPower: 400
+    _wallJumpPower: 500
+    CurrentSpace: 0
+    SpaceStates:
+    - {fileID: 11400000, guid: 0b82c4fc167a527498543d798713185a, type: 2}
+    - {fileID: 11400000, guid: 675dd2a032a93ac439b0d7e2d27d38b2, type: 2}
+    - {fileID: 11400000, guid: d6a8f8222924c6843b47e77b9309806f, type: 2}
+    SaltPiece: 03000000
+    Salt: 05000000
+    Fire: 01000000
+    Water: 00000000
+    Electricity: 01000000
+    Frost: 01000000
+  normalSalty:
+    _maxSpeed: 8
+    _acceleration: 0.5
+    _accelerationAir: 0.4
+    _frictionGround: 0.35
+    _frictionCeiling: 0.25
+    _frictionWall: 0.05
+    _frictionWallUp: 1
+    _frictionBounce: 0.35
+    _jumpPower: 400
+    _wallJumpPower: 500
+    CurrentSpace: 0
+    SpaceStates:
+    - {fileID: 11400000, guid: 0b82c4fc167a527498543d798713185a, type: 2}
+    - {fileID: 11400000, guid: 675dd2a032a93ac439b0d7e2d27d38b2, type: 2}
+    - {fileID: 11400000, guid: d6a8f8222924c6843b47e77b9309806f, type: 2}
+    SaltPiece: 00000000
+    Salt: 00000000
+    Fire: 01000000
+    Water: 07000000
+    Electricity: 0200000006000000
+    Frost: 00000000
+  wet:
+    _maxSpeed: 10
+    _acceleration: 0.2
+    _accelerationAir: 0.15
+    _frictionGround: 0.075
+    _frictionCeiling: 0.05
+    _frictionWall: 0
+    _frictionWallUp: 0.04
+    _frictionBounce: 0.1
+    _jumpPower: 400
+    _wallJumpPower: 500
+    CurrentSpace: 0
+    SpaceStates:
+    - {fileID: 11400000, guid: 0b82c4fc167a527498543d798713185a, type: 2}
+    - {fileID: 11400000, guid: 904a30aba6141dc4e8f3b827808e5e8c, type: 2}
+    - {fileID: 11400000, guid: 24575c0d474fd4d40a7ce7ffee7b4fb8, type: 2}
+    SaltPiece: 00000000
+    Salt: 06000000
+    Fire: 020000000600000003000000
+    Water: 00000000
+    Electricity: 01000000
+    Frost: 01000000
   slime_inAir: {fileID: 514861218, guid: d0da4340748768a418860c7123559fcb, type: 3}
   slime_ground: {fileID: 1965179034, guid: d0da4340748768a418860c7123559fcb, type: 3}
   slime_ground_right: {fileID: 2075577196, guid: d0da4340748768a418860c7123559fcb, type: 3}
@@ -19855,6 +19899,26 @@ MonoBehaviour:
     Left: {fileID: 7086408202816130015}
     Top: {fileID: 71282670893085207}
     Bottom: {fileID: 4978354884536399401}
+  CurrentSlimeState:
+    _maxSpeed: 0
+    _acceleration: 0
+    _accelerationAir: 0
+    _frictionGround: 0
+    _frictionCeiling: 0
+    _frictionWall: 0
+    _frictionWallUp: 0
+    _frictionBounce: 0
+    _jumpPower: 0
+    _wallJumpPower: 0
+    CurrentSpace: 0
+    SpaceStates: []
+    SaltPiece: 
+    Salt: 
+    Fire: 
+    Water: 
+    Electricity: 
+    Frost: 
+  SlimeStates: []
 --- !u!114 &6852754279284834464
 MonoBehaviour:
   m_ObjectHideFlags: 0

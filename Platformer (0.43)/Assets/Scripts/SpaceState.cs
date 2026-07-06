@@ -12,6 +12,7 @@ public class SpaceState : ScriptableObject
 {
     [Range(0,3)] public float SlimeMaxSpeedMod = 1;
     [Range(0, 3)] public float SlimeAccelerationMod = 1;
+    [Range(0, 3)] public float SlimeAccelerationAirMod = 1;
     [Range(0, 3)] public float SlimeFrictionGroundMod = 1;
     [Range(0, 3)] public float SlimeFrictionWallMod = 1;
     [Range(0, 3)] public float SlimeFrictionWallUpMod = 1;
