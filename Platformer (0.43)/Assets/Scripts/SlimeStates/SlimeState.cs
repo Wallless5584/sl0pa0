@@ -4,6 +4,7 @@ using UnityEngine;
 [Serializable] public struct SlimeState
 {
     [SerializeField] float _maxSpeed;
+    [SerializeField] float _maxSpeedAir;
     [SerializeField] float _acceleration;
     [SerializeField] float _accelerationAir;
     [SerializeField] float _frictionGround;
@@ -15,6 +16,7 @@ using UnityEngine;
     [SerializeField] float _wallJumpPower;
 
     public float MaxSpeed { get => _maxSpeed * SpaceStates[(int)CurrentSpace].SlimeMaxSpeedMod; }
+    public float MaxSpeedAir { get => _maxSpeedAir * SpaceStates[(int)CurrentSpace].SlimeMaxSpeedAirMod; }
     public float Acceleration { get => _acceleration * SpaceStates[(int)CurrentSpace].SlimeAccelerationMod; }
     public float AccelerationAir { get => _accelerationAir * SpaceStates[(int)CurrentSpace].SlimeAccelerationAirMod; }
     public float FrictionGround { get => _frictionGround * SpaceStates[(int)CurrentSpace].SlimeFrictionGroundMod; }

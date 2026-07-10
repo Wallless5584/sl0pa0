@@ -7,16 +7,20 @@ public class BounceMoveState : SlimeMoveState
     Vector2 reflectMove;
     float bounceTime;
     float groundTime;
+
     const float c_maxGroundTime = 0.1f;
+    const float c_minBounceAngle = 5;
+    const float c_maxBounceAngle = 180 - c_minBounceAngle;
+    const float c_shadowBounceProtectionTime = 0.01f;
+    const float c_reflectVelocityModifier = 0.99f;
+    const float c_reflectControlModifier = 0.2f;
 
     public override void EnterState(SlimeController slime)
     {
         Debug.Log("Entered Bounce State!");
         reflectMove = Vector2.zero;
         groundTime = 0;
-        //slime.SlimeCollider.enabled = false;
-        //slime.SlimeCollider.enabled = true;
-        slime.rb.gravityScale = 1f * slime.CurrentSlimeState.SpaceBounceGravityMod;
+        slime.rb.gravityScale = slime.CurrentSlimeState.SpaceBounceGravityMod;
         slime.ChangeDirection(Direction.InAirRight);
     }
 
@@ -24,30 +28,15 @@ public class BounceMoveState : SlimeMoveState
     {
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            //LeaveBounceState();
-            //slime.SlimeCollider.enabled = false;
-            //slime.rb.sharedMaterial.friction = 0f;
-            //slime.SlimeCollider.enabled = true;
             slime.EnterMoveState(MoveState.Air);
             return;
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            //LeaveBounceState
-            //slime.SlimeCollider.enabled = false;
-            //slime.rb.sharedMaterial.friction = 0f;
-            //slime.SlimeCollider.enabled = true;
             slime.EnterMoveState(MoveState.JumpAir);
             return;
         }
         bounceTime += Time.deltaTime;
-
-
-        //void LeaveBounceState()
-        //{
-        //    slime.SlimeCollider.enabled = false;
-        //    slime.SlimeCollider.enabled = true;
-        //}
     }
 
     
@@ -89,8 +78,12 @@ public class BounceMoveState : SlimeMoveState
         SlimeSoundManager.Instance.PlaySound(SoundType.Bounce);
         Vector2 velocity = move;
         Vector2 delta_direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+
         
-        if (Vector2.Angle(velocity, delta_direction) < 5 || Vector2.Angle(velocity, delta_direction) > 175 || bounceTime < 0.1f)
+        
+        if (Vector2.Angle(velocity, delta_direction) < c_minBounceAngle ||
+            Vector2.Angle(velocity, delta_direction) > c_maxBounceAngle ||
+            bounceTime < c_shadowBounceProtectionTime)
         {
             delta_direction = Vector2.zero;
         }
@@ -99,7 +92,7 @@ public class BounceMoveState : SlimeMoveState
             slime.DirChangeParticles.Play();
             delta_direction = delta_direction.normalized;
         }
-        reflectMove = Vector2.Reflect((velocity.normalized + delta_direction/5).normalized * velocity.magnitude * 0.99f, normal);
+        reflectMove = Vector2.Reflect((velocity.normalized + delta_direction * c_reflectControlModifier).normalized * velocity.magnitude * c_reflectVelocityModifier, normal);
         Debug.Log($"{debug_text}, Velocity (norm): {velocity.normalized}, Delta dir: {delta_direction}, Normal: {normal}");
         bounceTime = 0;
     }
@@ -107,6 +100,5 @@ public class BounceMoveState : SlimeMoveState
     public override void ReactToGround(Sides side, SlimeController slime)
     {
         slime.rb.gravityScale = slime.CurrentSlimeState.SpaceBounceGravityMod;
-        //slime.rb.sharedMaterial.friction = slime.CurrentSlimeState.FrictionBounce;
     }
 }

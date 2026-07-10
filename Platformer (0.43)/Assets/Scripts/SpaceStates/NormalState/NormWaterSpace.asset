@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: NormWaterSpace
   m_EditorClassIdentifier: 
   SlimeMaxSpeedMod: 0.6
+  SlimeMaxSpeedAirMod: 1
   SlimeAccelerationMod: 0.3
+  SlimeAccelerationAirMod: 0.3
   SlimeFrictionGroundMod: 0.5
   SlimeFrictionWallMod: 0.5
   SlimeFrictionWallUpMod: 0.5
+  SlimeFrictionBounceMod: 1
   SlimeFrictionCeilingMod: 0.5
   SlimeGravityMod: 0.15
   SlimeBounceGravityMod: 0.5

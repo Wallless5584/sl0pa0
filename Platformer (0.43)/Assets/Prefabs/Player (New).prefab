@@ -19763,15 +19763,16 @@ MonoBehaviour:
   sr: {fileID: 0}
   face: {fileID: 7339289571983882125}
   dry:
-    _maxSpeed: 8
-    _acceleration: 0
-    _accelerationAir: 0.5
+    _maxSpeed: 3
+    _maxSpeedAir: 8
+    _acceleration: 0.5
+    _accelerationAir: 0.4
     _frictionGround: 1
     _frictionCeiling: 1
     _frictionWall: 1
     _frictionWallUp: 1
     _frictionBounce: 0.02
-    _jumpPower: 400
+    _jumpPower: 300
     _wallJumpPower: 500
     CurrentSpace: 0
     SpaceStates:
@@ -19785,15 +19786,16 @@ MonoBehaviour:
     Electricity: 01000000
     Frost: 01000000
   drySalty:
-    _maxSpeed: 8
-    _acceleration: 0
-    _accelerationAir: 0.5
+    _maxSpeed: 3
+    _maxSpeedAir: 8
+    _acceleration: 0.5
+    _accelerationAir: 0.4
     _frictionGround: 1
     _frictionCeiling: 1
     _frictionWall: 1
     _frictionWallUp: 1
     _frictionBounce: 0.02
-    _jumpPower: 400
+    _jumpPower: 300
     _wallJumpPower: 500
     CurrentSpace: 0
     SpaceStates:
@@ -19808,8 +19810,9 @@ MonoBehaviour:
     Frost: 00000000
   normal:
     _maxSpeed: 8
+    _maxSpeedAir: 8
     _acceleration: 0.5
-    _accelerationAir: 0.4
+    _accelerationAir: 0.3
     _frictionGround: 0.35
     _frictionCeiling: 0.25
     _frictionWall: 0.5
@@ -19830,8 +19833,9 @@ MonoBehaviour:
     Frost: 01000000
   normalSalty:
     _maxSpeed: 8
+    _maxSpeedAir: 8
     _acceleration: 0.5
-    _accelerationAir: 0.4
+    _accelerationAir: 0.3
     _frictionGround: 0.35
     _frictionCeiling: 0.25
     _frictionWall: 0.05
@@ -19852,6 +19856,7 @@ MonoBehaviour:
     Frost: 00000000
   wet:
     _maxSpeed: 10
+    _maxSpeedAir: 10
     _acceleration: 0.2
     _accelerationAir: 0.15
     _frictionGround: 0.075
@@ -19901,6 +19906,7 @@ MonoBehaviour:
     Bottom: {fileID: 4978354884536399401}
   CurrentSlimeState:
     _maxSpeed: 0
+    _maxSpeedAir: 0
     _acceleration: 0
     _accelerationAir: 0
     _frictionGround: 0

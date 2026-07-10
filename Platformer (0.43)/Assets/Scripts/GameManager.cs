@@ -1,8 +1,5 @@
 using System.Collections.Generic;
-using System.Security.Cryptography;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.WSA;
 
 public class GameManager : MonoBehaviour
 {
@@ -125,6 +122,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+
             PlayerInstance.transform.position = SpawnedRooms[activeRoom].spawn.GetComponentInChildren<TriggerZone>().transform.position;
             //PlayerInstance.ZeroVelocity();
             PlayerInstance.ResetSlime();

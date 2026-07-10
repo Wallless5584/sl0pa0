@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: WetWaterSpace
   m_EditorClassIdentifier: 
   SlimeMaxSpeedMod: 1.1
+  SlimeMaxSpeedAirMod: 1
   SlimeAccelerationMod: 0.7
+  SlimeAccelerationAirMod: 0.7
   SlimeFrictionGroundMod: 0.5
   SlimeFrictionWallMod: 0.25
   SlimeFrictionWallUpMod: 0
+  SlimeFrictionBounceMod: 1
   SlimeFrictionCeilingMod: 0.5
   SlimeGravityMod: 0.3
   SlimeBounceGravityMod: 0.8

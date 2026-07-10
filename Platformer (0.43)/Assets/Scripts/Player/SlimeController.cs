@@ -685,7 +685,7 @@ public class SlimeController : MonoBehaviour
         rb.velocity = Vector2.zero;
         Move = Vector2.zero;
         waterSides = new SideData();
-        heatSides = new SideData();
+        //heatSides = new SideData();
         //PlayParticlesBySpace();
         ChangeSlimeState(WetnessState.Normal);
 
@@ -820,17 +820,17 @@ public class SlimeController : MonoBehaviour
     public void CheckPlaySideParticles(float colOffset, float colWidth, float colThickness, LayerMask layer,
         SideParticles particles, ref SideData currentSides)
     {
-        SideData collisionSides = CheckSides(colOffset, colWidth, colThickness, layer);
+        SideData collision_sides = CheckSides(colOffset, colWidth, colThickness, layer);
 
-        if (currentSides.Flags == collisionSides.Flags)
+        if (currentSides.Flags == collision_sides.Flags)
         {
             return;
         }
         else
         {
-            if (collisionSides.HasFlag(Sides.Right) != currentSides.HasFlag(Sides.Right))
+            if (collision_sides.HasFlag(Sides.Right) != currentSides.HasFlag(Sides.Right))
             {
-                if (collisionSides.HasFlag(Sides.Right))
+                if (collision_sides.HasFlag(Sides.Right))
                 {
                     particles.Right.Play();
                 }
@@ -839,9 +839,9 @@ public class SlimeController : MonoBehaviour
                     particles.Right.Stop();
                 }
             }
-            if (collisionSides.HasFlag(Sides.Left) != currentSides.HasFlag(Sides.Left))
+            if (collision_sides.HasFlag(Sides.Left) != currentSides.HasFlag(Sides.Left))
             {
-                if (collisionSides.HasFlag(Sides.Left))
+                if (collision_sides.HasFlag(Sides.Left))
                 {
                     particles.Left.Play();
                 }
@@ -850,9 +850,9 @@ public class SlimeController : MonoBehaviour
                     particles.Left.Stop();
                 }
             }
-            if (collisionSides.HasFlag(Sides.Top) != currentSides.HasFlag(Sides.Top))
+            if (collision_sides.HasFlag(Sides.Top) != currentSides.HasFlag(Sides.Top))
             {
-                if (collisionSides.HasFlag(Sides.Top))
+                if (collision_sides.HasFlag(Sides.Top))
                 {
                     particles.Top.Play();
                 }
@@ -861,9 +861,9 @@ public class SlimeController : MonoBehaviour
                     particles.Top.Stop();
                 }
             }
-            if (collisionSides.HasFlag(Sides.Bottom) != currentSides.HasFlag(Sides.Bottom))
+            if (collision_sides.HasFlag(Sides.Bottom) != currentSides.HasFlag(Sides.Bottom))
             {
-                if (collisionSides.HasFlag(Sides.Bottom))
+                if (collision_sides.HasFlag(Sides.Bottom))
                 {
                     particles.Bottom.Play();
                 }
@@ -872,7 +872,7 @@ public class SlimeController : MonoBehaviour
                     particles.Bottom.Stop();
                 }
             }
-            currentSides = collisionSides;
+            currentSides = collision_sides;
 
             return;
         }
@@ -882,31 +882,31 @@ public class SlimeController : MonoBehaviour
     public void CheckPlaySideParticlesDoublesided(float colOffset, float colWidth, float colThickness, LayerMask layer,
         SideParticles particles, ref SideData currentSides)
     {
-        SideData collisionSides = CheckSides(colOffset, colWidth, colThickness, layer);
-        if (currentSides.Flags == collisionSides.Flags)
+        SideData collision_sides = CheckSides(colOffset, colWidth, colThickness, layer);
+        if (currentSides.Flags == collision_sides.Flags)
         {
             //do nothing
             return;
         }
         else
         {
-            if (collisionSides.HasFlag(Sides.Top) != currentSides.HasFlag(Sides.Top))
+            if (collision_sides.HasFlag(Sides.Top) != currentSides.HasFlag(Sides.Top))
             {
                 particles.Top.Play();
             }
-            if (collisionSides.HasFlag(Sides.Bottom) != currentSides.HasFlag(Sides.Bottom))
+            if (collision_sides.HasFlag(Sides.Bottom) != currentSides.HasFlag(Sides.Bottom))
             {
                 particles.Bottom.Play();
             }
-            if (collisionSides.HasFlag(Sides.Left) != currentSides.HasFlag(Sides.Left))
+            if (collision_sides.HasFlag(Sides.Left) != currentSides.HasFlag(Sides.Left))
             {
                 particles.Left.Play();
             }
-            if (collisionSides.HasFlag(Sides.Right) != currentSides.HasFlag(Sides.Right))
+            if (collision_sides.HasFlag(Sides.Right) != currentSides.HasFlag(Sides.Right))
             {
                 particles.Right.Play();
             }
-            currentSides = collisionSides;
+            currentSides = collision_sides;
         }
         //Physics2D.queriesHitTriggers = false;
     }

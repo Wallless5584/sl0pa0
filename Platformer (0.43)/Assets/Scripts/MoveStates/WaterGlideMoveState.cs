@@ -3,6 +3,7 @@ using UnityEngine;
 public class WaterGlideMoveState : CeilingMoveState
 {
     Vector2 _move_vector;
+    const float c_maxMoveSpeedMod = 2f;
 
     public override void EnterState(SlimeController slime)
     {
@@ -10,6 +11,23 @@ public class WaterGlideMoveState : CeilingMoveState
         slime.Move.y = 0f;
         slime.rb.velocity = new Vector2(slime.rb.velocity.x, 0f);
         slime.rb.gravityScale = 0f;
+    }
+
+    public override void FixedUpdateState(SlimeController slime, Vector2 move_vector)
+    {
+        _move_vector = move_vector;
+        if (IsControlled)
+        {
+            _move_vector.x = Mathf.Clamp(
+                _move_vector.x + slime.CurrentSlimeState.Acceleration * moveX * (1 - slime.CurrentSlimeState.FrictionCeiling),
+                -slime.CurrentSlimeState.MaxSpeedAir * c_maxMoveSpeedMod,
+                slime.CurrentSlimeState.MaxSpeedAir * c_maxMoveSpeedMod);
+        }
+        else
+        {
+            _move_vector.x = Mathf.Sign(_move_vector.x) * Mathf.Lerp(Mathf.Abs(_move_vector.x), 0, slime.CurrentSlimeState.FrictionCeiling);
+        }
+        slime.Move = _move_vector;
     }
 
     public override void ReactToGround(Sides touching_side, SlimeController slime)
