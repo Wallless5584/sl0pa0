@@ -40,31 +40,4 @@ using UnityEngine;
     public Reaction[] Water;
     public Reaction[] Electricity;
     public Reaction[] Frost;
-    //Reaction[] _SaltPiece;
-
-
-    //public SlimeState(
-    //    float maxSpeed, float acceleration, float accelerationAir, float frictionGround, float frictionCeiling, float frictionWall, float frictionWallUp, float frictionBounce,
-    //    float jumpPower, float wallJumpPower, Reaction[] saltPiece, Reaction[] salt, Reaction[] fire, Reaction[] water, Reaction[] electricity, Reaction[] frost,
-    //    SpaceState airSpace, SpaceState waterSpace, SpaceState coldSpace)
-    //{
-    //    CurrentSpace = Space.Air;
-    //    _maxSpeed = maxSpeed;
-    //    _acceleration = acceleration;
-    //    _frictionGround = frictionGround;
-    //    _frictionCeiling = frictionCeiling;
-    //    _frictionWall = frictionWall;
-    //    _frictionWallUp = frictionWallUp;
-    //    _frictionBounce = frictionBounce;
-    //    _jumpPower = jumpPower;
-    //    _wallJumpPower = wallJumpPower;
-    //    SpaceStates = new SpaceState[3] {airSpace, waterSpace, coldSpace};  
-
-    //    SaltPiece = saltPiece;
-    //    Salt = salt;
-    //    Fire = fire;
-    //    Water = water;
-    //    Electricity = electricity;
-    //    Frost = frost;
-    //}
 }

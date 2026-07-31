@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class BounceMoveState : SlimeMoveState
@@ -11,17 +10,17 @@ public class BounceMoveState : SlimeMoveState
     const float c_maxGroundTime = 0.1f;
     const float c_minBounceAngle = 5;
     const float c_maxBounceAngle = 180 - c_minBounceAngle;
-    const float c_shadowBounceProtectionTime = 0.01f;
+    const float c_shadowBounceProtectionTime = 0.0001f;
     const float c_reflectVelocityModifier = 0.99f;
     const float c_reflectControlModifier = 0.2f;
 
     public override void EnterState(SlimeController slime)
     {
-        Debug.Log("Entered Bounce State!");
+        //Debug.Log("Entered Bounce State!");
         reflectMove = Vector2.zero;
         groundTime = 0;
         slime.rb.gravityScale = slime.CurrentSlimeState.SpaceBounceGravityMod;
-        slime.ChangeDirection(Direction.InAirRight);
+        slime.ChangeDirectionDisplay(Direction.Bounce);
     }
 
     public override void UpdateState(SlimeController slime)
@@ -70,7 +69,7 @@ public class BounceMoveState : SlimeMoveState
         }
     }
 
-    public override void OnCollisionEnterState(SlimeController slime, Vector2 normal)
+    public override void OnCollisionEnter(SlimeController slime, Vector2 normal)
     {
         //Debug.Log($"Collided with {CurrentSide}!");
         string debug_text = "Slime BOUNCED!";

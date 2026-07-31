@@ -49,8 +49,9 @@ public class RoomController : MonoBehaviour
         return spawn.transform.position;
     }
 
-    public void ActivateButtons()
+    public void Activate()
     {
+        spawn.Activate();
         foreach (RoomButton item in buttonsInRoom)
         {
             item.Activate();
@@ -60,6 +61,7 @@ public class RoomController : MonoBehaviour
     public void ResetRoom()
     {
         pressedButtons.Clear();
+        spawn.Reset();
         foreach (RoomButton item in buttonsInRoom)
         {
             item.ResetObject();

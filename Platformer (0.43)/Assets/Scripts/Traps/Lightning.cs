@@ -5,7 +5,7 @@ public class Lightning : MonoBehaviour
 
     [SerializeField] Material material;
     [SerializeField] float scrollSpeed;
-    [SerializeField] bool invert;
+    //[SerializeField] bool invert;
     [SerializeField] float invertPeriod;
 
     [Header("References")]
@@ -37,16 +37,14 @@ public class Lightning : MonoBehaviour
     {
         offsetX += scrollSpeed * Time.deltaTime * invertMod;
 
-        if (invert)
+        invertTimer -= Time.deltaTime;
+        if (invertTimer < 0f)
         {
-            invertTimer -= Time.deltaTime;
-            if (invertTimer < 0f)
-            {
-                invertMod *= -1;
-                offsetX = -offsetX;
-                invertTimer = invertPeriod;
-            }
+            invertMod *= -1;
+            offsetX = -offsetX;
+            invertTimer = invertPeriod;
         }
+
         material.mainTextureOffset = new Vector2(offsetX, 0);
     }
 

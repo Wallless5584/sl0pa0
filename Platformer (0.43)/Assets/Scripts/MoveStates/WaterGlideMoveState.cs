@@ -7,7 +7,7 @@ public class WaterGlideMoveState : CeilingMoveState
 
     public override void EnterState(SlimeController slime)
     {
-        Debug.Log("Entered ~Water Glide~ State!");
+        //Debug.Log("Entered ~Water Glide~ State!");
         slime.Move.y = 0f;
         slime.rb.velocity = new Vector2(slime.rb.velocity.x, 0f);
         slime.rb.gravityScale = 0f;

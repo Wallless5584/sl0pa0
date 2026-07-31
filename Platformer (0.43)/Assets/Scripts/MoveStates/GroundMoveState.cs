@@ -5,7 +5,7 @@ public class GroundMoveState : SlimeMoveState
     //float move_x;
     public override void EnterState(SlimeController slime)
     {
-        Debug.Log("Entered Ground State!");
+        //Debug.Log("Entered Ground State!");
     }
 
     public override void UpdateState(SlimeController slime)
@@ -28,20 +28,20 @@ public class GroundMoveState : SlimeMoveState
             SlimeSoundManager.Instance.PlaySound(SoundType.Slide);
             IsControlled = true;
             moveX++;
-            slime.ChangeDirection(Direction.GroundRight);
+            slime.ChangeDirectionDisplay(Direction.GroundRight);
         }
         if (Input.GetKey(KeyCode.A))
         {
             SlimeSoundManager.Instance.PlaySound(SoundType.Slide);
             IsControlled = true;
             moveX--;
-            slime.ChangeDirection(Direction.GroundLeft);
+            slime.ChangeDirectionDisplay(Direction.GroundLeft);
         }
         if (moveX == 0)
         {
             SlimeSoundManager.Instance.PlaySound(SoundType.None);
             IsControlled = false;
-            slime.ChangeDirection(Direction.Ground);
+            slime.ChangeDirectionDisplay(Direction.Ground);
         }
     }
 
@@ -72,9 +72,33 @@ public class GroundMoveState : SlimeMoveState
             case Sides.Top://sticks to the ceiling
                 slime.EnterMoveState(MoveState.Ceiling);
                 break;
-            case Sides.Left://sticks to a left wall
+            case Sides.Bottom | Sides.Left://diagonal
+                if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.S))
+                {
+                    slime.EnterMoveState(MoveState.WallLeftGround);
+                }
                 break;
-            case Sides.Right://sticks to a right wall
+            case Sides.Bottom | Sides.Right://diagonal
+                if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S))
+                {
+                    slime.EnterMoveState(MoveState.WallRightGround);
+                }
+                break;
+
+            case Sides.Bottom | Sides.Right | Sides.Top://dead end right
+                if (!Input.GetKey(KeyCode.A))
+                {
+                    slime.EnterMoveState(MoveState.Wall);
+                }
+                break;
+            case Sides.Bottom | Sides.Left | Sides.Top://dead end left
+                if (!Input.GetKey(KeyCode.D))
+                {
+                    slime.EnterMoveState(MoveState.Wall);
+                }
+                break;
+
+            case Sides.Bottom | Sides.Left | Sides.Right://diagonal
                 break;
         }
     }

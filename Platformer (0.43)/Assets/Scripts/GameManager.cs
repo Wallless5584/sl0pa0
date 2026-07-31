@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
                 ParallaxBG.gameObject.SetActive(false);
                 UIManager.instance.SwitchState(UIManager.UIState.Load);
                 LoadLevel();
-                Respawn();
+                RespawnOnSpawn();
                 CurrentState = new_state;
                 LevelStartTime = Time.time;
                 SwitchState(GameState.Play);
@@ -114,6 +114,13 @@ public class GameManager : MonoBehaviour
         
     }
 
+
+    public void RespawnOnSpawn()
+    {
+        //SpawnedRooms[activeRoom].spawn.Spawn();
+        Respawn();
+    }
+
     public void Respawn()
     {
         if (PlayerInstance == null)
@@ -124,12 +131,12 @@ public class GameManager : MonoBehaviour
         {
 
             PlayerInstance.transform.position = SpawnedRooms[activeRoom].spawn.GetComponentInChildren<TriggerZone>().transform.position;
-            //PlayerInstance.ZeroVelocity();
             PlayerInstance.ResetSlime();
         }
     }
 
-    public void SpawnTriggered(SpawnPoint new_sp)
+
+    public bool SpawnTriggered(SpawnPoint new_sp)
     {
         if (new_sp != SpawnedRooms[activeRoom].spawn)
         {
@@ -137,17 +144,19 @@ public class GameManager : MonoBehaviour
             if (CheckLevelComplete())
             {
                 LevelComplete();
-                return;
+                return true;
             }
             activeRoom++;
             Debug.Log($"> Spawn Triggered! (Active room: {activeRoom}/{GameLevels[SelectedLevel].RoomCount}), Room name: {SpawnedRooms[activeRoom].gameObject.name}");
             PrepareActiveRoom();
+            return true;
         }
+        return false;
     }
 
     public void PrepareActiveRoom()
     {
-        SpawnedRooms[activeRoom].ActivateButtons();
+        SpawnedRooms[activeRoom].Activate();
     }
 
     public bool CheckLevelComplete()
@@ -185,7 +194,7 @@ public class GameManager : MonoBehaviour
         }
         activeRoom = 0;
         PrepareActiveRoom();
-        Respawn();
+        RespawnOnSpawn();
     }
 
 

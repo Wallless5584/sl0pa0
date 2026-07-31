@@ -18,11 +18,14 @@ public class JumpGroundMoveState : SlimeMoveState
 
     public override void EnterState(SlimeController slime)
     { 
-        Debug.Log($"Entered Jump State!");
+        //Debug.Log($"{Time.time} | Entered Jump State!");
+
         JumpExt = true;
+        exitTimer = c_exitTimeMaxValue;
+
         slime.rb.gravityScale = 0f;
         slime.rb.AddForce(-Vector2.up * slime.rb.velocity + Vector2.up * slime.CurrentSlimeState.JumpPower);
-        slime.ChangeDirection(Direction.JumpUp);
+        slime.ChangeDirectionDisplay(Direction.GroundJump);
         SlimeSoundManager.Instance.PlaySound(SoundType.Jump);
         //slime.face.localPosition = new Vector2(0,0.1f);
         //slime.sr.sprite = slime.slime_jump;
@@ -58,10 +61,9 @@ public class JumpGroundMoveState : SlimeMoveState
         {
             slime.rb.gravityScale = c_gravityJumpBalance * slime.CurrentSlimeState.SpaceGravityMod;
         }
+
         if (exitTimer < 0)
         {
-            exitTimer = c_exitTimeMaxValue;
-
             if (Input.GetKey(KeyCode.Space))
             {
                 slime.EnterMoveState(MoveState.JumpAir);
@@ -75,6 +77,15 @@ public class JumpGroundMoveState : SlimeMoveState
                 slime.EnterMoveState(MoveState.Air);//inAir
             }
             return;
+        } 
+        else if (exitTimer < c_exitTimeMaxValue - c_exitTimeMinValue)
+        {
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                exitTimer = c_exitTimeMaxValue;
+                slime.EnterMoveState(MoveState.Bounce);
+                return;
+            }
         }
     }
 
@@ -110,26 +121,26 @@ public class JumpGroundMoveState : SlimeMoveState
                     slime.EnterMoveState(MoveState.Ceiling);
                 }
                 break;
-            case Sides.Left://jumps off right
-                if (Input.GetKey(KeyCode.Space))
-                {
-                    slime.EnterMoveState(MoveState.JumpWallRight);
-                }
-                else
-                {
-                    slime.EnterMoveState(MoveState.Wall);
-                }
-                break;
-            case Sides.Right://jumps off left
-                if (Input.GetKey(KeyCode.Space))
-                {
-                    slime.EnterMoveState(MoveState.JumpWallLeft);
-                }
-                else
-                {
-                    slime.EnterMoveState(MoveState.Wall);
-                }
-                break;
+            //case Sides.Left://jumps off right
+            //    if (Input.GetKey(KeyCode.Space))
+            //    {
+            //        slime.EnterMoveState(MoveState.JumpWallRight);
+            //    }
+            //    else
+            //    {
+            //        slime.EnterMoveState(MoveState.Wall);
+            //    }
+            //    break;
+            //case Sides.Right://jumps off left
+            //    if (Input.GetKey(KeyCode.Space))
+            //    {
+            //        slime.EnterMoveState(MoveState.JumpWallLeft);
+            //    }
+            //    else
+            //    {
+            //        slime.EnterMoveState(MoveState.Wall);
+            //    }
+            //    break;
         }
     }
 }

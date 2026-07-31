@@ -15,18 +15,19 @@ public class Trap : MonoBehaviour
     [SerializeField] float timeOffset;
     float timer;
 
+    [Header("Sounds")]
+    [SerializeField] bool playSound;
+    [SerializeField] AudioSource soundSource;
+    [SerializeField] AudioClip soundActivating;
+    [SerializeField] AudioClip soundActive;
+    [SerializeField] AudioClip soundDeactivating;
+
     [Header("References")]
     public TrapAnimator[] animators;
     public LineRenderer lineEffect;
     public LayerMask groundLayer;
     public BoxCollider2D boxCollider;
 
-    [Header("Sounds")]
-    [SerializeField] AudioSource soundSource;
-    [SerializeField] bool playSound;
-    [SerializeField] AudioClip soundActivating;
-    [SerializeField] AudioClip soundActive;
-    [SerializeField] AudioClip soundDeactivating;
 
     void Start()
     {

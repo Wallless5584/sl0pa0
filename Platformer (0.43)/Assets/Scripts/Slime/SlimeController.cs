@@ -5,17 +5,33 @@ using UnityEngine;
 public enum MoveState
 {
     None,
+
     Ground,
     Ceiling,
+
     Jump,
     JumpDown,
     JumpWallRight,
     JumpWallLeft,
+
     JumpAir,
     Air,
+
     Wall,
+
     Bounce,
+
     WaterGlide,
+
+    WallRightGround,
+    WallLeftGround,
+    WallRightCeiling,
+    WallLeftCeiling,
+
+    JumpUpRight,
+    JumpUpLeft,
+    JumpDownRight,
+    JumpDownLeft
 } 
 
 [Flags] public enum Sides
@@ -31,29 +47,30 @@ public enum Direction
 {
     None,
 
+    Air,
+    AirRight,
+    AirLeft,
+
+    Bounce,
+
     Ground,
-    GroundLeft,
     GroundRight,
+    GroundLeft,
+    GroundJump,
 
-    JumpUp,
-    JumpDown,
-    JumpWallRight,
-    JumpWallLeft,
-
-    InAir,
-    InAirLeft,
-    InAirRight,
-
-    WallLeft,
-    WallLeftUp,
-    WallLeftDown,
     WallRight,
     WallRightUp,
     WallRightDown,
+    WallLeft,
+    WallLeftUp,
+    WallLeftDown,
+    WallJumpRight,
+    WallJumpLeft,
 
     Ceiling,
-    CeilingLeft,
     CeilingRight,
+    CeilingLeft,
+    CeilingJump
 }
 
 public enum Reaction
@@ -100,112 +117,37 @@ public class SlimeController : MonoBehaviour
     [SerializeField] LayerMask Fire;
     [SerializeField] LayerMask ReactElements;
     [SerializeField] LayerMask Spaces;
+
     public Vector2 Move = Vector2.zero;
-    const float c_MoveForce = 80;
-    bool debugVelocity = false;
-    public Collider2D SlimeCollider;
+    [SerializeField] BoxCollider2D slimeCollider;
+    [SerializeField] Transform slimeScalableComponents;
     public ParticleSystem DirChangeParticles;
     public ParticleSystem JumpDownBoostParticles;
     [HideInInspector] public Rigidbody2D rb;
-    [HideInInspector] public SpriteRenderer sr;
-    [SerializeField] public Transform face;
 
     [Header("Dry state")]
     [SerializeField] SlimeState dry;
-    //[SerializeField] float dryMaxSpeed;
-    //[SerializeField] float dryAcceleration;
-    //[SerializeField] float dryAirAcceleration;
-    //[SerializeField] float dryFrictionGround;
-    //[SerializeField] float dryFrictionCeiling;
-    //[SerializeField] float dryFrictionWall;
-    //[SerializeField] float dryFrictionWallUp;
-    //[SerializeField] float dryFrictionBounce;
-    //[SerializeField] float dryJumpPower;
-    //[SerializeField] float dryWallJumpPower;
-    //[SerializeField] Reaction[] drySaltPiece;
-    //[SerializeField] Reaction[] drySalt;
-    //[SerializeField] Reaction[] dryFire;
-    //[SerializeField] Reaction[] dryWater;
-    //[SerializeField] Reaction[] dryElectricity;
-    //[SerializeField] Reaction[] dryFrost;
-    //[SerializeField] SpaceState dryAirSpace;
-    //[SerializeField] SpaceState dryWaterSpace;
-    //[SerializeField] SpaceState dryColdSpace;
     [Header("Salty Dry state")]
     [SerializeField] SlimeState drySalty;
-    //[SerializeField] Reaction[] drySaltySaltPiece;
-    //[SerializeField] Reaction[] drySaltySalt;
-    //[SerializeField] Reaction[] drySaltyFire;
-    //[SerializeField] Reaction[] drySaltyWater;
-    //[SerializeField] Reaction[] drySaltyElectricity;
-    //[SerializeField] Reaction[] drySaltyFrost;
     [Header("Normal state")]
     [SerializeField] SlimeState normal;
-    //[SerializeField] float normalMaxSpeed;
-    //[SerializeField] float normalAcceleration;
-    //[SerializeField] float normalAirAcceleration;
-    //[SerializeField] float normalFrictionGround;
-    //[SerializeField] float normalFrictionCeiling;
-    //[SerializeField] float normalFrictionWall;
-    //[SerializeField] float normalFrictionWallUp;
-    //[SerializeField] float normalFrictionBounce;
-    //[SerializeField] float normalJumpPower;
-    //[SerializeField] float normalWallJumpPower;
-    //[SerializeField] Reaction[] normalSaltPiece;
-    //[SerializeField] Reaction[] normalSalt;
-    //[SerializeField] Reaction[] normalFire;
-    //[SerializeField] Reaction[] normalWater;
-    //[SerializeField] Reaction[] normalElectricity;
-    //[SerializeField] Reaction[] normalFrost;
-    //[SerializeField] SpaceState normalAirSpace;
-    //[SerializeField] SpaceState normalWaterSpace;
-    //[SerializeField] SpaceState normalColdSpace;
     [Header("Salty Normal state")]
     [SerializeField] SlimeState normalSalty;
-    //[SerializeField] Reaction[] normalSaltySaltPiece;
-    //[SerializeField] Reaction[] normalSaltySalt;
-    //[SerializeField] Reaction[] normalSaltyFire;
-    //[SerializeField] Reaction[] normalSaltyWater;
-    //[SerializeField] Reaction[] normalSaltyElectricity;
-    //[SerializeField] Reaction[] normalSaltyFrost;
     [Header("Wet state")]
     [SerializeField] SlimeState wet;
-    //[SerializeField] float wetMaxSpeed;
-    //[SerializeField] float wetAcceleration;
-    //[SerializeField] float wetAirAcceleration;
-    //[SerializeField] float wetFrictionGround;
-    //[SerializeField] float wetFrictionCeiling;
-    //[SerializeField] float wetFrictionWall;
-    //[SerializeField] float wetFrictionWallUp;
-    //[SerializeField] float wetFrictionBounce;
-    //[SerializeField] float wetJumpPower;
-    //[SerializeField] float wetWallJumpPower;
-    //[SerializeField] Reaction[] wetSaltPiece;
-    //[SerializeField] Reaction[] wetSalt;
-    //[SerializeField] Reaction[] wetFire;
-    //[SerializeField] Reaction[] wetWater;
-    //[SerializeField] Reaction[] wetElectricity;
-    //[SerializeField] Reaction[] wetFrost;
-    //[SerializeField] SpaceState wetAirSpace;
-    //[SerializeField] SpaceState wetWaterSpace;
-    //[SerializeField] SpaceState wetColdSpace;
 
     [Header("Body Sprites")]
-    public Sprite slime_inAir;
-    public Sprite slime_ground;
-    public Sprite slime_ground_right;
-    public Sprite slime_ceiling;
-    public Sprite slime_ceiling_right;
-    public Sprite slime_wall;
-    public Sprite slime_wall_slide;
-    public Sprite slime_jump;
-    public Sprite slime_wall_jump;
-    public Sprite slime_jump_prepare;
+    [SerializeField] SlimeStateSprites drySprites;
+    [SerializeField] SlimeStateSprites normalSprites;
+    [SerializeField] SlimeStateSprites wetSprites;
+    public SpriteRenderer srBody;
+
     [Header("Face Sprites")]
-    public Sprite slime_face_normal;
-    public Sprite slime_face_up;
-    public Sprite slime_face_down;
-    public Sprite slime_face_sad;
+    [SerializeField] Sprite coreNormalSprite;
+    [SerializeField] Sprite coreSaltySprite;
+    [SerializeField] SpriteRenderer srCore;
+    [SerializeField] SpriteRenderer srFace;
+
     [Header("Particles")]
     public ParticleSystem WaterSplash;
     public ParticleSystem WaterBubbles;
@@ -213,8 +155,10 @@ public class SlimeController : MonoBehaviour
     public SideParticles HeatParticles;
     public SideParticles SplashParticles;
 
+    SlimeMoveState CurrentMoveState;
+    const float c_MoveForce = 80;
+    bool debugVelocity = false;
     Vector2 contact_point;
-    public SlimeMoveState CurrentMoveState;
 
     SideData currentSides;
     public Sides CurrentSides { get => currentSides.Flags; }
@@ -245,22 +189,37 @@ public class SlimeController : MonoBehaviour
     {
         new GroundMoveState(),
         new CeilingMoveState(),
+
         new JumpGroundMoveState(),
         new JumpDownMoveState(),
         new JumpWallRightMoveState(),
         new JumpWallLeftMoveState(),
+
         new JumpAirMoveState(),
         new AirMoveState(),
+
         new WallMoveState(),
+
         new BounceMoveState(),
+
         new WaterGlideMoveState(),
+
+        new WallRightGroundMoveState(),
+        new WallLeftGroundMoveState(),
+        new WallRightCeilingMoveState(),
+        new WallLeftCeilingMoveState(),
+
+        new JumpUpRightMoveState(),
+        new JumpUpLeftMoveState(),
+        new JumpDownRightMoveState(),
+        new JumpDownLeftMoveState()
     };
 
     public WetnessState CurrentWetnessState { get; private set; }
 
     public SlimeState CurrentSlimeState;
 
-    public SlimeState[] SlimeStates;
+    SlimeState[] SlimeStates;
     #endregion
 
 
@@ -268,17 +227,18 @@ public class SlimeController : MonoBehaviour
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
-        sr = gameObject.GetComponent<SpriteRenderer>();
-        EnterMoveState(MoveState.Air);
+
         CreateStates();
         ChangeSlimeState(WetnessState.Normal);
+        EnterMoveState(MoveState.Air);
+
         Physics2D.queriesHitTriggers = true;
     }
 
     void Update()
     {
         CurrentMoveState.UpdateState(this);
-        face.localPosition = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * 0.1f;
+        srCore.transform.localPosition = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * 0.1f * (CurrentScale * CurrentScale * CurrentScale);
     }
 
     void FixedUpdate()
@@ -367,7 +327,7 @@ public class SlimeController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         contact_point = collision.contacts[0].normal;
-        CurrentMoveState.OnCollisionEnterState(this, contact_point);
+        CurrentMoveState.OnCollisionEnter(this, contact_point);
         //IdentifyElement(collision.collider);
     }
     //private void OnCollisionExit2D(Collision2D collision)
@@ -382,21 +342,6 @@ public class SlimeController : MonoBehaviour
     {
         SlimeStates = new SlimeState[]
         {
-            //new SlimeState(dryMaxSpeed, dryAcceleration, dryFrictionGround, dryFrictionCeiling, dryFrictionWall, dryFrictionWallUp, dryFrictionBounce,
-            //dryJumpPower, dryWallJumpPower, drySaltPiece, drySalt, dryFire, dryWater, dryElectricity, dryFrost, dryAirSpace, dryWaterSpace, dryColdSpace),
-            
-            //new SlimeState(dryMaxSpeed, dryAcceleration, dryFrictionGround, dryFrictionCeiling, dryFrictionWall, dryFrictionWallUp, dryFrictionBounce,
-            //dryJumpPower, dryWallJumpPower, drySaltySaltPiece, drySaltySalt, drySaltyFire, drySaltyWater, drySaltyElectricity, drySaltyFrost, dryAirSpace, dryWaterSpace, dryColdSpace),
-            
-            //new SlimeState(normalMaxSpeed, normalAcceleration, normalFrictionGround, normalFrictionCeiling, normalFrictionWall, normalFrictionBounce,
-            //normalFrictionWallUp, normalJumpPower, normalWallJumpPower, normalSaltPiece, normalSalt, normalFire, normalWater, normalElectricity, normalFrost, normalAirSpace, normalWaterSpace, normalColdSpace),
-            
-            //new SlimeState(normalMaxSpeed, normalAcceleration, normalFrictionGround, normalFrictionCeiling, normalFrictionWall, normalFrictionBounce,
-            //normalFrictionWallUp, normalJumpPower, normalWallJumpPower, normalSaltySaltPiece, normalSaltySalt, normalSaltyFire, normalSaltyWater, normalSaltyElectricity, normalSaltyFrost, normalAirSpace, normalWaterSpace, normalColdSpace),
-            
-            //new SlimeState(wetMaxSpeed, wetAcceleration, wetFrictionGround, wetFrictionCeiling, wetFrictionWall, wetFrictionWallUp, wetFrictionBounce,
-            //wetJumpPower, wetWallJumpPower, wetSaltPiece, wetSalt, wetFire, wetWater, wetElectricity, wetFrost, wetAirSpace, wetWaterSpace, wetColdSpace),
-
             dry,
             drySalty,
             normal,
@@ -407,6 +352,7 @@ public class SlimeController : MonoBehaviour
 
     public void EnterMoveState(MoveState new_move_state)
     {
+        Debug.Log($"{Time.time} | Entered {new_move_state}");
         SlimeMoveState new_state = MoveStates[(int)new_move_state - 1];
         new_state.EnterState(this);
         CurrentMoveState = new_state;
@@ -421,19 +367,26 @@ public class SlimeController : MonoBehaviour
         CurrentWetnessState = newSlimeState;
         switch (newSlimeState)
         {
-            case WetnessState.DrySalty:
             case WetnessState.Dry:
-                gameObject.transform.localScale = new Vector2(0.7f, 0.7f);
+            case WetnessState.DrySalty:
+                SetSlimeScale(0.7f);
                 break;
-            case WetnessState.NormalSalty:
             case WetnessState.Normal:
-                gameObject.transform.localScale = new Vector2(1f, 1f);
+            case WetnessState.NormalSalty:
+                SetSlimeScale(1f);
                 break;
             case WetnessState.Wet:
-                gameObject.transform.localScale = new Vector2(1.2f, 1.2f);
+                SetSlimeScale(1.2f);
                 break;
         }
-        CurrentScale = gameObject.transform.localScale.x;
+        ChangeDirectionDisplayForced(CurrentDirection);
+    }
+
+    void SetSlimeScale(float size)
+    {
+        slimeCollider.size = new Vector2(size, size);
+        slimeScalableComponents.localScale = new Vector2(size, size);
+        CurrentScale = size;
     }
     #endregion
 
@@ -573,12 +526,15 @@ public class SlimeController : MonoBehaviour
                         break;
                     case Reaction.GetDry:
                         ChangeSlimeState(WetnessState.Dry);
+                        ChangeSaltinessDisplay(false);
                         break;
                     case Reaction.GetNormal:
                         ChangeSlimeState(WetnessState.Normal);
+                        ChangeSaltinessDisplay(false);
                         break;
                     case Reaction.GetWet:
                         ChangeSlimeState(WetnessState.Wet);
+                        ChangeSaltinessDisplay(false);
                         break;
                 }
             }
@@ -638,6 +594,7 @@ public class SlimeController : MonoBehaviour
             }
             txt += $"{gameObject.name} is salty";
         }
+        ChangeSaltinessDisplay(new_salt);
         Debug.Log(txt);
     }
     #endregion
@@ -688,115 +645,233 @@ public class SlimeController : MonoBehaviour
         //heatSides = new SideData();
         //PlayParticlesBySpace();
         ChangeSlimeState(WetnessState.Normal);
-
+        ChangeSaltinessDisplay(false);
     }
     void Die()
     {
         //Play death effect
-        GameManager.instance.Respawn();
+        GameManager.instance.RespawnOnSpawn();
     }
     #endregion
 
 
     #region Slime Display
-    public void ChangeDirection(Direction new_direction)
+    public void ChangeDirectionDisplay(Direction direction)
     {
-        if (new_direction == CurrentDirection)
+        if (direction == CurrentDirection)
         {
             return;
         }
         else
         {
-            switch (new_direction)
+            ChangeDirectionDisplayForced(direction);
+            //switch (new_direction)
+            //{
+            //    case Direction.None:
+            //        break;
+            //    case Direction.Ground:
+            //        sr.sprite = slime_ground;
+            //        sr.flipY = false;
+            //        break;
+            //    case Direction.GroundRight:
+            //        sr.sprite = slime_ground_right;
+            //        sr.flipX = false;
+            //        sr.flipY = false;
+            //        break;
+            //    case Direction.GroundLeft:
+            //        sr.sprite = slime_ground_right;
+            //        sr.flipX = true;
+            //        sr.flipY = false;
+            //        break;
+            //    case Direction.JumpUp:
+            //        sr.sprite = slime_jump;
+            //        sr.flipY = false;
+            //        break;
+            //    case Direction.JumpDown:
+            //        sr.sprite = slime_jump;
+            //        sr.flipY = true;
+            //        break;
+            //    case Direction.InAir:
+            //        sr.sprite = slime_inAir;
+            //        break;
+            //    case Direction.InAirRight:
+            //        sr.sprite = slime_inAir;
+            //        sr.flipX = false;
+            //        break;
+            //    case Direction.InAirLeft:
+            //        sr.sprite = slime_inAir;
+            //        sr.flipX = true;
+            //        break;
+            //    case Direction.Ceiling:
+            //        sr.sprite = slime_ceiling;
+            //        sr.flipY = false;
+            //        break;
+            //    case Direction.CeilingRight:
+            //        sr.sprite = slime_ceiling_right;
+            //        sr.flipY = false;
+            //        sr.flipX = false;
+            //        break;
+            //    case Direction.CeilingLeft:
+            //        sr.sprite = slime_ceiling_right;
+            //        sr.flipY = false;
+            //        sr.flipX = true;
+            //        break;
+            //    case Direction.WallRight:
+            //        sr.sprite = slime_wall;
+            //        sr.flipX = false;
+            //        sr.flipY = false;
+            //        break;
+            //    case Direction.WallRightUp:
+            //        sr.sprite = slime_wall_slide;
+            //        sr.flipY = true;
+            //        sr.flipX = false;
+            //        break;
+            //    case Direction.WallRightDown:
+            //        sr.sprite = slime_wall_slide;
+            //        sr.flipY = false;
+            //        sr.flipX = false;
+            //        break;
+            //    case Direction.WallLeft:
+            //        sr.sprite = slime_wall;
+            //        sr.flipX = true;
+            //        sr.flipY = false;
+            //        break;
+            //    case Direction.WallLeftUp:
+            //        sr.sprite = slime_wall_slide;
+            //        sr.flipY = true;
+            //        sr.flipX = true;
+            //        break;
+            //    case Direction.WallLeftDown:
+            //        sr.sprite = slime_wall_slide;
+            //        sr.flipY = false;
+            //        sr.flipX = true;
+            //        break;
+            //    case Direction.JumpWallRight:
+            //        sr.sprite = slime_wall_jump;
+            //        sr.flipX = false;
+            //        break;
+            //    case Direction.JumpWallLeft:
+            //        sr.sprite = slime_wall_jump;
+            //        sr.flipX = true;
+            //        break;
+            //}
+        }
+    }
+
+    void ChangeDirectionDisplayForced(Direction direction)
+    {
+        switch (CurrentWetnessState)
+        {
+            case WetnessState.Dry:
+            case WetnessState.DrySalty:
+                Set_Sprite_By_State(ref drySprites);
+                break;
+            case WetnessState.Normal:
+            case WetnessState.NormalSalty:
+                Set_Sprite_By_State(ref normalSprites);
+                break;
+            case WetnessState.Wet:
+                Set_Sprite_By_State(ref wetSprites);
+                break;
+        }
+        CurrentDirection = direction;
+        void Set_Sprite_By_State(ref SlimeStateSprites spriteSet)
+        {
+            switch (direction)
             {
                 case Direction.None:
                     break;
+                case Direction.Air:
+                    srBody.sprite = spriteSet.Air;
+                    break;
+                case Direction.AirRight:
+                    srBody.sprite = spriteSet.Air;
+                    srFace.flipX = false;
+                    break;
+                case Direction.AirLeft:
+                    srBody.sprite = spriteSet.Air;
+                    srFace.flipX = true;
+                    break;
+
+                case Direction.Bounce:
+                    srBody.sprite = spriteSet.Bounce;
+                    break;
+
                 case Direction.Ground:
-                    sr.sprite = slime_ground;
-                    sr.flipY = false;
+                    srBody.sprite = spriteSet.Ground;
                     break;
                 case Direction.GroundRight:
-                    sr.sprite = slime_ground_right;
-                    sr.flipX = false;
-                    sr.flipY = false;
+                    srBody.sprite = spriteSet.GroundRight;
+                    srFace.flipX = false;
                     break;
                 case Direction.GroundLeft:
-                    sr.sprite = slime_ground_right;
-                    sr.flipX = true;
-                    sr.flipY = false;
+                    srBody.sprite = spriteSet.GroundLeft;
+                    srFace.flipX = true;
                     break;
-                case Direction.JumpUp:
-                    sr.sprite = slime_jump;
-                    sr.flipY = false;
+                case Direction.GroundJump:
+                    srBody.sprite = spriteSet.GroundJump;
                     break;
-                case Direction.JumpDown:
-                    sr.sprite = slime_jump;
-                    sr.flipY = true;
-                    break;
-                case Direction.InAir:
-                    sr.sprite = slime_inAir;
-                    break;
-                case Direction.InAirRight:
-                    sr.sprite = slime_inAir;
-                    sr.flipX = false;
-                    break;
-                case Direction.InAirLeft:
-                    sr.sprite = slime_inAir;
-                    sr.flipX = true;
-                    break;
-                case Direction.Ceiling:
-                    sr.sprite = slime_ceiling;
-                    sr.flipY = false;
-                    break;
-                case Direction.CeilingRight:
-                    sr.sprite = slime_ceiling_right;
-                    sr.flipY = false;
-                    sr.flipX = false;
-                    break;
-                case Direction.CeilingLeft:
-                    sr.sprite = slime_ceiling_right;
-                    sr.flipY = false;
-                    sr.flipX = true;
-                    break;
+
                 case Direction.WallRight:
-                    sr.sprite = slime_wall;
-                    sr.flipX = false;
-                    sr.flipY = false;
+                    srBody.sprite = spriteSet.WallRight;
+                    srFace.flipX = true;
                     break;
                 case Direction.WallRightUp:
-                    sr.sprite = slime_wall_slide;
-                    sr.flipY = true;
-                    sr.flipX = false;
+                    srBody.sprite = spriteSet.WallRightUp;
+                    srFace.flipX = true;
                     break;
                 case Direction.WallRightDown:
-                    sr.sprite = slime_wall_slide;
-                    sr.flipY = false;
-                    sr.flipX = false;
+                    srBody.sprite = spriteSet.WallRightDown;
+                    srFace.flipX = true;
                     break;
                 case Direction.WallLeft:
-                    sr.sprite = slime_wall;
-                    sr.flipX = true;
-                    sr.flipY = false;
+                    srBody.sprite = spriteSet.WallLeft;
+                    srFace.flipX = false;
                     break;
                 case Direction.WallLeftUp:
-                    sr.sprite = slime_wall_slide;
-                    sr.flipY = true;
-                    sr.flipX = true;
+                    srBody.sprite = spriteSet.WallLeftUp;
+                    srFace.flipX = false;
                     break;
                 case Direction.WallLeftDown:
-                    sr.sprite = slime_wall_slide;
-                    sr.flipY = false;
-                    sr.flipX = true;
+                    srBody.sprite = spriteSet.WallLeftDown;
+                    srFace.flipX = false;
                     break;
-                case Direction.JumpWallRight:
-                    sr.sprite = slime_wall_jump;
-                    sr.flipX = false;
+                case Direction.WallJumpRight:
+                    srBody.sprite = spriteSet.WallJumpRight;
+                    srFace.flipX = true;
                     break;
-                case Direction.JumpWallLeft:
-                    sr.sprite = slime_wall_jump;
-                    sr.flipX = true;
+                case Direction.WallJumpLeft:
+                    srBody.sprite = spriteSet.WallJumpLeft;
+                    srFace.flipX = false;
+                    break;
+
+                case Direction.Ceiling:
+                    srBody.sprite = spriteSet.Ceiling;
+                    break;
+                case Direction.CeilingRight:
+                    srBody.sprite = spriteSet.CeilingRight;
+                    srFace.flipX = false;
+                    break;
+                case Direction.CeilingLeft:
+                    srBody.sprite = spriteSet.CeilingLeft;
+                    srFace.flipX = true;
+                    break;
+                case Direction.CeilingJump:
+                    srBody.sprite = spriteSet.CeilingJump;
                     break;
             }
+        }
+    }
+
+    public void ChangeSaltinessDisplay(bool salty)
+    {
+        if (salty)
+        {
+            srCore.sprite = coreSaltySprite;
+        }
+        else
+        {
+            srCore.sprite = coreNormalSprite;
         }
     }
     #endregion
@@ -1008,5 +1083,36 @@ public struct SideData
     {
         return Flags.HasFlag(flag);
     }
+}
+
+[Serializable]
+public struct SlimeStateSprites
+{
+    public Sprite Air;
+
+    public Sprite Bounce;
+
+    public Sprite Ground;
+    public Sprite GroundRight;
+    public Sprite GroundLeft;
+    public Sprite GroundJump;
+
+
+    public Sprite WallRight;
+    public Sprite WallRightUp;
+    public Sprite WallRightDown;
+
+    public Sprite WallLeft;
+    public Sprite WallLeftUp;
+    public Sprite WallLeftDown;
+
+    public Sprite WallJumpRight;
+    public Sprite WallJumpLeft;
+
+
+    public Sprite Ceiling;
+    public Sprite CeilingRight;
+    public Sprite CeilingLeft;
+    public Sprite CeilingJump;
 }
 #endregion

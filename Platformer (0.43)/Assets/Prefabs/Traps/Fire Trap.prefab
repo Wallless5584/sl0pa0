@@ -62,9 +62,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startState: 4
   useTimer: 0
-  maxActiveTime: 0
-  maxOffTime: 0
+  maxActiveTime: 2
+  maxOffTime: 2
   timeOffset: 0
+  playSound: 0
+  soundSource: {fileID: 1742026979935492348}
+  soundActivating: {fileID: 0}
+  soundActive: {fileID: 8300000, guid: 5c43b2ca6e13ac944b6c915841b99e81, type: 3}
+  soundDeactivating: {fileID: 0}
   animators:
   - {fileID: 5523538034663455661}
   lineEffect: {fileID: 0}
@@ -72,11 +77,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   boxCollider: {fileID: 0}
-  soundSource: {fileID: 1742026979935492348}
-  playSound: 0
-  soundActivating: {fileID: 0}
-  soundActive: {fileID: 8300000, guid: 5c43b2ca6e13ac944b6c915841b99e81, type: 3}
-  soundDeactivating: {fileID: 0}
 --- !u!61 &-654561093893138315
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -271,20 +271,24 @@ MonoBehaviour:
   imageChangePeriod: 0.2
   imageFlickerPeriod: 0.01
   imageFlickerChance: 16.3
+  mirrorPeriod: 0.1
   mirrorX: 0
   mirrorY: 1
-  mirrorPeriod: 0.1
   mirrorActivation: 0
   mirrorDectivation: 1
-  mirrorBloomEffect: 0
+  mirrorBloomActivating: 0
+  mirrorBloomActive: 0
+  mirrorBloomDeactivating: 0
   mirrorBloomPeriod: 0
+  bloomHeatGain: 1
+  bloomHeatLoss: 0.5
   sprites:
-  - {fileID: -1808809032, guid: dcad9b74ce9005d4a957f27633dba825, type: 3}
-  - {fileID: -479124953, guid: dcad9b74ce9005d4a957f27633dba825, type: 3}
-  - {fileID: 388047357, guid: dcad9b74ce9005d4a957f27633dba825, type: 3}
-  - {fileID: 905463319, guid: dcad9b74ce9005d4a957f27633dba825, type: 3}
-  - {fileID: -237080396, guid: dcad9b74ce9005d4a957f27633dba825, type: 3}
-  - {fileID: -1829515828, guid: dcad9b74ce9005d4a957f27633dba825, type: 3}
+  - {fileID: 304507567, guid: 276a4d06363e9c94083a5f20027485d3, type: 3}
+  - {fileID: -221385651, guid: 276a4d06363e9c94083a5f20027485d3, type: 3}
+  - {fileID: 1379841345, guid: 276a4d06363e9c94083a5f20027485d3, type: 3}
+  - {fileID: -1821028715, guid: 276a4d06363e9c94083a5f20027485d3, type: 3}
+  - {fileID: -665760151, guid: 276a4d06363e9c94083a5f20027485d3, type: 3}
+  - {fileID: -7027702, guid: 276a4d06363e9c94083a5f20027485d3, type: 3}
   bloomEffectSR: {fileID: 3075455239308637999}
   energySR: {fileID: 8907109501343941243}
   OnActivating:
@@ -436,7 +440,7 @@ SpriteRenderer:
   m_SortingLayerID: -195243889
   m_SortingLayer: 3
   m_SortingOrder: 10
-  m_Sprite: {fileID: -81915351, guid: dcad9b74ce9005d4a957f27633dba825, type: 3}
+  m_Sprite: {fileID: 296902586, guid: 276a4d06363e9c94083a5f20027485d3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -520,7 +524,7 @@ SpriteRenderer:
   m_SortingLayerID: -195243889
   m_SortingLayer: 3
   m_SortingOrder: 11
-  m_Sprite: {fileID: -610716628, guid: dcad9b74ce9005d4a957f27633dba825, type: 3}
+  m_Sprite: {fileID: 661972310, guid: 276a4d06363e9c94083a5f20027485d3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -604,7 +608,7 @@ SpriteRenderer:
   m_SortingLayerID: -195243889
   m_SortingLayer: 3
   m_SortingOrder: 12
-  m_Sprite: {fileID: 905463319, guid: dcad9b74ce9005d4a957f27633dba825, type: 3}
+  m_Sprite: {fileID: -1821028715, guid: 276a4d06363e9c94083a5f20027485d3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

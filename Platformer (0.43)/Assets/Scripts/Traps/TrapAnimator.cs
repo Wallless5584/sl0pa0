@@ -19,6 +19,7 @@ public class TrapAnimator : MonoBehaviour
     const int c_deactivatingImageAmount = 1;
     const int c_lastSpriteIndexOffset = 1;
 
+    [Header ("General")]
     [SerializeField] TrapState state;
     public TrapState State { get=>state; }
     [SerializeField] float activationTime;
@@ -27,13 +28,19 @@ public class TrapAnimator : MonoBehaviour
     [SerializeField] float imageFlickerPeriod;
     [SerializeField][Range(0,100)] float imageFlickerChance;
 
+    [Header ("Mirroring")]
+    [SerializeField] float mirrorPeriod;
     [SerializeField] bool mirrorX;
     [SerializeField] bool mirrorY;
-    [SerializeField] float mirrorPeriod;
     [SerializeField] bool mirrorActivation;
     [SerializeField] bool mirrorDectivation;
-    [SerializeField] bool mirrorBloomEffect;
+    [Header ("Bloom")]
+    [SerializeField] bool mirrorBloomActivating;
+    [SerializeField] bool mirrorBloomActive;
+    [SerializeField] bool mirrorBloomDeactivating;
     [SerializeField] float mirrorBloomPeriod;
+    [SerializeField] float bloomHeatGain;
+    [SerializeField] float bloomHeatLoss;
 
     [Header("References:")]
     [SerializeField] Sprite[] sprites;
@@ -50,6 +57,7 @@ public class TrapAnimator : MonoBehaviour
     float imageChangeTimer = 0f;
     float mirrorTimer = 0f;
     float mirrorBloomTimer = 0f;
+    float bloomHeat = 0f;
 
     void Start()
     {
@@ -79,7 +87,12 @@ public class TrapAnimator : MonoBehaviour
                         energySR.sprite = sprites[currentImageIndex]; 
                     }
                 }
-                bloomEffectSR.color = new Color(1f, 1f, 1f, (activationTime / c_activatingImageAmount * currentImageIndex + imageChangeTimer) / activationTime);
+                //bloomHeat += bloomHeatGain * Time.deltaTime;
+
+                if (mirrorBloomActivating)
+                {
+                    MirrorBloom();
+                }
                 break;
 
             case TrapState.Active:
@@ -104,6 +117,13 @@ public class TrapAnimator : MonoBehaviour
                         energySR.sprite = sprites[currentImageIndex];
                     }
                 }
+
+                bloomHeat += bloomHeatGain * Time.deltaTime;
+
+                if (mirrorBloomActive)
+                {
+                    MirrorBloom();
+                }
                 break;
 
             case TrapState.Deactivating:
@@ -122,14 +142,21 @@ public class TrapAnimator : MonoBehaviour
                     else
                         energySR.sprite = sprites[currentImageIndex];
                 }
-                bloomEffectSR.color = new Color(1f, 1f, 1f, deactivationTime/(deactivationTime / c_deactivatingImageAmount * currentImageIndex + imageChangeTimer));
+
+                bloomHeat -= bloomHeatLoss * Time.deltaTime;
+
+                if (mirrorBloomDeactivating)
+                {
+                    MirrorBloom();
+                }
+                break;
+
+            case TrapState.Off:
+                bloomHeat -= bloomHeatLoss*Time.deltaTime;
                 break;
         }
 
-        if (mirrorBloomEffect)
-        {
-            MirrorBloom();
-        }
+        bloomEffectSR.color = new Color(1f, 1f, 1f, Mathf.Clamp(bloomHeat, 0f, 1f));
     }
 
     private void MirrorBloom()
@@ -216,14 +243,15 @@ public class TrapAnimator : MonoBehaviour
                 bloomEffectSR.enabled = true;
                 currentImageIndex = -1;
                 imageChangeTimer = 0f;
+                bloomHeat = Mathf.Clamp(bloomHeat, 0f, 1f);
 
                 OnActivating.Invoke();
                 break;
 
             case TrapState.Active:
                 state = TrapState.Active;
-                energySR.enabled = true;
-                bloomEffectSR.enabled = true;
+                //energySR.enabled = true;
+                //bloomEffectSR.enabled = true;
                 bloomEffectSR.color = Color.white;
                 currentImageIndex = c_activatingImageAmount -1;
                 imageChangeTimer = 0f;
@@ -233,18 +261,19 @@ public class TrapAnimator : MonoBehaviour
 
             case TrapState.Deactivating:
                 state = TrapState.Deactivating;
-                energySR.enabled = true;
-                bloomEffectSR.enabled = true;
+                //energySR.enabled = true;
+                //bloomEffectSR.enabled = true;
                 currentImageIndex = c_activatingImageAmount + c_activeImageAmount -1;
                 imageChangeTimer = deactivationTime / (c_deactivatingImageAmount + c_lastSpriteIndexOffset);
-                
+                bloomHeat = Mathf.Clamp(bloomHeat, 0f, 1f);
+
                 OnDeactivation.Invoke();
                 break;
 
             case TrapState.Off:
                 state = TrapState.Off;
                 energySR.enabled = false;
-                bloomEffectSR.enabled = false;
+                //bloomEffectSR.enabled = false;
                 currentImageIndex = 0;
                 imageChangeTimer = 0f;
                 

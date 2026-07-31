@@ -2,14 +2,17 @@ using UnityEngine;
 
 public class WallMoveState : SlimeMoveState
 {
-    public float WallBlockCounter = 0;
+    public float WallBlockCounter = 0; //WTF???
+
+    const float c_controlledDownVelocity = 0.3f;
+    bool isDownPressed = false;
     
     public override void EnterState(SlimeController slime)
     {
         const float c_wall_hug_velocity = 0.5f;
 
 
-        Debug.Log("Entered Wall State!");
+        //Debug.Log("Entered Wall State!");
         slime.rb.gravityScale = 0f;
         Vector2 slime_velocity = slime.rb.velocity;
 
@@ -18,19 +21,20 @@ public class WallMoveState : SlimeMoveState
             WallBlockCounter = 1f;
         }
 
-        switch (slime.CurrentSides)
+        if (slime.CurrentSides.HasFlag(Sides.Right))
         {
-            case Sides.Right:
-                slime.rb.AddForce(new Vector2(c_wall_hug_velocity,0));
-                break;
-            case Sides.Left:
-                slime.rb.AddForce(new Vector2(-c_wall_hug_velocity, 0));
-                break;
+            slime.rb.AddForce(new Vector2(c_wall_hug_velocity, 0));
+        }
+        else
+        {
+            slime.rb.AddForce(new Vector2(-c_wall_hug_velocity, 0));
         }
     }
 
     public override void UpdateState(SlimeController slime)
     {
+        isDownPressed = Input.GetKey(KeyCode.S); //Player pressing down - give minimal speed down for control;
+
         if (Input.GetKey(KeyCode.LeftShift))
         {
             IsControlled = false;
@@ -40,56 +44,39 @@ public class WallMoveState : SlimeMoveState
         if (Input.GetKey(KeyCode.Space))
         {
             FixedUpdateState(slime, slime.Move);
-            if (slime.CurrentSides.HasFlag(Sides.Left)) 
-            {
-                slime.EnterMoveState(MoveState.JumpWallRight);
-                return;
-            }
-            else
+            if (slime.CurrentSides.HasFlag(Sides.Right)) 
             {
                 slime.EnterMoveState(MoveState.JumpWallLeft);
                 return;
             }
+            else
+            {
+                slime.EnterMoveState(MoveState.JumpWallRight);
+                return;
+            }
         }
-        //float move_vector_y = move_vector.y;
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    if (slime.CurrentSide == Side.Left)
-        //    {
-        //        slime.EnterMoveState(MoveState.JumpWallRight);
-        //    }
-        //    else
-        //    {
-        //        slime.EnterMoveState(MoveState.JumpWallLeft);
-        //    }
-        //    return;
-        //}
-        //slime.ChangeDirection(Direction.Wall);
-        //move_vector.x = 0;
-        ////move_vector.y = Mathf.Lerp(move_vector.y, 0, slime.CurrentSlimeState.FrictionWall);
-        //if (move_vector.y != 0)
-        //{
-        //    move_vector.y -= slime.CurrentSlimeState.FrictionWall;
-        //}
-        ////move_vector.y * slime.CurrentSlimeState.FrictionWall;
-        //slime.Move = move_vector;
-        //Debug.Log($"Initial Y speed: {move_vector_y}" +
-        //    $"\nNew Y speed: {move_vector.y}" +
-        //    $"\nNew Y speed (applied): {slime.Move.y}");
     }
 
     public override void FixedUpdateState(SlimeController slime, Vector2 move_vector)
     {
         if (move_vector.y < 0.1f && move_vector.y > -0.1f)
         {
-            move_vector.y = 0;
-            if (slime.CurrentSides == Sides.Left)
+            if (isDownPressed) //Player pressing down - give minimal speed down for control;
             {
-                slime.ChangeDirection(Direction.WallLeft);
+                move_vector.y = -c_controlledDownVelocity;
             }
             else
             {
-                slime.ChangeDirection(Direction.WallRight);
+                move_vector.y = 0;
+            }
+
+            if (slime.CurrentSides == Sides.Left)
+            {
+                slime.ChangeDirectionDisplay(Direction.WallLeft);
+            }
+            else
+            {
+                slime.ChangeDirectionDisplay(Direction.WallRight);
             }
         }
         else if (move_vector.y > 0f)
@@ -97,11 +84,11 @@ public class WallMoveState : SlimeMoveState
             move_vector.y = Mathf.Sign(move_vector.y) * Mathf.Lerp(Mathf.Abs(move_vector.y), 0, slime.CurrentSlimeState.FrictionWallUp);
             if (slime.CurrentSides == Sides.Left)
             {
-                slime.ChangeDirection(Direction.WallLeftUp);
+                slime.ChangeDirectionDisplay(Direction.WallLeftUp);
             }
             else
             {
-                slime.ChangeDirection(Direction.WallRightUp);
+                slime.ChangeDirectionDisplay(Direction.WallRightUp);
             }
         }
         else
@@ -109,11 +96,11 @@ public class WallMoveState : SlimeMoveState
             move_vector.y = Mathf.Sign(move_vector.y) * Mathf.Lerp(Mathf.Abs(move_vector.y), WallBlockCounter, slime.CurrentSlimeState.FrictionWall);
             if (slime.CurrentSides == Sides.Left)
             {
-                slime.ChangeDirection(Direction.WallLeftDown);
+                slime.ChangeDirectionDisplay(Direction.WallLeftDown);
             }
             else
             {
-                slime.ChangeDirection(Direction.WallRightDown);
+                slime.ChangeDirectionDisplay(Direction.WallRightDown);
             }
             WallBlockCounter = Mathf.Clamp(WallBlockCounter-Time.fixedDeltaTime, 0, WallBlockCounter);
         }
@@ -131,6 +118,44 @@ public class WallMoveState : SlimeMoveState
                 break;
             case Sides.Bottom://goes to ground
                 slime.EnterMoveState(MoveState.Ground);
+                break;
+
+            case Sides.Bottom | Sides.Right://goes to diagonal
+                if (!Input.GetKey(KeyCode.D))
+                {
+                    slime.EnterMoveState(MoveState.WallRightGround);
+                }
+                break;
+            case Sides.Bottom | Sides.Left://goes to diagonal
+                if (!Input.GetKey(KeyCode.A))
+                {
+                    slime.EnterMoveState(MoveState.WallLeftGround);
+                }
+                break;
+            case Sides.Top | Sides.Right://goes to diagonal
+                if (!Input.GetKey(KeyCode.D))
+                {
+                    slime.EnterMoveState(MoveState.WallRightCeiling);
+                }
+                break;
+            case Sides.Top | Sides.Left://goes to diagonal
+                if (!Input.GetKey(KeyCode.A))
+                {
+                    slime.EnterMoveState(MoveState.WallLeftCeiling);
+                }
+                break;
+
+            case Sides.Top | Sides.Left | Sides.Bottom://leaves dead end to right
+                if (Input.GetKey(KeyCode.D))
+                {
+                    slime.EnterMoveState(MoveState.Ground);
+                }
+                break;
+            case Sides.Top | Sides.Right | Sides.Bottom://leaves dead end to left
+                if (Input.GetKey(KeyCode.A))
+                {
+                    slime.EnterMoveState(MoveState.Ground);
+                }
                 break;
         }
     }

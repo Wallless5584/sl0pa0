@@ -7,7 +7,7 @@ public class LevelCompleteUI : MonoBehaviour
 
     public void RespawnPressed()
     {
-        GameManager.instance.Respawn();
+        GameManager.instance.RespawnOnSpawn();
         GameManager.instance.SwitchState(GameManager.GameState.Play);
     }
 

@@ -4,8 +4,8 @@ public class AirMoveState : SlimeMoveState
 {
     public override void EnterState(SlimeController slime)
     {
-        Debug.Log("Entered Air State!");
-        //slime.sr.sprite = slime.slime_inAir;
+        //Debug.Log("Entered Air State!");
+        slime.ChangeDirectionDisplay(Direction.Air);
     }
 
     public override void UpdateState(SlimeController slime)
@@ -14,30 +14,33 @@ public class AirMoveState : SlimeMoveState
         moveX = 0;
         if (Input.GetKey(KeyCode.LeftShift))
         {
+            moveX = 0;
             IsControlled = false;
             slime.EnterMoveState(MoveState.Bounce);
             return;
         }
         if (Input.GetKey(KeyCode.Space))
         {
+            moveX = 0;
+            IsControlled = false;
             slime.EnterMoveState(MoveState.JumpAir);
             return;
         }
         if (Input.GetKey(KeyCode.D))
         {  
-            slime.ChangeDirection(Direction.InAirRight);
+            slime.ChangeDirectionDisplay(Direction.AirRight);
             moveX++;
             IsControlled = true;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            slime.ChangeDirection(Direction.InAirLeft);
+            slime.ChangeDirectionDisplay(Direction.AirLeft);
             moveX--;
             IsControlled = true;
         }
         if (moveX == 0)
         {
-            slime.ChangeDirection(Direction.InAir);
+            //slime.ChangeDirection(Direction.Air);
             IsControlled = false;
         }
         //else
@@ -71,6 +74,13 @@ public class AirMoveState : SlimeMoveState
     {
         switch (touching_side)
         {
+            case Sides.None:
+                if (slime.CurrentWetnessState == WetnessState.Dry && slime.CheckWaterSurface())
+                {
+                    slime.EnterMoveState(MoveState.WaterGlide);
+                }
+                break;
+
             case Sides.Top://sticks to the ceiling
                 slime.EnterMoveState(MoveState.Ceiling);
                 break;
@@ -85,11 +95,38 @@ public class AirMoveState : SlimeMoveState
                 Debug.Log("Hit a wall right!");
                 slime.EnterMoveState(MoveState.Wall);
                 break;
-            case Sides.None:
-                if (slime.CurrentWetnessState == WetnessState.Dry && slime.CheckWaterSurface())
-                {
-                    slime.EnterMoveState(MoveState.WaterGlide);
-                }
+
+            case Sides.Top | Sides.Bottom://tunnel horizontal
+                if(Input.GetKey(KeyCode.S))
+                    slime.EnterMoveState(MoveState.Ground);
+                else if(Input.GetKey(KeyCode.W))
+                    slime.EnterMoveState(MoveState.Ceiling);
+                break;
+
+            case Sides.Top | Sides.Left://goes to diagonal
+                slime.EnterMoveState(MoveState.WallLeftCeiling);
+                break;
+            case Sides.Top | Sides.Right://goes to diagonal
+                slime.EnterMoveState(MoveState.WallRightCeiling);
+                break;
+            case Sides.Bottom | Sides.Left://goes to diagonal
+                slime.EnterMoveState(MoveState.WallLeftGround);
+                break;
+            case Sides.Bottom | Sides.Right://goes to diagonal
+                slime.EnterMoveState(MoveState.WallRightGround);
+                break;
+
+            case Sides.Top | Sides.Left | Sides.Bottom://leaves dead end left
+                slime.EnterMoveState(MoveState.Ground);
+                break;
+            case Sides.Top | Sides.Right | Sides.Bottom://leaves dead end right
+                slime.EnterMoveState(MoveState.Ground);
+                break;
+            case Sides.Right | Sides.Left | Sides.Bottom://leaves dead end bottom
+                slime.EnterMoveState(MoveState.Ground);
+                break;
+            case Sides.Top | Sides.Right | Sides.Left://leaves dead end ceiling
+                slime.EnterMoveState(MoveState.Ceiling);
                 break;
         }
     }

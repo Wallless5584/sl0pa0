@@ -8,7 +8,7 @@ public class CeilingMoveState : SlimeMoveState
 
     public override void EnterState(SlimeController slime)
     {
-        Debug.Log("Entered Ceiling State!");
+        //Debug.Log("Entered Ceiling State!");
         _move_vector = slime.Move;
         slime.rb.gravityScale = -10f * Mathf.Abs(slime.CurrentSlimeState.SpaceGravityMod);
         if (slime.CurrentSlimeState.FrictionCeiling == 1)
@@ -36,18 +36,18 @@ public class CeilingMoveState : SlimeMoveState
         {
             IsControlled = true;
             moveX++;
-            slime.ChangeDirection(Direction.CeilingRight);
+            slime.ChangeDirectionDisplay(Direction.CeilingRight);
         }
         if (Input.GetKey(KeyCode.A))
         {
             IsControlled = true;
             moveX--;
-            slime.ChangeDirection(Direction.CeilingLeft);
+            slime.ChangeDirectionDisplay(Direction.CeilingLeft);
         }
         if (moveX == 0)
         {
             IsControlled = false;
-            slime.ChangeDirection(Direction.Ceiling);
+            slime.ChangeDirectionDisplay(Direction.Ceiling);
         }
     }
 
@@ -73,17 +73,21 @@ public class CeilingMoveState : SlimeMoveState
         switch (touching_side)
         {
             case Sides.None://falling or Water
-                //if (slime.CurrentWetnessState == WetnessState.Dry && slime.CheckWaterSurface())
-                //{
-                //    slime.Move.y = 0f;
-                //    slime.EnterMoveState(MoveState.Ceiling);
-                //}
-                //else
-                //{
-                    slime.Move.y = 0;
-                    slime.rb.velocity = new Vector2(slime.rb.velocity.x, 0f);
-                    slime.EnterMoveState(MoveState.Air);
-                //}
+                slime.Move.y = 0;
+                slime.rb.velocity = new Vector2(slime.rb.velocity.x, 0f);
+                slime.EnterMoveState(MoveState.Air);
+                break;
+            case Sides.Top | Sides.Right:
+                if(!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.W))
+                {
+                    slime.EnterMoveState(MoveState.WallRightCeiling);
+                }
+                break;
+            case Sides.Top | Sides.Left:
+                if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.W))
+                {
+                    slime.EnterMoveState(MoveState.WallLeftCeiling);
+                }
                 break;
             case Sides.Bottom://sticks to the ceiling
                 slime.EnterMoveState(MoveState.Ground);

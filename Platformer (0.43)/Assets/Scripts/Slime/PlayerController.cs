@@ -139,7 +139,7 @@ public class PlayerController : MonoBehaviour
 
     void Die()
     {
-        GameManager.instance.Respawn();
+        GameManager.instance.RespawnOnSpawn();
         RespawnCount++;
     } 
 }

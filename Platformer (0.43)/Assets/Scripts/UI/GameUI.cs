@@ -6,7 +6,7 @@ public class GameUI : MonoBehaviour
 {
     public void RespawnPressed()
     {
-        GameManager.instance.Respawn();
+        GameManager.instance.RespawnOnSpawn();
     }
 
     public void ResetPressed()

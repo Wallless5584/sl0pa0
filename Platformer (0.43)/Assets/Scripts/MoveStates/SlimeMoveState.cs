@@ -12,7 +12,7 @@ public abstract class SlimeMoveState
 
     public abstract void FixedUpdateState(SlimeController slime, Vector2 move_vector);
 
-    public virtual void OnCollisionEnterState(SlimeController slime, Vector2 normal) { }
+    public virtual void OnCollisionEnter(SlimeController slime, Vector2 normal) { }
 
     public abstract void ReactToGround(Sides side, SlimeController slime);
 }

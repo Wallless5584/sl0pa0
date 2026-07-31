@@ -1,11 +1,90 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnPoint : MonoBehaviour
 {
+    [SerializeField] float openTime;
+    [SerializeField] float closeTime;
+    float gateTimer;
+
+    [SerializeField] SpriteRenderer GateSR;
+    [SerializeField] Sprite[] GateSprites;
+
+    [SerializeField] SpriteRenderer LightSR;
+    [SerializeField] Sprite[] LightSprites;
+
+    byte currentGateSpriteIndex = 0;
+    bool shouldSpawn = false;
+
+
+    void Start()
+    {
+        this.enabled = shouldSpawn;
+    }
+
+    void Update()
+    {
+        
+        if (shouldSpawn)
+        {
+            gateTimer += Time.deltaTime;
+            if (gateTimer > (openTime/GateSprites.Length) * currentGateSpriteIndex)
+            {
+                currentGateSpriteIndex++;
+                if(currentGateSpriteIndex < GateSprites.Length)
+                {
+                    GateSR.sprite = GateSprites[currentGateSpriteIndex];
+                }
+                else
+                {
+                    shouldSpawn = false;
+                    //gateTimer = 0f;
+
+                    GameManager.instance.Respawn();
+                }
+            }
+        }
+        else
+        {
+            gateTimer -= Time.deltaTime;
+            if (gateTimer < (closeTime / GateSprites.Length) * currentGateSpriteIndex)
+            {
+                currentGateSpriteIndex--;
+                GateSR.sprite = GateSprites[currentGateSpriteIndex];
+                if(currentGateSpriteIndex == 0)
+                {
+                    gateTimer = 0f;
+
+                    this.enabled = false;
+                }
+            }
+        }
+    }
+
+
     public void PlayerEntered()
     {
-        GameManager.instance.SpawnTriggered(this);
+        if (GameManager.instance.SpawnTriggered(this))
+        {
+            LightSR.enabled = true;
+            LightSR.sprite = LightSprites[1];
+        }
+    }
+
+    public void Activate()
+    {
+        LightSR.enabled = true;
+        LightSR.sprite = LightSprites[0];
+    }
+
+    public void Reset()
+    {
+        LightSR.enabled = false;
+        LightSR.sprite = LightSprites[0];
+    }
+
+    public void Spawn()
+    {
+        this.enabled = true;
+        shouldSpawn = true;
     }
 }

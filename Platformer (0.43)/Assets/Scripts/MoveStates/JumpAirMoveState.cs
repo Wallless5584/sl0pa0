@@ -4,8 +4,9 @@ public class JumpAirMoveState : SlimeMoveState
 {
     public override void EnterState(SlimeController slime)
     {
-        Debug.Log("Entered Jump Air State!");
+        //Debug.Log("Entered Jump Air State!");
         slime.rb.gravityScale = slime.CurrentSlimeState.SpaceGravityMod;
+        slime.ChangeDirectionDisplay(Direction.Air);
         //slime.sr.sprite = slime.slime_inAir;
     }
 
@@ -26,19 +27,19 @@ public class JumpAirMoveState : SlimeMoveState
         }
         if (Input.GetKey(KeyCode.D))
         {  
-            slime.ChangeDirection(Direction.InAirRight);
+            slime.ChangeDirectionDisplay(Direction.AirRight);
             moveX++;
             IsControlled = true;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            slime.ChangeDirection(Direction.InAirLeft);
+            slime.ChangeDirectionDisplay(Direction.AirLeft);
             moveX--;
             IsControlled = true;
         }
         if (moveX == 0)
         {
-            slime.ChangeDirection(Direction.InAir);
+            //slime.ChangeDirection(Direction.InAir);
             IsControlled = false;
         }
         //else
