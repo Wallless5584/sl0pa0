@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 69055c804570682478942ff105b00972, type: 3}
-  m_Name: Level 8
+  m_Name: Level CJ1
   m_EditorClassIdentifier: 
-  LevelName: Lab FE2
+  LevelName: Lab CJ1
   MenuSprite: {fileID: 21300000, guid: bf8d70df9b95faf4992332f80d394f8d, type: 3}
-  RoomCount: 3
+  RoomCount: 4
   RoomVars:
-  - {fileID: 4482439227698753801, guid: 5272665ba41866741914e9c8ddecc520, type: 3}
-  - {fileID: 4482439227698753801, guid: 77b95ed9256c77c4e9b880ebbeae456c, type: 3}
-  - {fileID: 4482439227698753801, guid: 9bd590bcc98398f4e93a1192399cba5c, type: 3}
+  - {fileID: 4482439227698753801, guid: 17581f598430b8d46860b2400d149ef7, type: 3}
+  - {fileID: 4482439227698753801, guid: b37dcc7fd5b9e584b969c379dafc2e87, type: 3}
+  - {fileID: 4482439227698753801, guid: 0670781c3caf4f84db1f5e9fa25e04d3, type: 3}
+  - {fileID: 4482439227698753801, guid: c287f5f20de82be4c96e85951bfb0a77, type: 3}
   StartRoom: {fileID: 120331772541391562, guid: 0725394dd0491c147ad12d19954a4082, type: 3}
   EndRoom: {fileID: 5563818516979147107, guid: 4bc2fcf74d7309b448a68a77b1bc4543, type: 3}
   KeepRoomOrder: 1

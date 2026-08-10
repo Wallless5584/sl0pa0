@@ -19888,7 +19888,7 @@ MonoBehaviour:
     _frictionWall: 1
     _frictionWallUp: 1
     _frictionBounce: 0.02
-    _jumpPower: 300
+    _jumpPower: 325
     _wallJumpPower: 500
     CurrentSpace: 0
     SpaceStates:
@@ -19911,7 +19911,7 @@ MonoBehaviour:
     _frictionWall: 1
     _frictionWallUp: 1
     _frictionBounce: 0.02
-    _jumpPower: 300
+    _jumpPower: 325
     _wallJumpPower: 500
     CurrentSpace: 0
     SpaceStates:
@@ -20088,7 +20088,6 @@ MonoBehaviour:
     Water: 
     Electricity: 
     Frost: 
-  SlimeStates: []
 --- !u!114 &6852754279284834464
 MonoBehaviour:
   m_ObjectHideFlags: 0
