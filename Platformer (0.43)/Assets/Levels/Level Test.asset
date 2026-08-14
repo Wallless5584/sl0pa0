@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelName: Level Test
   MenuSprite: {fileID: 21300000, guid: bf2ef064d451da640b9bb7c3f5e339dc, type: 3}
-  RoomCount: 5
+  RoomCount: 4
   RoomVars:
-  - {fileID: 4482439227698753801, guid: 4422a1e8cc83afb4f8c82b1fddfdadc9, type: 3}
-  - {fileID: 4482439227698753801, guid: c31ee0be29b641e42b7394d8e2729b00, type: 3}
+  - {fileID: 4482439227698753801, guid: b79dd14d394d8a74883794bf39e1163c, type: 3}
+  - {fileID: 4482439227698753801, guid: f2cf0e8c32833c54390587e03a27c11c, type: 3}
+  - {fileID: 4482439227698753801, guid: c5ab46cad1b06fe4ab93c361de30f6bb, type: 3}
   StartRoom: {fileID: 4482439227698753801, guid: e91717516dae23c4b9928644990fa05e, type: 3}
   EndRoom: {fileID: 5563818516979147107, guid: 4bc2fcf74d7309b448a68a77b1bc4543, type: 3}
   KeepRoomOrder: 1
