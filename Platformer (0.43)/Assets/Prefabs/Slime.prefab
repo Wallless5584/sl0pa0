@@ -19934,8 +19934,8 @@ MonoBehaviour:
     _frictionWall: 0.5
     _frictionWallUp: 1
     _frictionBounce: 0.35
-    _jumpPower: 400
-    _wallJumpPower: 500
+    _jumpPower: 450
+    _wallJumpPower: 550
     CurrentSpace: 0
     SpaceStates:
     - {fileID: 11400000, guid: 0b82c4fc167a527498543d798713185a, type: 2}

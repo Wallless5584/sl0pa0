@@ -7,7 +7,7 @@ public class JumpDownMoveState : JumpGroundMoveState
 
     public override void EnterState(SlimeController slime)
     {
-        exitTimer = c_exitTimeMaxValue;
+        exitTimer = 0f;
         //Debug.Log("Entered Jump Down State!");
         slime.rb.gravityScale = slime.CurrentSlimeState.SpaceGravityMod;
         slime.rb.AddForce(Vector2.up * slime.rb.velocity - Vector2.up * slime.CurrentSlimeState.JumpPower);
@@ -18,7 +18,7 @@ public class JumpDownMoveState : JumpGroundMoveState
 
     public override void UpdateState(SlimeController slime)
     {
-        exitTimer -= Time.deltaTime;
+        exitTimer += Time.deltaTime;
         moveX = 0;
 
         if (Input.GetKey(KeyCode.D))
@@ -41,9 +41,8 @@ public class JumpDownMoveState : JumpGroundMoveState
         {
             IsControlled = false;
         }
-        if (exitTimer < 0)
+        if (exitTimer > c_exitStateTime)
         {
-            exitTimer = c_exitTimeMaxValue;
             if (Input.GetKey(KeyCode.Space))
             {
                 slime.EnterMoveState(MoveState.JumpAir);

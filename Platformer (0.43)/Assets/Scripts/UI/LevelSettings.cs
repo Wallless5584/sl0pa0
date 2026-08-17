@@ -5,9 +5,11 @@ public class LevelSettings : ScriptableObject
 {
     public string LevelName;
     public Sprite MenuSprite;
+    public Sprite BlockSprite;
     public float RoomCount;
     public RoomController[] RoomVars;
     public RoomController StartRoom;
     public RoomController EndRoom;
     public bool KeepRoomOrder;
+    public bool Accessible = true;
 }

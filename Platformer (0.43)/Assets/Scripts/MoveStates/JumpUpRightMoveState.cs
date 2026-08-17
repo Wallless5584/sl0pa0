@@ -7,7 +7,7 @@ public class JumpUpRightMoveState : JumpGroundMoveState
     {
         //Debug.Log($"{Time.time} | Entered JumpUpRight Move State");
 
-        exitTimer = c_exitTimeMaxValue;
+        exitTimer = 0f;
 
         slime.rb.gravityScale = slime.CurrentSlimeState.SpaceGravityMod;
         slime.rb.AddForce(new Vector2(slime.CurrentSlimeState.WallJumpPower, slime.CurrentSlimeState.JumpPower * c_verticalJumpPowerBoost));

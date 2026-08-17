@@ -1,18 +1,23 @@
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 
 public class JumpGroundMoveState : SlimeMoveState
 {
-    protected const float c_exitTimeMaxValue = 0.4f;
-    protected float c_exitTimeMinValue = 0.2f;
+    protected const float c_exitStateTime = 0.4f; //Affects high gravity time during below-max jumps 
+    protected float c_lowGravityStartTime = 0.1f; //Affects all jumps (most effect on Max jumps)
 
-    protected float exitTimer = c_exitTimeMaxValue;
+    protected float exitTimer;
 
-    protected const float c_gravityJumpBalance = 2.4f;
-    protected const float c_timeJumpBalance = 0.2f;
+    protected const float c_lowGravity = 2f; //Affects all jumps (most effect on Max jumps)
+    protected const float c_highGravity = 5f; //Affects Below-max jumps
 
+    //Alternative values:
+    //0.35
+    //0.15
+    //2.45
+    //7
 
-
-    bool JumpExt = true;
+    //bool JumpExt = true;
 
 
 
@@ -20,8 +25,8 @@ public class JumpGroundMoveState : SlimeMoveState
     { 
         //Debug.Log($"{Time.time} | Entered Jump State!");
 
-        JumpExt = true;
-        exitTimer = c_exitTimeMaxValue;
+        //JumpExt = true;
+        exitTimer = 0f;
 
         slime.rb.gravityScale = 0f;
         slime.rb.AddForce(-Vector2.up * slime.rb.velocity + Vector2.up * slime.CurrentSlimeState.JumpPower);
@@ -33,14 +38,42 @@ public class JumpGroundMoveState : SlimeMoveState
 
     public override void UpdateState(SlimeController slime)
     {
-        if (Input.GetKeyUp(KeyCode.Space) && JumpExt == true)
+        //if (Input.GetKeyUp(KeyCode.Space) && JumpExt == true)
+        //{
+        //    exitTimer = Mathf.Clamp(c_exitTimeMaxValue * exitTimer, c_exitTimeMinValue, c_exitTimeMaxValue);
+        //    JumpExt = false;
+        //}
+        if (Input.GetKeyUp(KeyCode.Space))
         {
-            exitTimer = Mathf.Clamp(c_exitTimeMaxValue * exitTimer, c_exitTimeMinValue, c_exitTimeMaxValue);
-            JumpExt = false;
+            slime.rb.gravityScale = c_highGravity;
         }
-        exitTimer -= Time.deltaTime;
+
+        exitTimer += Time.deltaTime;
         moveX = 0;
-        
+
+        if (exitTimer >= c_lowGravityStartTime)
+        {
+            slime.rb.gravityScale = c_lowGravity;
+        }
+
+        if (exitTimer >= c_exitStateTime)
+        {
+            //Player reached maximum jump height/time
+            if (Input.GetKey(KeyCode.Space))
+            {
+                slime.EnterMoveState(MoveState.JumpAir);
+            }
+            else if (Input.GetKey(KeyCode.LeftShift))
+            {
+                slime.EnterMoveState(MoveState.Bounce);
+            }
+            else
+            {
+                slime.EnterMoveState(MoveState.Air);//inAir
+            }
+            return;
+        }
+
         if (Input.GetKey(KeyCode.D))
         {
             IsControlled = true;
@@ -57,36 +90,24 @@ public class JumpGroundMoveState : SlimeMoveState
         {
             IsControlled = false;
         }
-        if (exitTimer < c_timeJumpBalance)
-        {
-            slime.rb.gravityScale = c_gravityJumpBalance * slime.CurrentSlimeState.SpaceGravityMod;
-        }
+        //if (exitTimer < c_timeJumpBalance)
+        //{
+        //    slime.rb.gravityScale = c_gravityJumpBalance * slime.CurrentSlimeState.SpaceGravityMod;
+        //}
 
-        if (exitTimer < 0)
-        {
-            if (Input.GetKey(KeyCode.Space))
-            {
-                slime.EnterMoveState(MoveState.JumpAir);
-            }
-            else if (Input.GetKey(KeyCode.LeftShift))
-            {
-                slime.EnterMoveState(MoveState.Bounce);
-            }
-            else
-            {
-                slime.EnterMoveState(MoveState.Air);//inAir
-            }
-            return;
-        } 
-        else if (exitTimer < c_exitTimeMaxValue - c_exitTimeMinValue)
-        {
-            if (Input.GetKey(KeyCode.LeftShift))
-            {
-                exitTimer = c_exitTimeMaxValue;
-                slime.EnterMoveState(MoveState.Bounce);
-                return;
-            }
-        }
+        //if (exitTimer < 0f)
+        //{
+           
+        //} 
+        //else if (exitTimer < c_exitTimeMaxValue - c_exitTimeMinValue)
+        //{
+        //    if (Input.GetKey(KeyCode.LeftShift))
+        //    {
+        //        exitTimer = c_exitTimeMaxValue;
+        //        slime.EnterMoveState(MoveState.Bounce);
+        //        return;
+        //    }
+        //}
     }
 
     public override void FixedUpdateState(SlimeController slime, Vector2 move_vector)

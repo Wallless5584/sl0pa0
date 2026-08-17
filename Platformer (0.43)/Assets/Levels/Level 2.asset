@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelName: Lab A2
   MenuSprite: {fileID: 21300000, guid: bf8d70df9b95faf4992332f80d394f8d, type: 3}
+  BlockSprite: {fileID: 21300000, guid: 881d7b98336c1f940b4ebc6db3f880a3, type: 3}
   RoomCount: 4
   RoomVars:
   - {fileID: 2375755198145084767, guid: 95174680549df0446bbfe1bce39b1a86, type: 3}
@@ -24,3 +25,4 @@ MonoBehaviour:
   StartRoom: {fileID: 120331772541391562, guid: 0725394dd0491c147ad12d19954a4082, type: 3}
   EndRoom: {fileID: 5563818516979147107, guid: 4bc2fcf74d7309b448a68a77b1bc4543, type: 3}
   KeepRoomOrder: 0
+  Accessible: 0

@@ -2,11 +2,13 @@ using UnityEngine;
 
 public class JumpWallRightMoveState : JumpGroundMoveState
 {
+    const float c_allowBounceTime = 0.2f;
+
     public override void EnterState(SlimeController slime)
     {
         //Debug.Log("Entered Jump Wall Right State!");
 
-        exitTimer = c_exitTimeMaxValue;
+        exitTimer = 0f;
 
         slime.rb.gravityScale = slime.CurrentSlimeState.SpaceGravityMod;
         slime.rb.AddForce(-new Vector2(slime.rb.velocity.x, 0) + Vector2.right * slime.CurrentSlimeState.WallJumpPower);
@@ -16,9 +18,9 @@ public class JumpWallRightMoveState : JumpGroundMoveState
 
     public override void UpdateState(SlimeController slime)
     {
-        exitTimer -= Time.deltaTime;
+        exitTimer += Time.deltaTime;
 
-        if (exitTimer < 0)
+        if (exitTimer > c_exitStateTime)
         {
             if (Input.GetKey(KeyCode.Space))
             {
@@ -33,7 +35,7 @@ public class JumpWallRightMoveState : JumpGroundMoveState
                 slime.EnterMoveState(MoveState.Air);//inAir
             }
         }
-        else if (exitTimer < c_exitTimeMaxValue - c_exitTimeMinValue)
+        else if (exitTimer < c_allowBounceTime)
         {
             if (Input.GetKey(KeyCode.LeftShift))
             {
