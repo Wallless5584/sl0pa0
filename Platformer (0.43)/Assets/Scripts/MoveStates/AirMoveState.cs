@@ -70,9 +70,9 @@ public class AirMoveState : SlimeMoveState
         slime.Move = move_vector;
     }
 
-    public override void ReactToGround(Sides touching_side, SlimeController slime)
+    public override void ReactToGround(SideData touching_side, SlimeController slime)
     {
-        switch (touching_side)
+        switch (touching_side.Flags)
         {
             case Sides.None:
                 if (slime.CurrentWetnessState == WetnessState.Dry && slime.CheckWaterSurface())
