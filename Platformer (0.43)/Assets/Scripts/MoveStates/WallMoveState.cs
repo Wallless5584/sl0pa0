@@ -109,9 +109,9 @@ public class WallMoveState : SlimeMoveState
         slime.rb.velocity = move_vector;
     }
 
-    public override void ReactToGround(SideData touching_side, SlimeController slime)
+    public override void ReactToGround(Sides touching_side, SlimeController slime)
     {
-        switch (touching_side.Flags)
+        switch (touching_side)
         {
             case Sides.None://falling
                 slime.EnterMoveState(MoveState.Air);

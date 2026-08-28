@@ -128,9 +128,9 @@ public class JumpGroundMoveState : SlimeMoveState
         slime.Move = move_vector;
     }
 
-    public override void ReactToGround(SideData touching_side, SlimeController slime)
+    public override void ReactToGround(Sides touching_side, SlimeController slime)
     {
-        switch (touching_side.Flags)
+        switch (touching_side)
         {
             case Sides.Top://sticks to the ceiling
                 if (Input.GetKey(KeyCode.Space))

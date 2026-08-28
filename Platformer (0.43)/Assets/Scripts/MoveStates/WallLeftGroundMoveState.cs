@@ -34,7 +34,7 @@ public class WallLeftGroundMoveState : WallRightGroundMoveState
 
     }
 
-    public override void ReactToGround(SideData side, SlimeController slime)
+    public override void ReactToGround(Sides side, SlimeController slime)
     {
 
     }

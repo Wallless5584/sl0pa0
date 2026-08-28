@@ -1,20 +1,11 @@
-//using System.Text;
-//using System;
-//using System.Collections;
-using System.Collections.Generic;
-//using System.Diagnostics;
 using UnityEngine;
-//using UnityEngine.Events;
 
 public class BounceMoveState : SlimeMoveState
 {
     Vector2 move;
     Vector2 reflectMove;
-    Vector2 normal = Vector2.zero;
-    Vector2 beforeReflectMove;
     float bounceTime;
     float groundTime;
-
 
     const float c_maxGroundTime = 0.1f;
     const float c_minBounceAngle = 5;
@@ -27,7 +18,6 @@ public class BounceMoveState : SlimeMoveState
     {
         //Debug.Log("Entered Bounce State!");
         reflectMove = Vector2.zero;
-        normal = Vector2.zero;
         groundTime = 0;
         slime.rb.gravityScale = slime.CurrentSlimeState.SpaceBounceGravityMod;
         slime.ChangeDirectionDisplay(Direction.Bounce);
@@ -82,70 +72,32 @@ public class BounceMoveState : SlimeMoveState
     public override void OnCollisionEnter(SlimeController slime, Vector2 normal)
     {
         //Debug.Log($"Collided with {CurrentSide}!");
+        string debug_text = "Slime BOUNCED!";
+
+        SlimeSoundManager.Instance.PlaySound(SoundType.Bounce);
+        Vector2 velocity = move;
+        Vector2 delta_direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+
         
+        
+        if (Vector2.Angle(velocity, delta_direction) < c_minBounceAngle ||
+            Vector2.Angle(velocity, delta_direction) > c_maxBounceAngle ||
+            bounceTime < c_shadowBounceProtectionTime)
+        {
+            delta_direction = Vector2.zero;
+        }
+        if (delta_direction != Vector2.zero)
+        {
+            slime.DirChangeParticles.Play();
+            delta_direction = delta_direction.normalized;
+        }
+        reflectMove = Vector2.Reflect((velocity.normalized + delta_direction * c_reflectControlModifier).normalized * velocity.magnitude * c_reflectVelocityModifier, normal);
+        Debug.Log($"{debug_text}, Velocity (norm): {velocity.normalized}, Delta dir: {delta_direction}, Normal: {normal}");
+        bounceTime = 0;
     }
 
-    public override void ReactToGround(SideData side, SlimeController slime)
+    public override void ReactToGround(Sides side, SlimeController slime)
     {
         slime.rb.gravityScale = slime.CurrentSlimeState.SpaceBounceGravityMod;
-        switch (side.Difference)
-        {
-            case Sides.Bottom:
-                normal = new Vector2(0, 1);
-                Reflect();
-                break;
-            case Sides.Top:
-                normal = new Vector2(0, -1);
-                Reflect();
-                break;
-            case Sides.Left:
-                normal = new Vector2(1, 0);
-                Reflect();
-                break;
-            case Sides.Right:
-                normal = new Vector2(-1, 0);
-                Reflect();
-                break;
-            case Sides.Bottom | Sides.Right:
-                normal = new Vector2(-0.5f, 0.5f);
-                Reflect();
-                break;
-            case Sides.Bottom | Sides.Left:
-                normal = new Vector2(0.5f, 0.5f);
-                Reflect();
-                break;
-            case Sides.Top | Sides.Right:
-                normal = new Vector2(-0.5f, -0.5f);
-                Reflect();
-                break;
-            case Sides.Top | Sides.Left:
-                normal = new Vector2(0.5f, -0.5f);
-                Reflect();
-                break;
-        }
-
-        void Reflect()
-        {
-            string debug_text = "Slime BOUNCED!";
-            beforeReflectMove = move;
-            SlimeSoundManager.Instance.PlaySound(SoundType.Bounce);
-            Vector2 delta_direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-
-
-            if (Vector2.Angle(beforeReflectMove, delta_direction) < c_minBounceAngle ||
-                Vector2.Angle(beforeReflectMove, delta_direction) > c_maxBounceAngle ||
-                bounceTime < c_shadowBounceProtectionTime)
-            {
-                delta_direction = Vector2.zero;
-            }
-            if (delta_direction != Vector2.zero)
-            {
-                slime.DirChangeParticles.Play();
-                delta_direction = delta_direction.normalized;
-            }
-            reflectMove = Vector2.Reflect((beforeReflectMove.normalized + delta_direction * c_reflectControlModifier).normalized * beforeReflectMove.magnitude * c_reflectVelocityModifier, normal);
-            Debug.Log($"{debug_text}, Velocity (norm): {beforeReflectMove.normalized}, Delta dir: {delta_direction}, Normal: {normal}");
-            bounceTime = 0;
-        }
     }
 }

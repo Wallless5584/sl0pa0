@@ -184,7 +184,6 @@ public class GameManager : MonoBehaviour
     public void OnRoomButtonPress(RoomButton button)
     {
         SpawnedRooms[activeRoom].RoomButtonPressed(button);
-        
     }
 
     public void ResetLevel()

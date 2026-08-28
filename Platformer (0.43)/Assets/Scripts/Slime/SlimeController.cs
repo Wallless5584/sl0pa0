@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using UnityEngine;
 
 #region Enums
@@ -159,7 +158,7 @@ public class SlimeController : MonoBehaviour
     SlimeMoveState CurrentMoveState;
     const float c_MoveForce = 80;
     bool debugVelocity = false;
-    Vector2 contact_normal;
+    Vector2 contact_point;
 
     SideData currentSides;
     public Sides CurrentSides { get => currentSides.Flags; }
@@ -250,8 +249,8 @@ public class SlimeController : MonoBehaviour
             //debugVelocity = false;
         }
         Move = rb.velocity;
-        rb.AddForce(-(rb.velocity - Move) * c_MoveForce);
         CurrentMoveState.FixedUpdateState(this, Move);
+        rb.AddForce(-(rb.velocity - Move) * c_MoveForce);
 
         CheckGroundSides();
 
@@ -264,6 +263,7 @@ public class SlimeController : MonoBehaviour
         {
             PlayParticlesBySpace();
         }
+
     }
 
     //private void OnDrawGizmosSelected()
@@ -326,13 +326,8 @@ public class SlimeController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //if (collision.contacts.Length >= 2)
-        //{
-        //    contact_normal = collision.contacts[0].point + collision.contacts[1].point;
-        //}
-        ////contact_normal = contact_normal/collision.contacts.Length;
-        //contact_normal = contact_normal.normalized;
-        //CurrentMoveState.OnCollisionEnter(this, contact_normal);
+        contact_point = collision.contacts[0].normal;
+        CurrentMoveState.OnCollisionEnter(this, contact_point);
         //IdentifyElement(collision.collider);
     }
     //private void OnCollisionExit2D(Collision2D collision)
@@ -608,9 +603,8 @@ public class SlimeController : MonoBehaviour
     #region Physics Checks
     public void CheckGroundSides()
     {
-        SideData lastSides = currentSides;
         currentSides = CheckSides(c_GroundColOffset, c_GroundColWidth, c_GroundColThickness, GroundLayer);
-        CurrentMoveState.ReactToGround(currentSides, this);
+        CurrentMoveState.ReactToGround(currentSides.Flags, this);
     }
 
     public bool CheckWaterSurface()
@@ -1031,7 +1025,7 @@ public class SlimeController : MonoBehaviour
             flagCount++;
         }
 
-        return new SideData(current_sides, currentSides.Flags, flagCount);
+        return new SideData(current_sides, flagCount);
     }
 
     void PlayParticlesBySpace()
@@ -1077,15 +1071,11 @@ public class SlimeController : MonoBehaviour
 public struct SideData
 {
     public Sides Flags;
-    public Sides LastFlags;
-    public Sides Difference { get => Flags! & LastFlags; }
     public byte FlagCount;
-    
 
-    public SideData(Sides flags, Sides lastFlags, byte flagCount)
+    public SideData(Sides flags, byte flagCount)
     {
         Flags = flags;
-        LastFlags = lastFlags;
         FlagCount = flagCount;
     }
 
