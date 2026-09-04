@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69055c804570682478942ff105b00972, type: 3}
   m_Name: Level FE2
   m_EditorClassIdentifier: 
-  LevelName: Lab FE2
+  LevelName: TestFE_02
   MenuSprite: {fileID: 21300000, guid: bf8d70df9b95faf4992332f80d394f8d, type: 3}
   BlockSprite: {fileID: 21300000, guid: 881d7b98336c1f940b4ebc6db3f880a3, type: 3}
   RoomCount: 3
