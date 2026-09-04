@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using UnityEngine;
 
 #region Enums
@@ -120,10 +119,10 @@ public class SlimeController : MonoBehaviour
     [SerializeField] LayerMask Spaces;
 
     public Vector2 Move = Vector2.zero;
+    public Vector2 PreviousMove = Vector2.zero;
+    public Vector2 PreviousPreviousMove = Vector2.zero;
     [SerializeField] BoxCollider2D slimeCollider;
     [SerializeField] Transform slimeScalableComponents;
-    public ParticleSystem DirChangeParticles;
-    public ParticleSystem JumpDownBoostParticles;
     [HideInInspector] public Rigidbody2D rb;
 
     [Header("Dry state")]
@@ -150,6 +149,9 @@ public class SlimeController : MonoBehaviour
     [SerializeField] SpriteRenderer srFace;
 
     [Header("Particles")]
+    public ParticleSystem BounceParticles;
+    public SideParticles8 DirChangeParticles;
+    public ParticleSystem JumpDownBoostParticles;
     public ParticleSystem WaterSplash;
     public ParticleSystem WaterBubbles;
     public ParticleSystem WaterDrops;
@@ -159,7 +161,6 @@ public class SlimeController : MonoBehaviour
     SlimeMoveState CurrentMoveState;
     const float c_MoveForce = 80;
     bool debugVelocity = false;
-    Vector2 contact_normal;
 
     SideData currentSides;
     public Sides CurrentSides { get => currentSides.Flags; }
@@ -171,7 +172,10 @@ public class SlimeController : MonoBehaviour
     float CurrentScale;
     const float c_GroundColOffset = 0.5f;
     const float c_GroundColThickness = 0.05f;
+    const float c_GroundColThicknessBounce = 0.4f;
     const float c_GroundColWidth = 0.9f;
+    const float c_GroundColWidthBounce = 0.9f;
+
 
     const float c_WaterColOffset = 0.475f;
     const float c_WaterColThickness = 0.05f;
@@ -249,9 +253,9 @@ public class SlimeController : MonoBehaviour
             Debug.Log($"New Move: {Move}, Final Velocity: {rb.velocity}");
             //debugVelocity = false;
         }
+        PreviousPreviousMove = PreviousMove;
+        PreviousMove = Move;
         Move = rb.velocity;
-        CurrentMoveState.FixedUpdateState(this, Move);
-        rb.AddForce(-(rb.velocity - Move) * c_MoveForce);
 
         CheckGroundSides();
 
@@ -265,6 +269,8 @@ public class SlimeController : MonoBehaviour
             PlayParticlesBySpace();
         }
 
+        CurrentMoveState.FixedUpdateState(this, Move);
+        rb.AddForce(-(rb.velocity - Move) * c_MoveForce);
     }
 
     //private void OnDrawGizmosSelected()
@@ -333,7 +339,7 @@ public class SlimeController : MonoBehaviour
         //}
         ////contact_normal = contact_normal/collision.contacts.Length;
         //contact_normal = contact_normal.normalized;
-        //CurrentMoveState.OnCollisionEnter(this, contact_normal);
+        CurrentMoveState.OnCollisionEnter(this, collision, CheckGroundSidesBounce());
         //IdentifyElement(collision.collider);
     }
     //private void OnCollisionExit2D(Collision2D collision)
@@ -405,7 +411,7 @@ public class SlimeController : MonoBehaviour
         if (waterSides.FlagCount >= c_min_colliders_for_water_space) //collision.tag == "Water"
         { 
             CurrentSlimeState.CurrentSpace = Space.Water;
-            rb.drag = CurrentSlimeState.SpaceDrag;
+            //rb.drag = CurrentSlimeState.SpaceDrag;
             //if (waterSides.HasFlag(Side.Top) & !currentWaterSides.HasFlag(Side.Top))
             //Debug.Log("Current Space is WATER!");
             return Space.Water;
@@ -417,7 +423,7 @@ public class SlimeController : MonoBehaviour
         //    return Space.Cold;
         //}
         CurrentSlimeState.CurrentSpace = Space.Air;
-        rb.drag = CurrentSlimeState.SpaceDrag;
+        //rb.drag = CurrentSlimeState.SpaceDrag;
         return Space.Air;
     }
 
@@ -438,6 +444,9 @@ public class SlimeController : MonoBehaviour
             SlimeStates[2].CurrentSpace = new_Space;
             SlimeStates[3].CurrentSpace = new_Space;
             SlimeStates[4].CurrentSpace = new_Space;
+
+            rb.drag = CurrentSlimeState.SpaceDrag;
+            rb.gravityScale = CurrentSlimeState.SpaceBounceGravityMod;
             return true;
         }
     }
@@ -609,9 +618,16 @@ public class SlimeController : MonoBehaviour
     #region Physics Checks
     public void CheckGroundSides()
     {
-        SideData lastSides = currentSides;
         currentSides = CheckSides(c_GroundColOffset, c_GroundColWidth, c_GroundColThickness, GroundLayer);
         CurrentMoveState.ReactToGround(currentSides, this);
+    }
+
+    public SideData CheckGroundSidesBounce()
+    {
+        SideData data = CheckSides(c_GroundColOffset, c_GroundColWidthBounce, c_GroundColThicknessBounce, GroundLayer);
+        //SideData data = currentSides;
+        Debug.Log(data);
+        return data;
     }
 
     public bool CheckWaterSurface()
@@ -1074,12 +1090,24 @@ public class SlimeController : MonoBehaviour
         emitter.radial = speedMod;
     }
 }
+[Serializable]
+public struct SideParticles8
+{
+    public ParticleSystem TopRight;
+    public ParticleSystem TopLeft;
+    public ParticleSystem BotRight;
+    public ParticleSystem BotLeft;
+    public ParticleSystem RightTop;
+    public ParticleSystem RightBottom;
+    public ParticleSystem LeftTop;
+    public ParticleSystem LeftBottom;
+}
 
 public struct SideData
 {
     public Sides Flags;
     public Sides LastFlags;
-    public Sides Difference { get => Flags! & LastFlags; }
+    public readonly Sides Difference => ~LastFlags & Flags;
     public byte FlagCount;
     
 
@@ -1093,6 +1121,11 @@ public struct SideData
     public bool HasFlag(Sides flag)
     {
         return Flags.HasFlag(flag);
+    }
+
+    public override string ToString()
+    {
+        return $"{Flags} | {LastFlags} || {Difference}";
     }
 }
 

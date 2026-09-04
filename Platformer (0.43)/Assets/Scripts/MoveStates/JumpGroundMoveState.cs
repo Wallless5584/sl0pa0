@@ -1,9 +1,9 @@
-using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 
 public class JumpGroundMoveState : SlimeMoveState
 {
     protected const float c_exitStateTime = 0.4f; //Affects high gravity time during below-max jumps 
+    protected const float c_minExitStateTime = 0.2f; //Earliest premature time to enter bounce state
     protected float c_lowGravityStartTime = 0.1f; //Affects all jumps (most effect on Max jumps)
 
     protected float exitTimer;
@@ -62,17 +62,27 @@ public class JumpGroundMoveState : SlimeMoveState
             if (Input.GetKey(KeyCode.Space))
             {
                 slime.EnterMoveState(MoveState.JumpAir);
+                return;
             }
             else if (Input.GetKey(KeyCode.LeftShift))
             {
                 slime.EnterMoveState(MoveState.Bounce);
+                return;
             }
             else
             {
                 slime.EnterMoveState(MoveState.Air);//inAir
+                return;
             }
-            return;
         }
+        //else if(exitTimer >= c_minExitStateTime)
+        //{
+        //    if (Input.GetKey(KeyCode.LeftShift))
+        //    {
+        //        slime.EnterMoveState(MoveState.Bounce);
+        //        return;
+        //    }
+        //}
 
         if (Input.GetKey(KeyCode.D))
         {
@@ -136,10 +146,12 @@ public class JumpGroundMoveState : SlimeMoveState
                 if (Input.GetKey(KeyCode.Space))
                 {
                     slime.EnterMoveState(MoveState.JumpDown);
+                    return;
                 }
                 else
                 {
                     slime.EnterMoveState(MoveState.Ceiling);
+                    return;
                 }
                 break;
             //case Sides.Left://jumps off right
