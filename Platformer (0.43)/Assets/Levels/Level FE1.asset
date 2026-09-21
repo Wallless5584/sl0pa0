@@ -24,4 +24,4 @@ MonoBehaviour:
   StartRoom: {fileID: 120331772541391562, guid: 0725394dd0491c147ad12d19954a4082, type: 3}
   EndRoom: {fileID: 5563818516979147107, guid: 4bc2fcf74d7309b448a68a77b1bc4543, type: 3}
   KeepRoomOrder: 1
-  Accessible: 0
+  Accessible: 1

@@ -75,14 +75,14 @@ public class JumpGroundMoveState : SlimeMoveState
                 return;
             }
         }
-        //else if(exitTimer >= c_minExitStateTime)
-        //{
-        //    if (Input.GetKey(KeyCode.LeftShift))
-        //    {
-        //        slime.EnterMoveState(MoveState.Bounce);
-        //        return;
-        //    }
-        //}
+        else if(exitTimer >= c_minExitStateTime)
+        {
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                slime.EnterMoveState(MoveState.Bounce);
+                return;
+            }
+        }
 
         if (Input.GetKey(KeyCode.D))
         {

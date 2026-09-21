@@ -19,6 +19,7 @@ MonoBehaviour:
   RoomVars:
   - {fileID: 4482439227698753801, guid: 17581f598430b8d46860b2400d149ef7, type: 3}
   - {fileID: 4482439227698753801, guid: b37dcc7fd5b9e584b969c379dafc2e87, type: 3}
+  - {fileID: 8748787030608977614, guid: ef04f276bfe1fdc4abff2b4b18d4a5ca, type: 3}
   - {fileID: 4482439227698753801, guid: 0670781c3caf4f84db1f5e9fa25e04d3, type: 3}
   - {fileID: 4482439227698753801, guid: c287f5f20de82be4c96e85951bfb0a77, type: 3}
   StartRoom: {fileID: 120331772541391562, guid: 0725394dd0491c147ad12d19954a4082, type: 3}

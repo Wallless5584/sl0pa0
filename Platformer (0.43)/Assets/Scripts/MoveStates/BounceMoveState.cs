@@ -11,7 +11,7 @@ public class BounceMoveState : SlimeMoveState
     const float c_minBounceAngle = 5;
     const float c_maxBounceAngle = 180 - c_minBounceAngle;
     const float c_shadowBounceProtectionTime = 0.0001f;
-    const float c_reflectVelocityModifier = 0.99f;
+    const float c_reflectVelocityModifier = 0.999f;
     const float c_reflectControlModifier = 0.2f;
 
     bool shouldReflectNextReactToGround = true;
@@ -217,7 +217,7 @@ public class BounceMoveState : SlimeMoveState
 
     public override void ReactToGround(SideData side, SlimeController slime)
     {
-        if(side.Difference > 0)
+        if (side.Difference > 0)
         {
             if (shouldReflectNextReactToGround)
             {

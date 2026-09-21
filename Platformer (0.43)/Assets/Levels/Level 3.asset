@@ -12,13 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69055c804570682478942ff105b00972, type: 3}
   m_Name: Level 3
   m_EditorClassIdentifier: 
-  LevelName: TestA_03
+  LevelName: TestL_01
   MenuSprite: {fileID: 21300000, guid: bf8d70df9b95faf4992332f80d394f8d, type: 3}
   BlockSprite: {fileID: 21300000, guid: 881d7b98336c1f940b4ebc6db3f880a3, type: 3}
   RoomCount: 2
   RoomVars:
-  - {fileID: 8748787030608977614, guid: 2df75c368e8a269439422d7b6d9ba050, type: 3}
+  - {fileID: 5683329437402813893, guid: fa7a261a6e9d84c42baa373e67f8abef, type: 3}
+  - {fileID: 5683329437402813893, guid: e50ae93befd803a4b98d7c748dd8c0a8, type: 3}
+  - {fileID: 4482439227698753801, guid: 7fe4e169209775f4ca793d1ac6fdc4be, type: 3}
+  - {fileID: 8748787030608977614, guid: b77527c0b583ec84383f73e7976b1b87, type: 3}
   StartRoom: {fileID: 120331772541391562, guid: 0725394dd0491c147ad12d19954a4082, type: 3}
   EndRoom: {fileID: 5563818516979147107, guid: 4bc2fcf74d7309b448a68a77b1bc4543, type: 3}
-  KeepRoomOrder: 0
-  Accessible: 0
+  KeepRoomOrder: 1
+  Accessible: 1

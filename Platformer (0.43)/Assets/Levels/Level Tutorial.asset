@@ -22,6 +22,7 @@ MonoBehaviour:
   - {fileID: 4482439227698753801, guid: f70a6d115b9ea28419fe4cfbd7dae983, type: 3}
   - {fileID: 4482439227698753801, guid: dc84f852ea7bc7042989fcc06197113d, type: 3}
   - {fileID: 4482439227698753801, guid: e36ee5ec05391d44ca663ddd6219516f, type: 3}
+  - {fileID: 4482439227698753801, guid: f4da771450e94034388c8ac0df74feeb, type: 3}
   StartRoom: {fileID: 120331772541391562, guid: 0725394dd0491c147ad12d19954a4082, type: 3}
   EndRoom: {fileID: 5563818516979147107, guid: 4bc2fcf74d7309b448a68a77b1bc4543, type: 3}
   KeepRoomOrder: 1

@@ -18,11 +18,10 @@ MonoBehaviour:
   RoomCount: 4
   RoomVars:
   - {fileID: 2375755198145084767, guid: 95174680549df0446bbfe1bce39b1a86, type: 3}
-  - {fileID: 5683329437402813893, guid: e50ae93befd803a4b98d7c748dd8c0a8, type: 3}
+  - {fileID: 3357677106097060238, guid: c05db042996978e4fb23cd31130a4cf6, type: 3}
   - {fileID: 4482439227698753801, guid: da2d2230ad8107541abecf830b38b289, type: 3}
-  - {fileID: 4482439227698753801, guid: 7fe4e169209775f4ca793d1ac6fdc4be, type: 3}
   - {fileID: 4482439227698753801, guid: 37cfb28e93f1e6544b29ea0b4865ffc4, type: 3}
   StartRoom: {fileID: 120331772541391562, guid: 0725394dd0491c147ad12d19954a4082, type: 3}
   EndRoom: {fileID: 5563818516979147107, guid: 4bc2fcf74d7309b448a68a77b1bc4543, type: 3}
-  KeepRoomOrder: 0
-  Accessible: 0
+  KeepRoomOrder: 1
+  Accessible: 1
