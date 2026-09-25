@@ -70,13 +70,13 @@ public class WallMoveState : SlimeMoveState
                 move_vector.y = 0;
             }
 
-            if (slime.CurrentSides == Sides.Left)
+            if (slime.CurrentSides.HasFlag(Sides.Right))
             {
-                slime.ChangeDirectionDisplay(Direction.WallLeft);
+                slime.ChangeDirectionDisplay(Direction.WallRight);
             }
             else
             {
-                slime.ChangeDirectionDisplay(Direction.WallRight);
+                slime.ChangeDirectionDisplay(Direction.WallLeft);
             }
         }
         else if (move_vector.y > 0f)

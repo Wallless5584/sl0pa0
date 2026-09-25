@@ -30,8 +30,13 @@ public class JumpGroundMoveState : SlimeMoveState
 
         slime.rb.gravityScale = 0f;
         slime.rb.AddForce(-Vector2.up * slime.rb.velocity + Vector2.up * slime.CurrentSlimeState.JumpPower);
+
         slime.ChangeDirectionDisplay(Direction.GroundJump);
         SlimeSoundManager.Instance.PlaySound(SoundType.Jump);
+        if (slime.WaterSides.FlagCount > 1)
+        {
+            slime.WaterBubblesBurst.Play();
+        }
         //slime.face.localPosition = new Vector2(0,0.1f);
         //slime.sr.sprite = slime.slime_jump;
     }
@@ -45,7 +50,7 @@ public class JumpGroundMoveState : SlimeMoveState
         //}
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            slime.rb.gravityScale = c_highGravity;
+            slime.rb.gravityScale = c_highGravity * slime.CurrentSlimeState.SpaceGravityMod;
         }
 
         exitTimer += Time.deltaTime;
@@ -53,7 +58,7 @@ public class JumpGroundMoveState : SlimeMoveState
 
         if (exitTimer >= c_lowGravityStartTime)
         {
-            slime.rb.gravityScale = c_lowGravity;
+            slime.rb.gravityScale = c_lowGravity * slime.CurrentSlimeState.SpaceGravityMod;
         }
 
         if (exitTimer >= c_exitStateTime)

@@ -11,6 +11,12 @@ public class JumpUpRightMoveState : JumpGroundMoveState
 
         slime.rb.gravityScale = slime.CurrentSlimeState.SpaceGravityMod;
         slime.rb.AddForce(new Vector2(slime.CurrentSlimeState.WallJumpPower, slime.CurrentSlimeState.JumpPower * c_verticalJumpPowerBoost));
+
+        if (slime.WaterSides.FlagCount > 1)
+        {
+            slime.WaterBubblesBurst.Play();
+        }
+        SlimeSoundManager.Instance.PlaySound(SoundType.Jump);
     }
 
 

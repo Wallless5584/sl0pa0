@@ -7,6 +7,7 @@ public class WallLeftGroundMoveState : WallRightGroundMoveState
         //Debug.Log("Entered WallLeftGround Move State!");
 
         slime.rb.gravityScale = 10f * slime.CurrentSlimeState.SpaceGravityMod;
+        slime.ChangeDirectionDisplay(Direction.GroundWallLeft);
     }
     public override void UpdateState(SlimeController slime)
     {

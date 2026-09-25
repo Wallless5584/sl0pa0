@@ -70,7 +70,12 @@ public enum Direction
     Ceiling,
     CeilingRight,
     CeilingLeft,
-    CeilingJump
+    CeilingJump,
+
+    GroundWallLeft,
+    GroundWallRight,
+    CeilingWallLeft,
+    CeilingWallRight
 }
 
 public enum Reaction
@@ -138,13 +143,19 @@ public class SlimeController : MonoBehaviour
 
     [Header("Body Sprites")]
     [SerializeField] SlimeStateSprites drySprites;
+    [SerializeField] SlimeStateSprites dryOutlineSprites;
     [SerializeField] SlimeStateSprites normalSprites;
+    [SerializeField] SlimeStateSprites normalOutlineSprites;
     [SerializeField] SlimeStateSprites wetSprites;
+    [SerializeField] SlimeStateSprites wetOutlineSprites;
     public SpriteRenderer srBody;
+    public SpriteMask srSlimeOutline;
 
     [Header("Face Sprites")]
     [SerializeField] Sprite coreNormalSprite;
     [SerializeField] Sprite coreSaltySprite;
+    [SerializeField] Sprite faceRightSprite;
+    [SerializeField] Sprite faceLeftSprite;
     [SerializeField] SpriteRenderer srCore;
     [SerializeField] SpriteRenderer srFace;
 
@@ -152,8 +163,8 @@ public class SlimeController : MonoBehaviour
     public ParticleSystem BounceParticles;
     public SideParticles8 DirChangeParticles;
     public ParticleSystem JumpDownBoostParticles;
-    public ParticleSystem WaterSplash;
     public ParticleSystem WaterBubbles;
+    public ParticleSystem WaterBubblesBurst;
     public ParticleSystem WaterDrops;
     public SideParticles HeatParticles;
     public SideParticles SplashParticles;
@@ -165,6 +176,7 @@ public class SlimeController : MonoBehaviour
     SideData currentSides;
     public Sides CurrentSides { get => currentSides.Flags; }
     SideData waterSides;
+    public SideData WaterSides { get => waterSides; }
     SideData heatSides;
 
     Direction CurrentDirection = Direction.None;
@@ -787,18 +799,18 @@ public class SlimeController : MonoBehaviour
         {
             case WetnessState.Dry:
             case WetnessState.DrySalty:
-                Set_Sprite_By_State(ref drySprites);
+                Set_Sprite_By_State(ref drySprites, ref dryOutlineSprites);
                 break;
             case WetnessState.Normal:
             case WetnessState.NormalSalty:
-                Set_Sprite_By_State(ref normalSprites);
+                Set_Sprite_By_State(ref normalSprites, ref normalOutlineSprites);
                 break;
             case WetnessState.Wet:
-                Set_Sprite_By_State(ref wetSprites);
+                Set_Sprite_By_State(ref wetSprites, ref wetOutlineSprites);
                 break;
         }
         CurrentDirection = direction;
-        void Set_Sprite_By_State(ref SlimeStateSprites spriteSet)
+        void Set_Sprite_By_State(ref SlimeStateSprites spriteSet, ref SlimeStateSprites outlineSpritesSet)
         {
             switch (direction)
             {
@@ -806,30 +818,37 @@ public class SlimeController : MonoBehaviour
                     break;
                 case Direction.Air:
                     srBody.sprite = spriteSet.Air;
+                    srSlimeOutline.sprite = outlineSpritesSet.Air;
                     break;
                 case Direction.AirRight:
                     srBody.sprite = spriteSet.Air;
-                    srFace.flipX = false;
+                    srSlimeOutline.sprite = outlineSpritesSet.Air;
+                    srFace.sprite = faceRightSprite;
                     break;
                 case Direction.AirLeft:
                     srBody.sprite = spriteSet.Air;
-                    srFace.flipX = true;
+                    srSlimeOutline.sprite = outlineSpritesSet.Air;
+                    srFace.sprite = faceLeftSprite;
                     break;
 
                 case Direction.Bounce:
                     srBody.sprite = spriteSet.Bounce;
+                    srSlimeOutline.sprite = null;
                     break;
 
                 case Direction.Ground:
                     srBody.sprite = spriteSet.Ground;
+                    srSlimeOutline.sprite = outlineSpritesSet.Ground;
                     break;
                 case Direction.GroundRight:
                     srBody.sprite = spriteSet.GroundRight;
-                    srFace.flipX = false;
+                    srSlimeOutline.sprite = outlineSpritesSet.GroundRight;
+                    srFace.sprite = faceRightSprite;
                     break;
                 case Direction.GroundLeft:
                     srBody.sprite = spriteSet.GroundLeft;
-                    srFace.flipX = true;
+                    srSlimeOutline.sprite = outlineSpritesSet.GroundLeft;
+                    srFace.sprite = faceLeftSprite;
                     break;
                 case Direction.GroundJump:
                     srBody.sprite = spriteSet.GroundJump;
@@ -837,50 +856,83 @@ public class SlimeController : MonoBehaviour
 
                 case Direction.WallRight:
                     srBody.sprite = spriteSet.WallRight;
-                    srFace.flipX = true;
+                    srSlimeOutline.sprite = outlineSpritesSet.WallRight;
+                    srFace.sprite = faceRightSprite;
                     break;
                 case Direction.WallRightUp:
                     srBody.sprite = spriteSet.WallRightUp;
-                    srFace.flipX = true;
+                    srSlimeOutline.sprite = outlineSpritesSet.WallRightUp;
+                    srFace.sprite = faceRightSprite;
                     break;
                 case Direction.WallRightDown:
                     srBody.sprite = spriteSet.WallRightDown;
-                    srFace.flipX = true;
+                    srSlimeOutline.sprite = outlineSpritesSet.WallRightDown;
+                    srFace.sprite = faceRightSprite;
                     break;
                 case Direction.WallLeft:
                     srBody.sprite = spriteSet.WallLeft;
-                    srFace.flipX = false;
+                    srSlimeOutline.sprite = outlineSpritesSet.WallLeft;
+                    srFace.sprite = faceLeftSprite;
                     break;
                 case Direction.WallLeftUp:
                     srBody.sprite = spriteSet.WallLeftUp;
-                    srFace.flipX = false;
+                    srSlimeOutline.sprite = outlineSpritesSet.WallLeftUp;
+                    srFace.sprite = faceLeftSprite;
                     break;
                 case Direction.WallLeftDown:
                     srBody.sprite = spriteSet.WallLeftDown;
-                    srFace.flipX = false;
+                    srSlimeOutline.sprite = outlineSpritesSet.WallLeftDown;
+                    srFace.sprite = faceLeftSprite;
                     break;
                 case Direction.WallJumpRight:
                     srBody.sprite = spriteSet.WallJumpRight;
-                    srFace.flipX = true;
+                    srSlimeOutline.sprite = outlineSpritesSet.Air;
+                    srFace.sprite = faceRightSprite;
                     break;
                 case Direction.WallJumpLeft:
                     srBody.sprite = spriteSet.WallJumpLeft;
-                    srFace.flipX = false;
+                    srSlimeOutline.sprite = outlineSpritesSet.Air;
+                    srFace.sprite = faceLeftSprite;
                     break;
 
                 case Direction.Ceiling:
                     srBody.sprite = spriteSet.Ceiling;
+                    srSlimeOutline.sprite = outlineSpritesSet.Ceiling;
                     break;
                 case Direction.CeilingRight:
                     srBody.sprite = spriteSet.CeilingRight;
-                    srFace.flipX = false;
+                    srSlimeOutline.sprite = outlineSpritesSet.CeilingRight;
+                    srFace.sprite = faceRightSprite;
                     break;
                 case Direction.CeilingLeft:
                     srBody.sprite = spriteSet.CeilingLeft;
-                    srFace.flipX = true;
+                    srSlimeOutline.sprite = outlineSpritesSet.CeilingLeft;
+                    srFace.sprite = faceLeftSprite;
                     break;
                 case Direction.CeilingJump:
                     srBody.sprite = spriteSet.CeilingJump;
+                    srSlimeOutline.sprite = outlineSpritesSet.Air;
+                    break;
+
+                case Direction.GroundWallLeft:
+                    srBody.sprite = spriteSet.GroundWallLeft;
+                    srSlimeOutline.sprite = outlineSpritesSet.GroundWallLeft;
+                    srFace.sprite = faceRightSprite;
+                    break;
+                case Direction.GroundWallRight:
+                    srBody.sprite = spriteSet.GroundWallRight;
+                    srSlimeOutline.sprite = outlineSpritesSet.GroundWallRight;
+                    srFace.sprite = faceLeftSprite;
+                    break;
+                case Direction.CeilingWallLeft:
+                    srBody.sprite = spriteSet.CeilingWallLeft;
+                    srSlimeOutline.sprite = outlineSpritesSet.CeilingWallLeft;
+                    srFace.sprite = faceRightSprite;
+                    break;
+                case Direction.CeilingWallRight:
+                    srBody.sprite = spriteSet.CeilingWallRight;
+                    srSlimeOutline.sprite = outlineSpritesSet.CeilingWallRight;
+                    srFace.sprite = faceLeftSprite;
                     break;
             }
         }
@@ -1158,5 +1210,10 @@ public struct SlimeStateSprites
     public Sprite CeilingRight;
     public Sprite CeilingLeft;
     public Sprite CeilingJump;
+
+    public Sprite GroundWallLeft;
+    public Sprite GroundWallRight;
+    public Sprite CeilingWallLeft;
+    public Sprite CeilingWallRight;
 }
 #endregion

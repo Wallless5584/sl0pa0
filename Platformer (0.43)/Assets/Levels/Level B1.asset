@@ -17,6 +17,7 @@ MonoBehaviour:
   BlockSprite: {fileID: 21300000, guid: 881d7b98336c1f940b4ebc6db3f880a3, type: 3}
   RoomCount: 5
   RoomVars:
+  - {fileID: 4482439227698753801, guid: 77ae20f619ea9ae4ab80738cecdf6219, type: 3}
   - {fileID: 4482439227698753801, guid: 2760de3c254fcca46afff0fc4a1d1c22, type: 3}
   - {fileID: 4482439227698753801, guid: efcc70910a66c524298458a9f0c6bb28, type: 3}
   - {fileID: 4482439227698753801, guid: 8a949b0e2fef03a48b4c3a6feeeecc10, type: 3}

@@ -7,6 +7,7 @@ public class WallLeftCeilingMoveState : WallRightGroundMoveState
         //Debug.Log("Entered WallLeftCeiling Move State!");
 
         slime.rb.gravityScale = -1f * slime.CurrentSlimeState.SpaceGravityMod;
+        slime.ChangeDirectionDisplay(Direction.CeilingWallLeft);
     }
     public override void UpdateState(SlimeController slime)
     {

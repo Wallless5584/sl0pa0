@@ -11,8 +11,13 @@ public class JumpDownMoveState : JumpGroundMoveState
         //Debug.Log("Entered Jump Down State!");
         slime.rb.gravityScale = slime.CurrentSlimeState.SpaceGravityMod;
         slime.rb.AddForce(Vector2.up * slime.rb.velocity - Vector2.up * slime.CurrentSlimeState.JumpPower);
+
         slime.ChangeDirectionDisplay(Direction.CeilingJump);
         slime.JumpDownBoostParticles.Play();
+        if (slime.WaterSides.FlagCount > 1)
+        {
+            slime.WaterBubblesBurst.Play();
+        }
         //Debug.Log("Jump Down Particles PLAYED!");
     }
 
