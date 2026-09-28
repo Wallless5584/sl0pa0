@@ -19,7 +19,6 @@ public class JumpUpRightMoveState : JumpGroundMoveState
         SlimeSoundManager.Instance.PlaySound(SoundType.Jump);
     }
 
-
     public override void ReactToGround(SideData touching_side, SlimeController slime)
     {
         switch (touching_side.Flags)

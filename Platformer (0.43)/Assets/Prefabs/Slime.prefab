@@ -5488,28 +5488,28 @@ MonoBehaviour:
     CeilingWallLeft: {fileID: 682479103, guid: b833ca311f028cb45914f3db1a7f0716, type: 3}
     CeilingWallRight: {fileID: 682479103, guid: b833ca311f028cb45914f3db1a7f0716, type: 3}
   dryOutlineSprites:
-    Air: {fileID: 0}
+    Air: {fileID: -638003588, guid: 57681ca8b5cdaf847ae927e6de4de841, type: 3}
     Bounce: {fileID: 0}
-    Ground: {fileID: 0}
-    GroundRight: {fileID: 0}
-    GroundLeft: {fileID: 0}
-    GroundJump: {fileID: 0}
-    WallRight: {fileID: 0}
-    WallRightUp: {fileID: 0}
-    WallRightDown: {fileID: 0}
-    WallLeft: {fileID: 0}
-    WallLeftUp: {fileID: 0}
-    WallLeftDown: {fileID: 0}
+    Ground: {fileID: -1663414994, guid: 57681ca8b5cdaf847ae927e6de4de841, type: 3}
+    GroundRight: {fileID: 1781242757, guid: 57681ca8b5cdaf847ae927e6de4de841, type: 3}
+    GroundLeft: {fileID: -841647894, guid: 57681ca8b5cdaf847ae927e6de4de841, type: 3}
+    GroundJump: {fileID: -638003588, guid: 57681ca8b5cdaf847ae927e6de4de841, type: 3}
+    WallRight: {fileID: 1003653943, guid: 57681ca8b5cdaf847ae927e6de4de841, type: 3}
+    WallRightUp: {fileID: 488143041, guid: 57681ca8b5cdaf847ae927e6de4de841, type: 3}
+    WallRightDown: {fileID: -1817057277, guid: 57681ca8b5cdaf847ae927e6de4de841, type: 3}
+    WallLeft: {fileID: 601374136, guid: 57681ca8b5cdaf847ae927e6de4de841, type: 3}
+    WallLeftUp: {fileID: -1542460199, guid: 57681ca8b5cdaf847ae927e6de4de841, type: 3}
+    WallLeftDown: {fileID: -818466602, guid: 57681ca8b5cdaf847ae927e6de4de841, type: 3}
     WallJumpRight: {fileID: 0}
     WallJumpLeft: {fileID: 0}
-    Ceiling: {fileID: 0}
-    CeilingRight: {fileID: 0}
-    CeilingLeft: {fileID: 0}
+    Ceiling: {fileID: 776297210, guid: 57681ca8b5cdaf847ae927e6de4de841, type: 3}
+    CeilingRight: {fileID: 1003916117, guid: 57681ca8b5cdaf847ae927e6de4de841, type: 3}
+    CeilingLeft: {fileID: -1307500179, guid: 57681ca8b5cdaf847ae927e6de4de841, type: 3}
     CeilingJump: {fileID: 0}
-    GroundWallLeft: {fileID: 0}
-    GroundWallRight: {fileID: 0}
-    CeilingWallLeft: {fileID: 0}
-    CeilingWallRight: {fileID: 0}
+    GroundWallLeft: {fileID: 1274164315, guid: 57681ca8b5cdaf847ae927e6de4de841, type: 3}
+    GroundWallRight: {fileID: -461587028, guid: 57681ca8b5cdaf847ae927e6de4de841, type: 3}
+    CeilingWallLeft: {fileID: -530227000, guid: 57681ca8b5cdaf847ae927e6de4de841, type: 3}
+    CeilingWallRight: {fileID: -1300530190, guid: 57681ca8b5cdaf847ae927e6de4de841, type: 3}
   normalSprites:
     Air: {fileID: 997556201, guid: b833ca311f028cb45914f3db1a7f0716, type: 3}
     Bounce: {fileID: 1065601936, guid: b833ca311f028cb45914f3db1a7f0716, type: 3}
@@ -5580,28 +5580,28 @@ MonoBehaviour:
     CeilingWallLeft: {fileID: -2045567374, guid: b833ca311f028cb45914f3db1a7f0716, type: 3}
     CeilingWallRight: {fileID: -2045567374, guid: b833ca311f028cb45914f3db1a7f0716, type: 3}
   wetOutlineSprites:
-    Air: {fileID: 0}
+    Air: {fileID: 4241199, guid: 51c9dd0263622f64b898051bcb710094, type: 3}
     Bounce: {fileID: 0}
-    Ground: {fileID: 0}
-    GroundRight: {fileID: 0}
-    GroundLeft: {fileID: 0}
+    Ground: {fileID: -730063308, guid: 51c9dd0263622f64b898051bcb710094, type: 3}
+    GroundRight: {fileID: -1701863536, guid: 51c9dd0263622f64b898051bcb710094, type: 3}
+    GroundLeft: {fileID: 833637954, guid: 51c9dd0263622f64b898051bcb710094, type: 3}
     GroundJump: {fileID: 0}
-    WallRight: {fileID: 0}
-    WallRightUp: {fileID: 0}
-    WallRightDown: {fileID: 0}
-    WallLeft: {fileID: 0}
-    WallLeftUp: {fileID: 0}
-    WallLeftDown: {fileID: 0}
+    WallRight: {fileID: -1261042378, guid: 51c9dd0263622f64b898051bcb710094, type: 3}
+    WallRightUp: {fileID: -1740283584, guid: 51c9dd0263622f64b898051bcb710094, type: 3}
+    WallRightDown: {fileID: -1472513341, guid: 51c9dd0263622f64b898051bcb710094, type: 3}
+    WallLeft: {fileID: 1431129546, guid: 51c9dd0263622f64b898051bcb710094, type: 3}
+    WallLeftUp: {fileID: -1678379242, guid: 51c9dd0263622f64b898051bcb710094, type: 3}
+    WallLeftDown: {fileID: -1330261833, guid: 51c9dd0263622f64b898051bcb710094, type: 3}
     WallJumpRight: {fileID: 0}
     WallJumpLeft: {fileID: 0}
-    Ceiling: {fileID: 0}
-    CeilingRight: {fileID: 0}
-    CeilingLeft: {fileID: 0}
+    Ceiling: {fileID: -1745402799, guid: 51c9dd0263622f64b898051bcb710094, type: 3}
+    CeilingRight: {fileID: 1691534391, guid: 51c9dd0263622f64b898051bcb710094, type: 3}
+    CeilingLeft: {fileID: -752106511, guid: 51c9dd0263622f64b898051bcb710094, type: 3}
     CeilingJump: {fileID: 0}
-    GroundWallLeft: {fileID: 0}
-    GroundWallRight: {fileID: 0}
-    CeilingWallLeft: {fileID: 0}
-    CeilingWallRight: {fileID: 0}
+    GroundWallLeft: {fileID: 1488720675, guid: 51c9dd0263622f64b898051bcb710094, type: 3}
+    GroundWallRight: {fileID: -486830968, guid: 51c9dd0263622f64b898051bcb710094, type: 3}
+    CeilingWallLeft: {fileID: 2092475233, guid: 51c9dd0263622f64b898051bcb710094, type: 3}
+    CeilingWallRight: {fileID: 1644356313, guid: 51c9dd0263622f64b898051bcb710094, type: 3}
   srBody: {fileID: 9181793117438619052}
   srSlimeOutline: {fileID: 529776291180527243}
   coreNormalSprite: {fileID: -1787418943, guid: b833ca311f028cb45914f3db1a7f0716, type: 3}
