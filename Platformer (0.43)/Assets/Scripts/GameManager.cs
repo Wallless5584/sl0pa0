@@ -100,9 +100,11 @@ public class GameManager : MonoBehaviour
                 ParallaxBG.gameObject.SetActive(true);
                 //Debug.Log("ParallaxBG ON!");
                 UIManager.instance.SwitchState(UIManager.UIState.GameUI);
-                PrepareActiveRoom();
+                PrepareRoom(activeRoom);
                 Time.timeScale = 1f;
                 CurrentState = new_state;
+                RoomComplete(); //<- QUICK-FIX: Only works if the first room has no buttons
+                
                 break;
             case GameState.Pause:
                 ParallaxBG.gameObject.SetActive(false);
@@ -138,26 +140,53 @@ public class GameManager : MonoBehaviour
 
     public bool SpawnTriggered(SpawnPoint new_sp)
     {
-        if (new_sp != SpawnedRooms[activeRoom].spawn)
+        if (new_sp == SpawnedRooms[activeRoom].spawn)
         {
-            SpawnedRooms[activeRoom].CloseExit();
+            CleanupPreviousRoom();
+            SpawnedRooms[activeRoom].SetupOnSpawnEnter();
             if (CheckLevelComplete())
             {
                 LevelComplete();
                 return true;
             }
-            activeRoom++;
             Debug.Log($"> Spawn Triggered! (Active room: {activeRoom}/{GameLevels[SelectedLevel].RoomCount}), Room name: {SpawnedRooms[activeRoom].gameObject.name}");
-            PrepareActiveRoom();
             return true;
         }
         return false;
     }
 
-    public void PrepareActiveRoom()
+    public void PrepareRoom(int roomIndex)
     {
-        SpawnedRooms[activeRoom].Activate();
+        SpawnedRooms[roomIndex].ActivateSpawn();
     }
+
+    public void PrepareAndSetNextRoom()
+    {
+        activeRoom++;
+        SpawnedRooms[activeRoom].ActivateSpawn();
+    }
+
+    public void CleanupPreviousRoom()
+    {
+        if (activeRoom > 0)
+        {
+            SpawnedRooms[activeRoom - 1].CloseExit();
+        }
+    }
+
+    public void RoomComplete()
+    {
+
+        if (CheckLevelComplete())
+        {
+
+        }
+        else
+        {
+            PrepareAndSetNextRoom();
+        }
+    }
+
 
     public bool CheckLevelComplete()
     {
@@ -184,8 +213,8 @@ public class GameManager : MonoBehaviour
     public void OnRoomButtonPress(RoomButton button)
     {
         SpawnedRooms[activeRoom].RoomButtonPressed(button);
-        
     }
+
 
     public void ResetLevel()
     {
@@ -194,9 +223,10 @@ public class GameManager : MonoBehaviour
             room.ResetRoom();
         }
         activeRoom = 0;
-        PrepareActiveRoom();
+        PrepareRoom(activeRoom);
         RespawnOnSpawn();
     }
+
 
 
 
@@ -206,7 +236,7 @@ public class GameManager : MonoBehaviour
         if (level.RoomCount > level.RoomVars.Length)
         {
             Debug.LogWarning($"Room count of {level.LevelName} had to be shortened due to lack of RoomVars");
-            level.RoomCount = level.RoomVars.Length + 1;
+            level.RoomCount = level.RoomVars.Length;
         }
     }
 
@@ -260,7 +290,11 @@ public class GameManager : MonoBehaviour
         //PlaceRoom(StartRoom);
         if (levelToLoad.KeepRoomOrder)
         {
-            levelToLoad.RoomCount = levelToLoad.RoomVars.Length+1;
+            //Debug.Log($"Room count: {levelToLoad.RoomCount}");
+            //Debug.Log($"Total room types: {levelToLoad.RoomVars.Length}");
+            //Debug.Log($"Active room: {activeRoom}");
+            levelToLoad.RoomCount = levelToLoad.RoomVars.Length;
+
             foreach (RoomController room in levelToLoad.RoomVars)
             {
                 SpawnRoom(levelToLoad, room);

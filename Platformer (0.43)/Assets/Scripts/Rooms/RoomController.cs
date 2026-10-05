@@ -8,6 +8,7 @@ public class RoomController : MonoBehaviour
     [SerializeField] RoomButton[] buttonsInRoom;
     List<RoomButton> pressedButtons = new List<RoomButton>();
     [SerializeField] DoorController exit;
+    [SerializeField] SpriteParallaxEffect[] ParallaxBGs;
     public SpawnPoint spawn;
     public UnityEvent OnRoomCompletion;
 
@@ -16,7 +17,25 @@ public class RoomController : MonoBehaviour
         //pressed_button.Collect();
         pressedButtons.Add(pressed_button);
         Debug.Log("Coin picked up!");
-        CheckRoomCompletion();
+        if (CheckRoomCompletion())
+        {
+            GameManager.instance.RoomComplete();
+        }
+
+    }
+
+    public void AddHint(SpriteParallaxEffect hint)
+    {
+        SpriteParallaxEffect[] newParallaxBGs = new SpriteParallaxEffect[ParallaxBGs.Length+1];
+        if (ParallaxBGs.Length > 0)
+        {
+            for (int i = 0; i < newParallaxBGs.Length; i++)
+            {
+                newParallaxBGs[i] = ParallaxBGs[i];
+            }
+        }
+        newParallaxBGs[newParallaxBGs.Length-1] = hint;
+        ParallaxBGs = newParallaxBGs;
     }
 
     public bool CheckRoomCompletion()
@@ -25,7 +44,8 @@ public class RoomController : MonoBehaviour
         {
             //exit.SetState(true);
             OnRoomCompletion.Invoke();
-            Debug.Log($"Level completed!");
+            Debug.Log($"Room completed!");
+            ActivateSpawn();
             return true;
         }
         //Debug.Log($"Level incomplete! {pressedButtons.Count}/{buttonsInRoom.Length} coins collected. ");
@@ -35,6 +55,10 @@ public class RoomController : MonoBehaviour
     public void CloseExit()
     {
         exit.SetState(false);
+        foreach (SpriteParallaxEffect parallax in ParallaxBGs)
+        {
+            parallax.Disable();
+        }
     }
 
     public Vector3 GetExitPos()
@@ -49,13 +73,31 @@ public class RoomController : MonoBehaviour
         return spawn.transform.position;
     }
 
-    public void Activate()
+    public void ActivateSpawn()
     {
         spawn.Activate();
+    }
+
+    void ActivateButtons()
+    {
         foreach (RoomButton item in buttonsInRoom)
         {
             item.Activate();
         }
+    }
+
+    void ActivateParallax()
+    {
+        foreach (SpriteParallaxEffect parallax in ParallaxBGs)
+        {
+            parallax.Setup();
+        }
+    }
+
+    public void SetupOnSpawnEnter()
+    {
+        ActivateButtons();
+        ActivateParallax();
     }
 
     public void ResetRoom()

@@ -18,12 +18,12 @@ public class SpawnPoint : MonoBehaviour
 
     void Start()
     {
-        this.enabled = shouldSpawn;
+        enabled = shouldSpawn;
     }
 
     void Update()
     {
-        
+
         if (shouldSpawn)
         {
             gateTimer += Time.deltaTime;
@@ -54,7 +54,7 @@ public class SpawnPoint : MonoBehaviour
                 {
                     gateTimer = 0f;
 
-                    this.enabled = false;
+                    enabled = false;
                 }
             }
         }
@@ -72,6 +72,7 @@ public class SpawnPoint : MonoBehaviour
 
     public void Activate()
     {
+        Debug.Log($"Spawn in {transform.parent.name} activated!");
         LightSR.enabled = true;
         LightSR.sprite = LightSprites[0];
     }
@@ -84,7 +85,7 @@ public class SpawnPoint : MonoBehaviour
 
     public void Spawn()
     {
-        this.enabled = true;
+        enabled = true;
         shouldSpawn = true;
     }
 }
