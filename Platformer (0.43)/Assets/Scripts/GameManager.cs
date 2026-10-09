@@ -78,6 +78,8 @@ public class GameManager : MonoBehaviour
                 CurrentState = new_state;
                 break;
             case GameState.Menu:
+                activeRoom = 1;
+                activeSpawn = 0;
                 ParallaxBG.gameObject.SetActive(false);
                 Time.timeScale = 1f;
                 UIManager.instance.SwitchState(UIManager.UIState.LevelMenu);
@@ -143,16 +145,19 @@ public class GameManager : MonoBehaviour
     {
         if (new_sp == SpawnedRooms[activeRoom].spawn)
         {
-            activeSpawn = activeRoom;
-            CleanupPreviousRoom();
-            SpawnedRooms[activeRoom].SetupOnSpawnEnter();
-            if (CheckLevelComplete())
+            if (new_sp != SpawnedRooms[activeSpawn].spawn)
             {
-                LevelComplete();
+                activeSpawn = activeRoom;
+                CleanupPreviousRoom();
+                SpawnedRooms[activeRoom].SetupOnSpawnEnter();
+                if (CheckLevelComplete())
+                {
+                    LevelComplete();
+                    return true;
+                }
+                Debug.Log($"> Spawn Triggered! (Active room: {activeRoom}/{GameLevels[SelectedLevel].RoomCount}), Room name: {SpawnedRooms[activeRoom].gameObject.name}");
                 return true;
             }
-            Debug.Log($"> Spawn Triggered! (Active room: {activeRoom}/{GameLevels[SelectedLevel].RoomCount}), Room name: {SpawnedRooms[activeRoom].gameObject.name}");
-            return true;
         }
         return false;
     }
@@ -201,7 +206,7 @@ public class GameManager : MonoBehaviour
         //    return activeRoom >= GameLevels[SelectedLevel].RoomCount;
         //}
 
-        return activeRoom >= GameLevels[SelectedLevel].RoomCount;
+        return activeRoom > GameLevels[SelectedLevel].RoomCount;
         
         
     }
@@ -226,7 +231,8 @@ public class GameManager : MonoBehaviour
         {
             room.ResetRoom();
         }
-        activeRoom = 0;
+        activeRoom = 1;
+        activeSpawn = 0;
         PrepareRoom(activeRoom);
         RespawnOnSpawn();
     }
