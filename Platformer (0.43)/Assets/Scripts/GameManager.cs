@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
 
     public GameState CurrentState;
     [SerializeField] int activeRoom;
+    [SerializeField] int activeSpawn;
     [SerializeField] SlimeController PlayerPrefab;
     [SerializeField] GameObject ParallaxBG;
 
@@ -127,12 +128,12 @@ public class GameManager : MonoBehaviour
     {
         if (PlayerInstance == null)
         {
-            PlayerInstance = Instantiate(PlayerPrefab, SpawnedRooms[activeRoom].spawn.GetComponentInChildren<TriggerZone>().transform.position, Quaternion.identity);
+            PlayerInstance = Instantiate(PlayerPrefab, SpawnedRooms[activeSpawn].spawn.GetComponentInChildren<TriggerZone>().transform.position, Quaternion.identity);
         }
         else
         {
 
-            PlayerInstance.transform.position = SpawnedRooms[activeRoom].spawn.GetComponentInChildren<TriggerZone>().transform.position;
+            PlayerInstance.transform.position = SpawnedRooms[activeSpawn].spawn.GetComponentInChildren<TriggerZone>().transform.position;
             PlayerInstance.ResetSlime();
         }
     }
@@ -142,6 +143,7 @@ public class GameManager : MonoBehaviour
     {
         if (new_sp == SpawnedRooms[activeRoom].spawn)
         {
+            activeSpawn = activeRoom;
             CleanupPreviousRoom();
             SpawnedRooms[activeRoom].SetupOnSpawnEnter();
             if (CheckLevelComplete())
@@ -160,7 +162,7 @@ public class GameManager : MonoBehaviour
         SpawnedRooms[roomIndex].ActivateSpawn();
     }
 
-    public void PrepareAndSetNextRoom()
+    public void SetAndPrepareNextRoom()
     {
         activeRoom++;
         SpawnedRooms[activeRoom].ActivateSpawn();
@@ -183,21 +185,23 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            PrepareAndSetNextRoom();
+            SetAndPrepareNextRoom();
         }
     }
 
 
     public bool CheckLevelComplete()
     {
-        if (GameLevels[SelectedLevel].name != "Level Test 01")
-        {
-            return activeRoom >= GameLevels[SelectedLevel].RoomCount - 1;
-        }
-        else
-        {
-            return activeRoom >= GameLevels[SelectedLevel].RoomCount;
-        }
+        //if (GameLevels[SelectedLevel].name != "Level Test 01")
+        //{
+        //    return activeRoom >= GameLevels[SelectedLevel].RoomCount - 1;
+        //}
+        //else
+        //{
+        //    return activeRoom >= GameLevels[SelectedLevel].RoomCount;
+        //}
+
+        return activeRoom >= GameLevels[SelectedLevel].RoomCount;
         
         
     }
