@@ -3,20 +3,46 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [SelectionBase]
-public class DoorController : MonoBehaviour
+public class DoorController : GameWorldPart
 {
+    [SerializeField] float doorSpeed;
     [SerializeField] Transform OpenTarget;
     [SerializeField] Transform CloseTarget;
     [SerializeField] GameObject Door;
-    [SerializeField] float doorSpeed;
+
+    [SerializeField] RoomTimer connectedTimer;
+    float doorReachElapsedTime;
     bool opened;
     bool moving;
+    bool shouldTime;
     Vector2 TargetLocation;
 
     void Start()
     {
-        SetState(false);
-        //OpenTarget = GetComponentInChildren<Transform>();
+        Register();
+    }
+
+    void Update()
+    {
+        if (shouldTime)
+        {
+            UpdateTime();
+        }
+
+        if (moving)
+        {
+            Door.transform.position = Vector2.Lerp(Door.transform.position, TargetLocation, doorSpeed * Time.deltaTime);
+            if (Vector2.Distance(Door.transform.position, TargetLocation) <= 0.01f)
+            {
+                Door.transform.position = TargetLocation;
+                moving = false;
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        shouldTime = false;
     }
 
     public void SetState(bool open)
@@ -34,21 +60,35 @@ public class DoorController : MonoBehaviour
         moving = true;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    void UpdateTime()
+    {
+        doorReachElapsedTime += Time.deltaTime;
+        connectedTimer.SetTime(doorReachElapsedTime);
+    }
+
+
+    override public void Prepare()
+    {
+
+    }
+    override public void Activate()
+    {
+        this.enabled = true;
+        shouldTime = true;
+    }
+    override public void Reset()
+    {
+        TargetLocation = CloseTarget.position;
+        Door.transform.position = TargetLocation;
+        moving = false;
+        opened = false;
+        this.enabled = false;
+    }
+    override public void Deactivate()
     {
         
     }
 
-    void Update()
-    {
-        if (moving)
-        {
-            Door.transform.position = Vector2.Lerp(Door.transform.position, TargetLocation, doorSpeed * Time.deltaTime);
-            if (Vector2.Distance(Door.transform.position, TargetLocation) <= 0.1f)
-            {
-                Door.transform.position = TargetLocation;
-                moving = false;
-            }
-        }
-    }
+
 }

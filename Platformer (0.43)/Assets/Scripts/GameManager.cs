@@ -104,6 +104,7 @@ public class GameManager : MonoBehaviour
                 //Debug.Log("ParallaxBG ON!");
                 UIManager.instance.SwitchState(UIManager.UIState.GameUI);
                 PrepareRoom(activeRoom);
+                PrepareRoom(activeRoom+1); // so that next room spawn light shows
                 Time.timeScale = 1f;
                 CurrentState = new_state;
                 RoomComplete(); //<- QUICK-FIX: Only works if the first room has no buttons
@@ -149,7 +150,8 @@ public class GameManager : MonoBehaviour
             {
                 activeSpawn = activeRoom;
                 CleanupPreviousRoom();
-                SpawnedRooms[activeRoom].SetupOnSpawnEnter();
+                //SpawnedRooms[activeRoom].SetupOnSpawnEnter();
+                SpawnedRooms[activeRoom].Activate();
                 if (CheckLevelComplete())
                 {
                     LevelComplete();
@@ -164,20 +166,26 @@ public class GameManager : MonoBehaviour
 
     public void PrepareRoom(int roomIndex)
     {
-        SpawnedRooms[roomIndex].ActivateSpawn();
+        //SpawnedRooms[roomIndex].ActivateSpawn();
+        SpawnedRooms[roomIndex].Prepare();
     }
 
     public void SetAndPrepareNextRoom()
     {
         activeRoom++;
-        SpawnedRooms[activeRoom].ActivateSpawn();
+        //SpawnedRooms[activeRoom].ActivateSpawn();
+        SpawnedRooms[activeRoom].Prepare();
     }
 
     public void CleanupPreviousRoom()
     {
+        //if (activeRoom > 0)
+        //{
+        //    SpawnedRooms[activeRoom - 1].CloseExit();
+        //}
         if (activeRoom > 0)
         {
-            SpawnedRooms[activeRoom - 1].CloseExit();
+            SpawnedRooms[activeRoom - 1].Deactivate();
         }
     }
 
@@ -227,9 +235,9 @@ public class GameManager : MonoBehaviour
 
     public void ResetLevel()
     {
-        foreach (RoomController room in SpawnedRooms)
+        foreach (GameWorldPart room in SpawnedRooms)
         {
-            room.ResetRoom();
+            room.Reset();
         }
         activeRoom = 1;
         activeSpawn = 0;

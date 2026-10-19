@@ -1,13 +1,13 @@
-using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 [SelectionBase]
-public class RoomButton : MonoBehaviour, ICollectable
+public class RoomButton : GameWorldPart
 {
     public CollectableType Type { get; set; }
+    [SerializeField] RoomTimer connectedTimer;
     [SerializeField] SpriteRenderer ActiveSR;
     [SerializeField] SpriteRenderer InactiveSR;
-    [SerializeField] TMP_Text TimerText;
 
     [SerializeField] Sprite UnpressedActive;
     [SerializeField] Sprite PressedActive;
@@ -16,10 +16,13 @@ public class RoomButton : MonoBehaviour, ICollectable
     bool active = false;
     float recordedTime;
 
+    public UnityEvent OnPressed;
+
 
 
     private void Start()
     {
+        Register();
         ResetButton();
     }
 
@@ -28,11 +31,12 @@ public class RoomButton : MonoBehaviour, ICollectable
         if (active)
         {
             recordedTime += Time.deltaTime;
-            int minTimer = (int)(recordedTime / 60);
-            float secTimer = recordedTime + Time.deltaTime - minTimer * 60;
+            //int minTimer = (int)(recordedTime / 60);
+            //float secTimer = recordedTime + Time.deltaTime - minTimer * 60;
 
-            float secDisplayTime = Mathf.Floor(secTimer * 1000f) / 1000;
-            TimerText.text = $"{minTimer:D2}:{secDisplayTime.ToString("00.000")}";
+            //float secDisplayTime = Mathf.Floor(secTimer * 1000f) / 1000;
+            //TimerText.text = $"{minTimer:D2}:{secDisplayTime.ToString("00.000")}";
+            connectedTimer.SetTime(recordedTime);
         }
         else
         {
@@ -51,7 +55,16 @@ public class RoomButton : MonoBehaviour, ICollectable
         if (active == true)
         {
             active = false;
-            GameManager.instance.OnRoomButtonPress(this);
+            //GameManager.instance.OnRoomButtonPress(this);
+
+            if (OnPressed.GetPersistentEventCount() > 0)
+            {
+                OnPressed.Invoke();
+            }
+            else
+            {
+                GameManager.instance.OnRoomButtonPress(this);
+            }
         }
     }
 
@@ -69,23 +82,45 @@ public class RoomButton : MonoBehaviour, ICollectable
     void ResetButton()
     {
         enabled = true;
+
         ActiveSR.sprite = UnpressedActive;
         InactiveSR.sprite = UnpressedInactive;
         ActiveSR.color = new Color(1f, 1f, 1f, 1f);
         ActiveSR.sprite = UnpressedActive;
-        TimerText.text = "00:00.000";
+
         recordedTime = 0f;
+        connectedTimer.SetTime(recordedTime);
     }
 
-    public void Activate()
+    //public void Activate()
+    //{
+    //    active = true;
+    //    ResetButton();
+    //}
+
+    //public void ResetObject()
+    //{
+    //    active = false;
+    //    ResetButton();
+    //}
+
+
+    override public void Prepare()
+    {
+        
+    }
+    override public void Activate()
     {
         active = true;
         ResetButton();
     }
-
-    public void ResetObject()
+    override public void Reset()
     {
         active = false;
         ResetButton();
+    }
+    override public void Deactivate()
+    {
+        
     }
 }

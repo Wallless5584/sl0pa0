@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SpawnPoint : MonoBehaviour
+public class SpawnPoint : GameWorldPart
 {
     [SerializeField] float openTime;
     [SerializeField] float closeTime;
@@ -18,6 +18,7 @@ public class SpawnPoint : MonoBehaviour
 
     void Start()
     {
+        Register();
         enabled = shouldSpawn;
     }
 
@@ -65,27 +66,53 @@ public class SpawnPoint : MonoBehaviour
     {
         if (GameManager.instance.SpawnTriggered(this))
         {
-            LightSR.enabled = true;
-            LightSR.sprite = LightSprites[1];
+            //LightSR.enabled = true;
+            //LightSR.sprite = LightSprites[1];
         }
     }
-
-    public void Activate()
+    public void Spawn()
     {
-        Debug.Log($"Spawn in {transform.parent.name} activated!");
+        enabled = true;
+        shouldSpawn = true;
+    }
+
+    //public void Activate()
+    //{
+    //    Debug.Log($"Spawn in {transform.parent.name} activated!");
+    //    LightSR.enabled = true;
+    //    LightSR.sprite = LightSprites[0];
+    //}
+
+    //public void Reset()
+    //{
+    //    LightSR.enabled = false;
+    //    LightSR.sprite = LightSprites[0];
+    //}
+
+
+
+
+    override public void Prepare()
+    {
+        Debug.Log($"Spawn in {transform.parent.name} is prepared!");
         LightSR.enabled = true;
         LightSR.sprite = LightSprites[0];
     }
+    override public void Activate()
+    {
+        LightSR.enabled = true;
+        LightSR.sprite = LightSprites[1];
+    }
 
-    public void Reset()
+    override public void Reset()
     {
         LightSR.enabled = false;
         LightSR.sprite = LightSprites[0];
     }
 
-    public void Spawn()
+    override public void Deactivate()
     {
-        enabled = true;
-        shouldSpawn = true;
+        LightSR.enabled = false;
+        LightSR.sprite = LightSprites[0];
     }
 }

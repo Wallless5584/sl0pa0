@@ -54,6 +54,9 @@ TagManager:
   - name: Buttons
     uniqueID: 3570791331
     locked: 0
+  - name: Back Light
+    uniqueID: 1180304625
+    locked: 0
   - name: Traps
     uniqueID: 4099723407
     locked: 0
