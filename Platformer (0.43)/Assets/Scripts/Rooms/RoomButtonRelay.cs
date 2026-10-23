@@ -31,7 +31,7 @@ public class RoomButtonRelay : GameWorldPart
 
     public void RecieveSignal(RoomButton origin)
     {
-        this.enabled = true;
+        enabled = true;
         //relayedSignalOrigin = origin;
     }
 
@@ -40,7 +40,7 @@ public class RoomButtonRelay : GameWorldPart
         lightSR.enabled = true;
         relayPS.Play();
         OnRelay.Invoke();
-        this.enabled = false;
+        enabled = false;
     }
 
 
@@ -50,7 +50,7 @@ public class RoomButtonRelay : GameWorldPart
     }
     override public void Activate()
     {
-        this.enabled = false;
+        enabled = false;
         lightSR.enabled = false;
         relayTimer = relayTime;
     }
@@ -58,7 +58,7 @@ public class RoomButtonRelay : GameWorldPart
     {
         lightSR.enabled = false;
         relayTimer = relayTime;
-        this.enabled = false;
+        enabled = false;
     }
     override public void Deactivate()
     {

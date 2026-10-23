@@ -154,7 +154,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -853573541
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: -1
   m_Sprite: {fileID: -2010821357, guid: b833ca311f028cb45914f3db1a7f0716, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -5021,7 +5021,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -877778353
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 1
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -5178,7 +5178,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -853573541
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: -2
   m_Sprite: {fileID: -1787418943, guid: b833ca311f028cb45914f3db1a7f0716, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -5666,7 +5666,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0f1fe7fae6b8cc4cacfe339bfc07ccd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounce: {fileID: 8300000, guid: c367d8ec34c4a22469c3a18e814eb2d4, type: 3}
+  bounce: {fileID: 8300000, guid: 5a6620ebb52ccd64bb6de8a0006ecd51, type: 3}
+  bounceRedirect: {fileID: 8300000, guid: e8a07ecec69f2a5499d5754d323731bf, type: 3}
   jump: {fileID: 8300000, guid: c486552f025627543b637072cee049ba, type: 3}
   slide: {fileID: 0}
 --- !u!212 &9181793117438619052
@@ -5708,7 +5709,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -853573541
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 997556201, guid: b833ca311f028cb45914f3db1a7f0716, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}

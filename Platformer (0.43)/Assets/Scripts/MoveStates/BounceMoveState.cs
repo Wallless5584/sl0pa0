@@ -189,7 +189,7 @@ public class BounceMoveState : SlimeMoveState
         Vector2 Reflect(Vector2 normal)
         {
             string debug_text = $"Slime BOUNCED! Move {move},";
-            SlimeSoundManager.Instance.PlaySound(SoundType.Bounce);
+            
 
             delta_direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
@@ -204,8 +204,13 @@ public class BounceMoveState : SlimeMoveState
             if (delta_direction != Vector2.zero)
             {
                 delta_direction = delta_direction.normalized;
+                SlimeSoundManager.Instance.PlaySound(SoundType.BounceRedirect);
             }
-            Vector2 before_collision_move = slime.PreviousMove;
+            else
+            {
+                SlimeSoundManager.Instance.PlaySound(SoundType.Bounce);
+            }
+                Vector2 before_collision_move = slime.PreviousMove;
 
             reflectMove = Vector2.Reflect((before_collision_move.normalized + delta_direction * c_reflectControlModifier).normalized * before_collision_move.magnitude * c_reflectVelocityModifier, normal.normalized);
             Debug.Log($"{debug_text} reflect {reflectMove}, Delta dir: {delta_direction}, Normal: {normal}");

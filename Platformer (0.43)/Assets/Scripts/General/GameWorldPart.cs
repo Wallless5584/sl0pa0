@@ -28,11 +28,11 @@ public abstract class GameWorldPart : MonoBehaviour
     protected void Register()
     {
         RoomController roomOwner;
-        if (this.transform.parent.TryGetComponent<RoomController>(out roomOwner))
+        if (transform.parent.TryGetComponent<RoomController>(out roomOwner))
         {
             roomOwner.RegisterPart(this);
         }
-        else if (this.transform.parent.parent.TryGetComponent<RoomController>(out roomOwner))
+        else if (transform.parent.parent.TryGetComponent<RoomController>(out roomOwner))
         {
             roomOwner.RegisterPart(this);
         }

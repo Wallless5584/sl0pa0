@@ -6,6 +6,7 @@ public enum SoundType
 {
     None,
     Bounce,
+    BounceRedirect,
     Jump,
     Slide,
 }
@@ -16,6 +17,7 @@ public class SlimeSoundManager : MonoBehaviour
 
     AudioSource soundSource;
     [SerializeField] AudioClip bounce;
+    [SerializeField] AudioClip bounceRedirect;
     [SerializeField] AudioClip jump;
     [SerializeField] AudioClip slide;
 
@@ -39,6 +41,10 @@ public class SlimeSoundManager : MonoBehaviour
             case SoundType.Bounce:
                 soundSource.Stop();
                 soundSource.PlayOneShot(bounce);
+                break;
+            case SoundType.BounceRedirect:
+                soundSource.Stop();
+                soundSource.PlayOneShot(bounceRedirect);
                 break;
             case SoundType.Jump:
                 soundSource.Stop();
