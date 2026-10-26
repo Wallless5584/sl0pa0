@@ -11,8 +11,8 @@ public class BounceMoveState : SlimeMoveState
     const float c_minBounceAngle = 5;
     const float c_maxBounceAngle = 180 - c_minBounceAngle;
     const float c_shadowBounceProtectionTime = 0.0001f;
-    const float c_reflectVelocityModifier = 0.999f;
-    const float c_reflectControlModifier = 0.2f;
+    //const float c_reflectVelocityModifier = 0.999f;
+    //const float c_reflectControlModifier = 0.2f;
 
     bool shouldReflectNextReactToGround = true;
 
@@ -212,7 +212,7 @@ public class BounceMoveState : SlimeMoveState
             }
                 Vector2 before_collision_move = slime.PreviousMove;
 
-            reflectMove = Vector2.Reflect((before_collision_move.normalized + delta_direction * c_reflectControlModifier).normalized * before_collision_move.magnitude * c_reflectVelocityModifier, normal.normalized);
+            reflectMove = Vector2.Reflect((before_collision_move.normalized + delta_direction * slime.CurrentSlimeState.BounceReflectControlMultiplier).normalized * before_collision_move.magnitude * slime.CurrentSlimeState.BounceEnergyMultiplier, normal.normalized);
             Debug.Log($"{debug_text} reflect {reflectMove}, Delta dir: {delta_direction}, Normal: {normal}");
             bounceTime = 0;
 

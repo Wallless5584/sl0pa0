@@ -23,18 +23,19 @@ public abstract class GameWorldPart : MonoBehaviour
     public abstract void Reset();
 
     /// <summary>
-    /// Should be called to connect with a RoomController
+    /// Should be called to connect with a RoomController, returns it.
     /// </summary>
-    protected void Register()
+    protected RoomController Register()
     {
-        RoomController roomOwner;
-        if (transform.parent.TryGetComponent<RoomController>(out roomOwner))
+        RoomController roomController;
+        if (this.transform.parent.TryGetComponent<RoomController>(out roomController))
         {
-            roomOwner.RegisterPart(this);
+            roomController.RegisterPart(this);
         }
-        else if (transform.parent.parent.TryGetComponent<RoomController>(out roomOwner))
+        else if (this.transform.parent.parent.TryGetComponent<RoomController>(out roomController))
         {
-            roomOwner.RegisterPart(this);
+            roomController.RegisterPart(this);
         }
+        return roomController;
     }
 }

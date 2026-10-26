@@ -18,9 +18,14 @@ MonoBehaviour:
   SlimeAccelerationAirMod: 0.7
   SlimeFrictionGroundMod: 0.5
   SlimeFrictionWallMod: 0.25
-  SlimeFrictionWallUpMod: 0
+  SlimeFrictionWallUpMod: 0.01
   SlimeFrictionBounceMod: 1
   SlimeFrictionCeilingMod: 0.5
+  SlimeWallMinYMoveMod: 3
+  SlimeWallDownAccelerationMod: 10
+  SlimeWallDownBreakMod: 4
+  SlimeWallUpAccelerationMod: 0
+  SlimeWallUpBreakMod: 2
   SlimeGravityMod: 0.3
   SlimeBounceGravityMod: 0.8
   SlimeDrag: 1

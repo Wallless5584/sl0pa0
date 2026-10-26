@@ -13,6 +13,11 @@ public class RoomButton : GameWorldPart
     [SerializeField] Sprite PressedActive;
     [SerializeField] Sprite UnpressedInactive;
     [SerializeField] Sprite PressedInactive;
+
+    [SerializeField] AudioSource buttonAS;
+    [SerializeField] AudioClip buttonPressedSound;
+    [SerializeField] AudioClip buttonUnpressedSound;
+
     bool active = false;
     float recordedTime;
 
@@ -52,6 +57,9 @@ public class RoomButton : GameWorldPart
     {
         ActiveSR.sprite = PressedActive;
         InactiveSR.sprite = PressedInactive;
+
+        buttonAS.PlayOneShot(buttonPressedSound);
+
         if (active == true)
         {
             active = false;
@@ -77,6 +85,7 @@ public class RoomButton : GameWorldPart
     {
         ActiveSR.sprite = UnpressedActive;
         InactiveSR.sprite = UnpressedInactive;
+        buttonAS.PlayOneShot(buttonUnpressedSound);
     }
 
     void ResetButton()

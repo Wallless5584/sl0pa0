@@ -112,7 +112,6 @@ public class SpawnPoint : GameWorldPart
 
     override public void Deactivate()
     {
-        LightSR.enabled = false;
-        LightSR.sprite = LightSprites[0];
+        this.Reset();
     }
 }

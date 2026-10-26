@@ -222,6 +222,7 @@ MonoBehaviour:
   activeSpawn: 0
   PlayerPrefab: {fileID: 973271310753857521, guid: 8f3009914cd525249948c3226d3f7b88, type: 3}
   ParallaxBG: {fileID: 7516055916199907431}
+  GMTimer: {fileID: 9058652953218783033, guid: 724c308ac88e1d140a9dc66ddf725828, type: 3}
   GameLevels:
   - {fileID: 11400000, guid: aeb960b18e6ed2149b3aa917a9d5cee3, type: 2}
   - {fileID: 11400000, guid: b52490fdbe05537478f721523e7770b3, type: 2}

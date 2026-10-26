@@ -250,8 +250,8 @@ public class TrapAnimator : MonoBehaviour
 
             case TrapState.Active:
                 state = TrapState.Active;
-                //energySR.enabled = true;
-                //bloomEffectSR.enabled = true;
+                energySR.enabled = true;
+                bloomEffectSR.enabled = true;
                 bloomEffectSR.color = Color.white;
                 currentImageIndex = c_activatingImageAmount -1;
                 imageChangeTimer = 0f;
@@ -261,8 +261,8 @@ public class TrapAnimator : MonoBehaviour
 
             case TrapState.Deactivating:
                 state = TrapState.Deactivating;
-                //energySR.enabled = true;
-                //bloomEffectSR.enabled = true;
+                energySR.enabled = true;
+                bloomEffectSR.enabled = true;
                 currentImageIndex = c_activatingImageAmount + c_activeImageAmount -1;
                 imageChangeTimer = deactivationTime / (c_deactivatingImageAmount + c_lastSpriteIndexOffset);
                 bloomHeat = Mathf.Clamp(bloomHeat, 0f, 1f);
@@ -273,7 +273,7 @@ public class TrapAnimator : MonoBehaviour
             case TrapState.Off:
                 state = TrapState.Off;
                 energySR.enabled = false;
-                //bloomEffectSR.enabled = false;
+                bloomEffectSR.enabled = false;
                 currentImageIndex = 0;
                 imageChangeTimer = 0f;
                 

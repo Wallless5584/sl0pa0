@@ -15,9 +15,8 @@ MonoBehaviour:
   LevelName: Test_00
   MenuSprite: {fileID: 21300000, guid: bf8d70df9b95faf4992332f80d394f8d, type: 3}
   BlockSprite: {fileID: 21300000, guid: 881d7b98336c1f940b4ebc6db3f880a3, type: 3}
-  RoomCount: 7
+  RoomCount: 6
   RoomVars:
-  - {fileID: 4482439227698753801, guid: 4a1a772d468363342b3d8551d42f8eb4, type: 3}
   - {fileID: 4482439227698753801, guid: 9aa7745af9035244eb682a23bea0ec62, type: 3}
   - {fileID: 4482439227698753801, guid: 1ad496d99e2db124fbb75c3c89e91351, type: 3}
   - {fileID: 4482439227698753801, guid: f70a6d115b9ea28419fe4cfbd7dae983, type: 3}

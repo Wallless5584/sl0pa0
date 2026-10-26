@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] int activeSpawn;
     [SerializeField] SlimeController PlayerPrefab;
     [SerializeField] GameObject ParallaxBG;
+    [SerializeField] GMPlayer GMTimer;
 
     public LevelSettings[] GameLevels;
     public ushort SelectedLevel;
@@ -95,7 +96,8 @@ public class GameManager : MonoBehaviour
                 RespawnOnSpawn();
                 CurrentState = new_state;
                 LevelStartTime = Time.time;
-                SwitchState(GameState.Play);
+                //SwitchState(GameState.Play);
+                Instantiate(GMTimer, transform);
                 break;
 
             case GameState.Play:
@@ -103,7 +105,8 @@ public class GameManager : MonoBehaviour
                 ParallaxBG.gameObject.SetActive(true);
                 //Debug.Log("ParallaxBG ON!");
                 UIManager.instance.SwitchState(UIManager.UIState.GameUI);
-                PrepareRoom(activeRoom);
+                //PrepareRoom(activeRoom);
+                SpawnedRooms[0].Activate(); // activating the starting room
                 PrepareRoom(activeRoom+1); // so that next room spawn light shows
                 Time.timeScale = 1f;
                 CurrentState = new_state;
@@ -166,6 +169,7 @@ public class GameManager : MonoBehaviour
 
     public void PrepareRoom(int roomIndex)
     {
+        Debug.Log($"GM: Preparing Room {roomIndex}: {SpawnedRooms[roomIndex].name}");
         //SpawnedRooms[roomIndex].ActivateSpawn();
         SpawnedRooms[roomIndex].Prepare();
     }

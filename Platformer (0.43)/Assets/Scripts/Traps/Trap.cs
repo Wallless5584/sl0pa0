@@ -1,8 +1,7 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 [SelectionBase]
-public class Trap : MonoBehaviour
+public class Trap : GameWorldPart
 {
     [Header("Stats")]
     [SerializeField] TrapState startState; //for OnValidate
@@ -31,11 +30,15 @@ public class Trap : MonoBehaviour
 
     void Start()
     {
-        Setup();
         if (playSound == false)
         {
             Destroy(soundSource);
         }
+
+        Register();
+        Deactivate();
+        //Setup();
+        
     }
 
     void Update()
@@ -54,6 +57,30 @@ public class Trap : MonoBehaviour
     {
         UpdateTrap(startState);
     }
+
+    public override void Prepare()
+    {
+        Debug.Log($"Trap {name} Prepared!");
+        Setup();
+        this.enabled = true;
+    }
+
+    public override void Activate()
+    {
+
+    }
+
+    public override void Deactivate()
+    {
+        UpdateTrap(TrapState.Off);
+        this.enabled = false;
+    }
+
+    public override void Reset()
+    {
+
+    }
+
 
     public void Setup()
     {

@@ -114,6 +114,7 @@ public class RoomController : GameWorldPart
 
     public void RegisterPart(GameWorldPart part)
     {
+        Debug.Log($"Registering part {part.name}");
         if(roomParts == null)
         {
             roomParts = new List<GameWorldPart>();
@@ -127,16 +128,20 @@ public class RoomController : GameWorldPart
 
     override public void Prepare()
     {
+        Debug.Log($"Preparing Room {name}");
         foreach (GameWorldPart part in roomParts)
         {
+            Debug.Log($">> Preparing part {part.name}");
             part.Prepare();
         }
     }
 
     override public void Activate()
     {
+        Debug.Log($"Activating Room {name}");
         foreach (GameWorldPart part in roomParts)
         {
+            Debug.Log($">> Activating part {part.name}");
             part.Activate();
         }
     }
