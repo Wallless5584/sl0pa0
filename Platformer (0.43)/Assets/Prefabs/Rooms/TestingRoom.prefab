@@ -138,6 +138,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3075455239308637999, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5523538034663455661, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: state
       value: 2
@@ -160,7 +164,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8907109501343941243, guid: 0ab75235c60760b45856ec8a24733f41, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
