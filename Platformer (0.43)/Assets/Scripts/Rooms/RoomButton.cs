@@ -27,7 +27,7 @@ public class RoomButton : GameWorldPart
 
     private void Start()
     {
-        Register();
+        Register().RegisterButton(this);
         ResetButton();
     }
 

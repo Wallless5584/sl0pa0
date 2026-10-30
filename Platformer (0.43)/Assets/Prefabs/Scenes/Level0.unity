@@ -174,6 +174,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelComponents
       objectReference: {fileID: 0}
+    - target: {fileID: 3453888379302033414, guid: 71d0cef69224c154fac7a1b14a7fb08b, type: 3}
+      propertyPath: m_BackGroundColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3453888379302033414, guid: 71d0cef69224c154fac7a1b14a7fb08b, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3453888379302033414, guid: 71d0cef69224c154fac7a1b14a7fb08b, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3453888379302033414, guid: 71d0cef69224c154fac7a1b14a7fb08b, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

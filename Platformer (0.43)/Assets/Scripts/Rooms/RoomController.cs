@@ -5,11 +5,10 @@ using UnityEngine.Events;
 //[SelectionBase]
 public class RoomController : GameWorldPart
 {
-    [SerializeField] RoomButton[] buttonsInRoom;
+    List<RoomButton> buttonsInRoom = new List<RoomButton>();
     List<RoomButton> pressedButtons = new List<RoomButton>();
     [SerializeField] DoorController exit;
-    [SerializeField] SpriteParallaxEffect[] ParallaxBGs;
-    [SerializeField] List<GameWorldPart> roomParts;
+    List<GameWorldPart> roomParts;
     public SpawnPoint spawn;
     public UnityEvent OnRoomCompletion;
 
@@ -19,19 +18,18 @@ public class RoomController : GameWorldPart
         //pressed_button.Collect();
         pressedButtons.Add(pressed_button);
         Debug.Log("Button pressed!");
-        if (CheckRoomCompletion())
-        {
-            GameManager.instance.RoomComplete();
-        }
+        CheckRoomCompletion();
     }
 
     public bool CheckRoomCompletion()
     {
-        if (buttonsInRoom.Length == pressedButtons.Count) 
+        Debug.Log($"{buttonsInRoom.Count} ? {pressedButtons.Count}");
+        if (buttonsInRoom.Count == pressedButtons.Count) 
         {
             //exit.SetState(true);
             OnRoomCompletion.Invoke();
             Debug.Log($"Room completed!");
+            GameManager.instance.RoomComplete();
             //ActivateSpawn();
             return true;
         }
@@ -126,6 +124,20 @@ public class RoomController : GameWorldPart
         roomParts.Add(part);
     }
 
+    public void RegisterButton(RoomButton button)
+    {
+        Debug.Log($"Registering Button {button.name}");
+        if (buttonsInRoom == null)
+        {
+            buttonsInRoom = new List<RoomButton>();
+        }
+        else if (buttonsInRoom.Contains(button))
+        {
+            return;
+        }
+        buttonsInRoom.Add(button);
+    }
+
     override public void Prepare()
     {
         Debug.Log($"Preparing Room {name}");
@@ -144,6 +156,7 @@ public class RoomController : GameWorldPart
             Debug.Log($">> Activating part {part.name}");
             part.Activate();
         }
+        CheckRoomCompletion();
     }
 
     override public void Reset()

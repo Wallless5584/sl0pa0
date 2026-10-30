@@ -5356,16 +5356,16 @@ MonoBehaviour:
     _accelerationAir: 0.4
     _frictionGround: 1
     _frictionCeiling: 1
+    _jumpPower: 325
     _frictionWall: 1
     _frictionWallUp: 1
-    _frictionBounce: 0.02
     _minWallYMove: 0
     _wallDownAcceleration: 1
     _wallDownBreak: 1
     _wallUpAcceleration: 1
     _wallUpBreak: 1
-    _jumpPower: 325
     _wallJumpPower: 500
+    _frictionBounce: 0.02
     _bounceEnergyMultiplier: 0.999
     _bounceReflectControlMultiplier: 0.2
     CurrentSpace: 0
@@ -5386,16 +5386,16 @@ MonoBehaviour:
     _accelerationAir: 0.4
     _frictionGround: 1
     _frictionCeiling: 1
+    _jumpPower: 325
     _frictionWall: 1
     _frictionWallUp: 1
-    _frictionBounce: 0.02
     _minWallYMove: 0
     _wallDownAcceleration: 1
     _wallDownBreak: 1
     _wallUpAcceleration: 1
     _wallUpBreak: 1
-    _jumpPower: 325
     _wallJumpPower: 500
+    _frictionBounce: 0.02
     _bounceEnergyMultiplier: 0.999
     _bounceReflectControlMultiplier: 0.2
     CurrentSpace: 0
@@ -5416,16 +5416,16 @@ MonoBehaviour:
     _accelerationAir: 0.3
     _frictionGround: 0.35
     _frictionCeiling: 0.25
+    _jumpPower: 450
     _frictionWall: 0.2
     _frictionWallUp: 1
-    _frictionBounce: 0.35
     _minWallYMove: 0
     _wallDownAcceleration: 0.2
     _wallDownBreak: 0.75
     _wallUpAcceleration: 0.2
     _wallUpBreak: 1
-    _jumpPower: 450
     _wallJumpPower: 550
+    _frictionBounce: 0.35
     _bounceEnergyMultiplier: 0.995
     _bounceReflectControlMultiplier: 0.2
     CurrentSpace: 0
@@ -5446,16 +5446,16 @@ MonoBehaviour:
     _accelerationAir: 0.3
     _frictionGround: 0.35
     _frictionCeiling: 0.25
+    _jumpPower: 400
     _frictionWall: 0.2
     _frictionWallUp: 1
-    _frictionBounce: 0.35
     _minWallYMove: 0
     _wallDownAcceleration: 0.2
     _wallDownBreak: 0.75
     _wallUpAcceleration: 0.2
     _wallUpBreak: 1
-    _jumpPower: 400
     _wallJumpPower: 550
+    _frictionBounce: 0.35
     _bounceEnergyMultiplier: 0.995
     _bounceReflectControlMultiplier: 0.2
     CurrentSpace: 0
@@ -5476,16 +5476,16 @@ MonoBehaviour:
     _accelerationAir: 0.15
     _frictionGround: 0.075
     _frictionCeiling: 0.05
+    _jumpPower: 400
     _frictionWall: 0.001
     _frictionWallUp: 0.04
-    _frictionBounce: 0.1
     _minWallYMove: 0.5
-    _wallDownAcceleration: 0.001
+    _wallDownAcceleration: 0.0005
     _wallDownBreak: 0.01
     _wallUpAcceleration: 0.01
     _wallUpBreak: 0.06
-    _jumpPower: 400
     _wallJumpPower: 600
+    _frictionBounce: 0.1
     _bounceEnergyMultiplier: 0.9
     _bounceReflectControlMultiplier: 0.2
     CurrentSpace: 0
@@ -5676,16 +5676,16 @@ MonoBehaviour:
     _accelerationAir: 0
     _frictionGround: 0
     _frictionCeiling: 0
+    _jumpPower: 0
     _frictionWall: 0
     _frictionWallUp: 0
-    _frictionBounce: 0
     _minWallYMove: 0
     _wallDownAcceleration: 0
     _wallDownBreak: 0
     _wallUpAcceleration: 0
     _wallUpBreak: 0
-    _jumpPower: 0
     _wallJumpPower: 0
+    _frictionBounce: 0
     _bounceEnergyMultiplier: 0
     _bounceReflectControlMultiplier: 0
     CurrentSpace: 0

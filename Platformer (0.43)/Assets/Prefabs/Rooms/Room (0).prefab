@@ -117927,6 +117927,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4482439227698753801, guid: 0c61b17c1278dc3449b5dd9d5f5af19d, type: 3}
+      propertyPath: buttonsInRoom.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4482439227698753801, guid: 0c61b17c1278dc3449b5dd9d5f5af19d, type: 3}
       propertyPath: OnRoomCompletion.m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}

@@ -101,17 +101,12 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameState.Play:
-                //PlayerInstance.transform.position = SpawnedRooms[activeRoom].spawn.GetComponentInChildren<TriggerZone>().transform.position;
                 ParallaxBG.gameObject.SetActive(true);
-                //Debug.Log("ParallaxBG ON!");
                 UIManager.instance.SwitchState(UIManager.UIState.GameUI);
-                //PrepareRoom(activeRoom);
                 SpawnedRooms[0].Activate(); // activating the starting room
                 PrepareRoom(activeRoom+1); // so that next room spawn light shows
                 Time.timeScale = 1f;
                 CurrentState = new_state;
-                RoomComplete(); //<- QUICK-FIX: Only works if the first room has no buttons
-                
                 break;
             case GameState.Pause:
                 ParallaxBG.gameObject.SetActive(false);
