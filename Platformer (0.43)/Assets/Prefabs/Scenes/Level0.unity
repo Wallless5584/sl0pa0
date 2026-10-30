@@ -178,6 +178,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: OldPC
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 491ab373056d90c4d855c2a7680b57d2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -246,7 +250,7 @@ PrefabInstance:
     - target: {fileID: 3453888379302033414, guid: 71d0cef69224c154fac7a1b14a7fb08b, type: 3}
       propertyPath: m_TargetTexture
       value: 
-      objectReference: {fileID: 8400000, guid: 5f2f219622584e449878d8d512ce147c, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 3453888379302033414, guid: 71d0cef69224c154fac7a1b14a7fb08b, type: 3}
       propertyPath: m_BackGroundColor.a
       value: 1
@@ -469,7 +473,7 @@ GameObject:
   - component: {fileID: 1972315074}
   - component: {fileID: 1972315073}
   m_Layer: 0
-  m_Name: MainCamera (1)
+  m_Name: PCCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

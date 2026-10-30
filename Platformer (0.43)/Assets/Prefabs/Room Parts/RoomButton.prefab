@@ -142,8 +142,8 @@ MonoBehaviour:
   UnpressedInactive: {fileID: -340690281, guid: 2a393f5ec87e2ef4a8cd6af81ea5e4ca, type: 3}
   PressedInactive: {fileID: 1455860247, guid: 2a393f5ec87e2ef4a8cd6af81ea5e4ca, type: 3}
   buttonAS: {fileID: 3357599520852872124}
-  buttonPressedSound: {fileID: 8300000, guid: d0bf0557555f8454eac450e812075654, type: 3}
-  buttonUnpressedSound: {fileID: 8300000, guid: dd9a7d3f2d5c38a43b1a45f108b56916, type: 3}
+  buttonPressedSound: {fileID: 8300000, guid: 018495021f4814c4bbf5ff6354551e2b, type: 3}
+  buttonUnpressedSound: {fileID: 8300000, guid: 08de74bfd2cb456458633cd5edba804d, type: 3}
   OnPressed:
     m_PersistentCalls:
       m_Calls: []

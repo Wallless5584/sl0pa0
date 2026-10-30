@@ -5710,7 +5710,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bounce: {fileID: 8300000, guid: 5a6620ebb52ccd64bb6de8a0006ecd51, type: 3}
   bounceRedirect: {fileID: 8300000, guid: e8a07ecec69f2a5499d5754d323731bf, type: 3}
-  jump: {fileID: 8300000, guid: c486552f025627543b637072cee049ba, type: 3}
+  jump: {fileID: 8300000, guid: 1da95bf7604ca944f8e3edb7c994ee83, type: 3}
   slide: {fileID: 0}
 --- !u!212 &9181793117438619052
 SpriteRenderer:

@@ -9,6 +9,9 @@ public class DoorController : GameWorldPart
     [SerializeField] Transform OpenTarget;
     [SerializeField] Transform CloseTarget;
     [SerializeField] GameObject Door;
+    [SerializeField] AudioClip doorOpen;
+    [SerializeField] AudioClip doorShut;
+    AudioSource doorAS;
 
     [SerializeField] RoomTimer connectedTimer;
     float doorReachElapsedTime;
@@ -20,6 +23,7 @@ public class DoorController : GameWorldPart
     void Start()
     {
         Register();
+        doorAS = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -49,11 +53,13 @@ public class DoorController : GameWorldPart
     {
         if (open)
         {
+            doorAS.PlayOneShot(doorOpen, 2f);
             TargetLocation = OpenTarget.position;
             Debug.Log($"{gameObject.name} opened!");
         }
         else
         {
+            doorAS.PlayOneShot(doorShut, 1.5f);
             TargetLocation = CloseTarget.position;
         }
         opened = open;
@@ -74,7 +80,7 @@ public class DoorController : GameWorldPart
     }
     override public void Activate()
     {
-        this.enabled = true;
+        enabled = true;
         shouldTime = true;
     }
     override public void Reset()
@@ -83,11 +89,11 @@ public class DoorController : GameWorldPart
         Door.transform.position = TargetLocation;
         moving = false;
         opened = false;
-        this.enabled = false;
+        enabled = false;
     }
     override public void Deactivate()
     {
-        
+        SetState(false);
     }
 
 
