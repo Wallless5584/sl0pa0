@@ -117916,11 +117916,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3387329929117261707, guid: 0c61b17c1278dc3449b5dd9d5f5af19d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3483260496159180308, guid: 0c61b17c1278dc3449b5dd9d5f5af19d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4482439227698753801, guid: 0c61b17c1278dc3449b5dd9d5f5af19d, type: 3}
       propertyPath: coinsInRoom.Array.size
@@ -117952,7 +117952,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6726719512457391452, guid: 0c61b17c1278dc3449b5dd9d5f5af19d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7343371865639788800, guid: 0c61b17c1278dc3449b5dd9d5f5af19d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -118120,7 +118120,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8431063982432627522, guid: 0c61b17c1278dc3449b5dd9d5f5af19d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8873113835665196731, guid: 0c61b17c1278dc3449b5dd9d5f5af19d, type: 3}
       propertyPath: m_Enabled
@@ -118128,7 +118128,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8894417857905150086, guid: 0c61b17c1278dc3449b5dd9d5f5af19d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8910589303021856708, guid: 0c61b17c1278dc3449b5dd9d5f5af19d, type: 3}
       propertyPath: m_LocalPosition.x

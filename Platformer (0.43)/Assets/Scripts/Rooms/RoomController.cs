@@ -23,7 +23,7 @@ public class RoomController : GameWorldPart
 
     public bool CheckRoomCompletion()
     {
-        Debug.Log($"{buttonsInRoom.Count} ? {pressedButtons.Count}");
+        //Debug.Log($"{buttonsInRoom.Count} ? {pressedButtons.Count}");
         if (buttonsInRoom.Count == pressedButtons.Count) 
         {
             //exit.SetState(true);

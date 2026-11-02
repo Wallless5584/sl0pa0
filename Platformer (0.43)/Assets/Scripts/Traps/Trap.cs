@@ -67,7 +67,7 @@ public class Trap : GameWorldPart
 
     public override void Activate()
     {
-
+        this.enabled = true;
     }
 
     public override void Deactivate()

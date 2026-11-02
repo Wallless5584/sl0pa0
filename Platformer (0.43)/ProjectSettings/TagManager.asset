@@ -57,6 +57,9 @@ TagManager:
   - name: Back Light
     uniqueID: 1180304625
     locked: 0
+  - name: Consumables
+    uniqueID: 1824280649
+    locked: 0
   - name: Traps
     uniqueID: 4099723407
     locked: 0
