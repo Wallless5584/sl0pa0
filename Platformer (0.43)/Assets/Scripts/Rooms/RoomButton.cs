@@ -14,9 +14,11 @@ public class RoomButton : GameWorldPart
     [SerializeField] Sprite UnpressedInactive;
     [SerializeField] Sprite PressedInactive;
 
+    [SerializeField] AudioSource timerAS;
     [SerializeField] AudioSource buttonAS;
     [SerializeField] AudioClip buttonPressedSound;
     [SerializeField] AudioClip buttonUnpressedSound;
+    [SerializeField] AudioClip timerOffSound;
 
     bool active = false;
     float recordedTime;
@@ -42,6 +44,7 @@ public class RoomButton : GameWorldPart
             //float secDisplayTime = Mathf.Floor(secTimer * 1000f) / 1000;
             //TimerText.text = $"{minTimer:D2}:{secDisplayTime.ToString("00.000")}";
             connectedTimer.SetTime(recordedTime);
+            
         }
         else
         {
@@ -63,6 +66,8 @@ public class RoomButton : GameWorldPart
         if (active == true)
         {
             active = false;
+            timerAS.Stop();
+            timerAS.PlayOneShot(timerOffSound);
             //GameManager.instance.OnRoomButtonPress(this);
 
             if (OnPressed.GetPersistentEventCount() > 0)
@@ -121,6 +126,7 @@ public class RoomButton : GameWorldPart
     override public void Activate()
     {
         active = true;
+        timerAS.Play();
         ResetButton();
     }
     override public void Reset()

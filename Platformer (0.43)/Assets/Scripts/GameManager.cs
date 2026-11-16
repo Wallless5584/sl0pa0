@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] int activeRoom;
     [SerializeField] int activeSpawn;
     [SerializeField] SlimeController PlayerPrefab;
+    [SerializeField] FollowTarget cameraTarget;
     [SerializeField] GameObject ParallaxBG;
     [SerializeField] GMPlayer GMTimer;
 
@@ -48,6 +49,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         instance = this;
+        cameraTarget.enabled = false;
     }
 
     private void Update()
@@ -79,6 +81,7 @@ public class GameManager : MonoBehaviour
                 CurrentState = new_state;
                 break;
             case GameState.Menu:
+                cameraTarget.enabled = false;
                 activeRoom = 1;
                 activeSpawn = 0;
                 ParallaxBG.gameObject.SetActive(false);
@@ -101,6 +104,8 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameState.Play:
+                cameraTarget.enabled = true;
+                SetTargetSpawn();
                 ParallaxBG.gameObject.SetActive(true);
                 UIManager.instance.SwitchState(UIManager.UIState.GameUI);
                 SpawnedRooms[0].Activate(); // activating the starting room
@@ -121,8 +126,8 @@ public class GameManager : MonoBehaviour
 
     public void RespawnOnSpawn()
     {
-        //SpawnedRooms[activeRoom].spawn.Spawn();
-        Respawn();
+        SpawnedRooms[activeRoom].spawn.Spawn();
+        //Respawn();
     }
 
     public void Respawn()
@@ -134,11 +139,21 @@ public class GameManager : MonoBehaviour
         else
         {
 
-            PlayerInstance.transform.position = SpawnedRooms[activeSpawn].spawn.GetComponentInChildren<TriggerZone>().transform.position;
+            PlayerInstance.transform.position = SpawnedRooms[activeSpawn].spawn.GetComponentInChildren<TriggerZone>().transform.position; 
             PlayerInstance.ResetSlime();
         }
+        SetTargetSlime();
     }
 
+    public void SetTargetSlime()
+    {
+        cameraTarget.SetTarget(PlayerInstance.transform);
+    }
+
+    public void SetTargetSpawn()
+    {
+        cameraTarget.SetTarget(SpawnedRooms[activeRoom].spawn.transform);
+    }
 
     public bool SpawnTriggered(SpawnPoint new_sp)
     {

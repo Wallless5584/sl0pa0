@@ -11,6 +11,8 @@ public class DoorController : GameWorldPart
     [SerializeField] GameObject Door;
     [SerializeField] AudioClip doorOpen;
     [SerializeField] AudioClip doorShut;
+    [SerializeField] AudioClip timerOff;
+    [SerializeField] AudioSource timerAS;
     AudioSource doorAS;
 
     [SerializeField] RoomTimer connectedTimer;
@@ -18,6 +20,7 @@ public class DoorController : GameWorldPart
     bool opened;
     bool moving;
     bool shouldTime;
+    const float timerVolumeMod = 5;
     Vector2 TargetLocation;
 
     void Start()
@@ -46,13 +49,25 @@ public class DoorController : GameWorldPart
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (shouldTime)
+        {
+            StopTimer();
+        }
+    }
+
+    private void StopTimer()
+    {
+        timerAS.Stop();
+        timerAS.PlayOneShot(timerOff);
         shouldTime = false;
+        
     }
 
     public void SetState(bool open)
     {
         if (open)
         {
+            timerAS.volume *= timerVolumeMod;
             doorAS.PlayOneShot(doorOpen, 2f);
             TargetLocation = OpenTarget.position;
             Debug.Log($"{gameObject.name} opened!");
@@ -82,9 +97,12 @@ public class DoorController : GameWorldPart
     {
         enabled = true;
         shouldTime = true;
+        timerAS.volume /= timerVolumeMod;
+        timerAS.Play();
     }
     override public void Reset()
     {
+        StopTimer();
         TargetLocation = CloseTarget.position;
         Door.transform.position = TargetLocation;
         moving = false;
@@ -93,6 +111,7 @@ public class DoorController : GameWorldPart
     }
     override public void Deactivate()
     {
+        StopTimer();
         SetState(false);
     }
 

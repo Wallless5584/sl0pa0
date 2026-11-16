@@ -112,6 +112,6 @@ public class SpawnPoint : GameWorldPart
 
     override public void Deactivate()
     {
-        this.Reset();
+        Reset();
     }
 }
