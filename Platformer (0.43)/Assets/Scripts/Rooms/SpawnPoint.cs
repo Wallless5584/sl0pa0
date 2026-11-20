@@ -5,44 +5,78 @@ public class SpawnPoint : GameWorldPart
     [SerializeField] float openTime;
     [SerializeField] float closeTime;
     float gateTimer;
+    float slimeTimer;
 
     [SerializeField] SpriteRenderer GateSR;
     [SerializeField] Sprite[] GateSprites;
+    [SerializeField] SpriteRenderer BackplateSR;
+    [SerializeField] Sprite[] BackplateSprites;
 
     [SerializeField] SpriteRenderer LightSR;
     [SerializeField] Sprite[] LightSprites;
 
     byte currentGateSpriteIndex = 0;
-    bool shouldSpawn = false;
+    byte currentBackplateSpriteIndex = 0;
+    bool shouldOpenGate = false;
+    bool shouldAnimateSlimeSpawn = false;
 
 
     void Start()
     {
         Register();
-        enabled = shouldSpawn;
+        enabled = shouldOpenGate;
     }
 
     void Update()
     {
 
-        if (shouldSpawn)
+        if (shouldOpenGate)
         {
-            gateTimer += Time.deltaTime;
-            if (gateTimer > (openTime/GateSprites.Length) * currentGateSpriteIndex)
+            if (shouldAnimateSlimeSpawn)
             {
-                currentGateSpriteIndex++;
-                if(currentGateSpriteIndex < GateSprites.Length)
+                slimeTimer += Time.deltaTime;
+                float current_slime_animation_frame_time = (openTime / (GateSprites.Length + BackplateSprites.Length)) * currentBackplateSpriteIndex;
+                if (slimeTimer > current_slime_animation_frame_time)
                 {
-                    GateSR.sprite = GateSprites[currentGateSpriteIndex];
-                }
-                else
-                {
-                    shouldSpawn = false;
-                    //gateTimer = 0f;
+                    currentBackplateSpriteIndex++;
+                    if (currentBackplateSpriteIndex < GateSprites.Length)
+                    {
+                        BackplateSR.sprite = BackplateSprites[currentBackplateSpriteIndex];
+                    }
+                    else
+                    {
+                        shouldOpenGate = false;
+                        //gateTimer = 0f;
+                        shouldAnimateSlimeSpawn = false;
+                        slimeTimer = 0f;
 
-                    GameManager.instance.Respawn();
+                        currentBackplateSpriteIndex = 0;
+                        BackplateSR.sprite = BackplateSprites[currentBackplateSpriteIndex];
+                        GameManager.instance.Respawn();
+                    }
                 }
             }
+            else
+            {
+                gateTimer += Time.deltaTime;
+                float current_gate_animation_frame_time = (openTime / (GateSprites.Length + BackplateSprites.Length)) * currentGateSpriteIndex;
+                if (gateTimer > current_gate_animation_frame_time)
+                {
+                    currentGateSpriteIndex++;
+                    if (currentGateSpriteIndex < GateSprites.Length)
+                    {
+                        GateSR.sprite = GateSprites[currentGateSpriteIndex];
+                    }
+                    else
+                    {
+                        //shouldOpenGate = false;
+                        //gateTimer = 0f;
+
+                        shouldAnimateSlimeSpawn = true;
+                    }
+                }
+            }
+            
         }
         else
         {
@@ -73,7 +107,7 @@ public class SpawnPoint : GameWorldPart
     public void Spawn()
     {
         enabled = true;
-        shouldSpawn = true;
+        shouldOpenGate = true;
     }
 
     //public void Activate()

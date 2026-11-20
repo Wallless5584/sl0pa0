@@ -246,6 +246,13 @@ MonoBehaviour:
   - {fileID: -226845639, guid: a4513d6ce25fd734680bd77418290f79, type: 3}
   - {fileID: -672778546, guid: a4513d6ce25fd734680bd77418290f79, type: 3}
   - {fileID: -1517592133, guid: a4513d6ce25fd734680bd77418290f79, type: 3}
+  BackplateSR: {fileID: 3082888071664167425}
+  BackplateSprites:
+  - {fileID: -2129918016, guid: a4513d6ce25fd734680bd77418290f79, type: 3}
+  - {fileID: 922459650, guid: a4513d6ce25fd734680bd77418290f79, type: 3}
+  - {fileID: 1032219836, guid: a4513d6ce25fd734680bd77418290f79, type: 3}
+  - {fileID: -1546806457, guid: a4513d6ce25fd734680bd77418290f79, type: 3}
+  - {fileID: -1043434158, guid: a4513d6ce25fd734680bd77418290f79, type: 3}
   LightSR: {fileID: 4170345697865134356}
   LightSprites:
   - {fileID: 1554952756, guid: a4513d6ce25fd734680bd77418290f79, type: 3}
@@ -260,6 +267,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8047366490668507634}
   - component: {fileID: 4170345697865134356}
+  - component: {fileID: 1006197851233214113}
   m_Layer: 0
   m_Name: Light SR
   m_TagString: Untagged
@@ -333,6 +341,57 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!331 &1006197851233214113
+SpriteMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8317837223708231566}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10758, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 1285890712, guid: a4513d6ce25fd734680bd77418290f79, type: 3}
+  m_MaskAlphaCutoff: 0.2
+  m_FrontSortingLayerID: 0
+  m_BackSortingLayerID: 0
+  m_FrontSortingLayer: 0
+  m_BackSortingLayer: 0
+  m_FrontSortingOrder: 0
+  m_BackSortingOrder: 0
+  m_IsCustomRangeActive: 0
   m_SpriteSortPoint: 0
 --- !u!1 &8764247459359341095
 GameObject:
