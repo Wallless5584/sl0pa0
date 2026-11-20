@@ -31,7 +31,9 @@ public enum MoveState
     JumpUpRight,
     JumpUpLeft,
     JumpDownRight,
-    JumpDownLeft
+    JumpDownLeft,
+
+    Freeze
 } 
 
 [Flags] public enum Sides
@@ -229,7 +231,9 @@ public class SlimeController : MonoBehaviour
         new JumpUpRightMoveState(),
         new JumpUpLeftMoveState(),
         new JumpDownRightMoveState(),
-        new JumpDownLeftMoveState()
+        new JumpDownLeftMoveState(),
+
+        new FreezeMoveState()
     };
 
     public WetnessState CurrentWetnessState { get; private set; }
@@ -411,6 +415,12 @@ public class SlimeController : MonoBehaviour
         slimeCollider.size = new Vector2(size, size);
         slimeScalableComponents.localScale = new Vector2(size, size);
         CurrentScale = size;
+    }
+    public void FreezePosition(float freezeTime)
+    {
+        EnterMoveState(MoveState.Freeze);
+        FreezeMoveState localFreezeMoveState = MoveStates[(int)MoveState.Freeze]as FreezeMoveState;
+        localFreezeMoveState.freezeTimer = freezeTime;
     }
     #endregion
 

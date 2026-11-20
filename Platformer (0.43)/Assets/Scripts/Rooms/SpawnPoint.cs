@@ -15,6 +15,10 @@ public class SpawnPoint : GameWorldPart
     [SerializeField] SpriteRenderer LightSR;
     [SerializeField] Sprite[] LightSprites;
 
+    [SerializeField] AudioSource SpawnAS;
+    [SerializeField] AudioClip spawnOpen;
+    [SerializeField] AudioClip spawnClose;
+
     byte currentGateSpriteIndex = 0;
     byte currentBackplateSpriteIndex = 0;
     bool shouldOpenGate = false;
@@ -49,10 +53,11 @@ public class SpawnPoint : GameWorldPart
                         //gateTimer = 0f;
                         shouldAnimateSlimeSpawn = false;
                         slimeTimer = 0f;
-
+ 
                         currentBackplateSpriteIndex = 0;
                         BackplateSR.sprite = BackplateSprites[currentBackplateSpriteIndex];
                         GameManager.instance.Respawn();
+                        SpawnAS.PlayOneShot(spawnClose);
                     }
                 }
             }
@@ -108,6 +113,7 @@ public class SpawnPoint : GameWorldPart
     {
         enabled = true;
         shouldOpenGate = true;
+        SpawnAS.PlayOneShot(spawnOpen);
     }
 
     //public void Activate()

@@ -126,12 +126,14 @@ public class GameManager : MonoBehaviour
 
     public void RespawnOnSpawn()
     {
+        cameraTarget.StopExtrapolation();
         SpawnedRooms[activeRoom].spawn.Spawn();
         //Respawn();
     }
 
     public void Respawn()
     {
+        cameraTarget.StartExtrapolation();
         if (PlayerInstance == null)
         {
             PlayerInstance = Instantiate(PlayerPrefab, SpawnedRooms[activeSpawn].spawn.GetComponentInChildren<TriggerZone>().transform.position, Quaternion.identity);
@@ -142,6 +144,7 @@ public class GameManager : MonoBehaviour
             PlayerInstance.transform.position = SpawnedRooms[activeSpawn].spawn.GetComponentInChildren<TriggerZone>().transform.position; 
             PlayerInstance.ResetSlime();
         }
+        //PlayerInstance.FreezePosition(1f);
         SetTargetSlime();
     }
 
