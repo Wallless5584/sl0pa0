@@ -7,7 +7,7 @@ public class PauseUI : MonoBehaviour
 
     public void RespawnPressed()
     {
-        GameManager.instance.RespawnOnSpawn();
+        GameManager.instance.RespawnOnSpawnpoint();
         GameManager.instance.SwitchState(GameManager.GameState.Play);
     }
 

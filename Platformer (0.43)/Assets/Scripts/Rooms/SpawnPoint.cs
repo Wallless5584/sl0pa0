@@ -33,65 +33,86 @@ public class SpawnPoint : GameWorldPart
 
     void Update()
     {
-
         if (shouldOpenGate)
         {
             if (shouldAnimateSlimeSpawn)
             {
-                slimeTimer += Time.deltaTime;
-                float current_slime_animation_frame_time = (openTime / (GateSprites.Length + BackplateSprites.Length)) * currentBackplateSpriteIndex;
-                if (slimeTimer > current_slime_animation_frame_time)
-                {
-                    currentBackplateSpriteIndex++;
-                    if (currentBackplateSpriteIndex < GateSprites.Length)
-                    {
-                        BackplateSR.sprite = BackplateSprites[currentBackplateSpriteIndex];
-                    }
-                    else
-                    {
-                        shouldOpenGate = false;
-                        //gateTimer = 0f;
-                        shouldAnimateSlimeSpawn = false;
-                        slimeTimer = 0f;
- 
-                        currentBackplateSpriteIndex = 0;
-                        BackplateSR.sprite = BackplateSprites[currentBackplateSpriteIndex];
-                        GameManager.instance.Respawn();
-                        SpawnAS.PlayOneShot(spawnClose);
-                    }
-                }
+                AnimateSlimeExitingTheSpawn();
             }
             else
             {
-                gateTimer += Time.deltaTime;
-                float current_gate_animation_frame_time = (openTime / (GateSprites.Length + BackplateSprites.Length)) * currentGateSpriteIndex;
-                if (gateTimer > current_gate_animation_frame_time)
-                {
-                    currentGateSpriteIndex++;
-                    if (currentGateSpriteIndex < GateSprites.Length)
-                    {
-                        GateSR.sprite = GateSprites[currentGateSpriteIndex];
-                    }
-                    else
-                    {
-                        //shouldOpenGate = false;
-                        //gateTimer = 0f;
-
-                        shouldAnimateSlimeSpawn = true;
-                    }
-                }
+                AnimateGateOpening();
             }
-            
         }
         else
+        {
+            AnimateGateClosing();
+        }
+
+
+
+
+
+
+        void AnimateSlimeExitingTheSpawn()
+        {
+            slimeTimer += Time.deltaTime;
+            float current_slime_animation_frame_time = (openTime / (GateSprites.Length + BackplateSprites.Length)) * currentBackplateSpriteIndex;
+            if (slimeTimer > current_slime_animation_frame_time)
+            {
+                currentBackplateSpriteIndex++;
+                if (currentBackplateSpriteIndex < GateSprites.Length)
+                {
+                    BackplateSR.sprite = BackplateSprites[currentBackplateSpriteIndex];
+                }
+                else
+                {
+                    // finished slime exit.
+                    // start closing gate
+                    shouldOpenGate = false;
+                    shouldAnimateSlimeSpawn = false;
+
+                    slimeTimer = 0f;
+
+                    currentBackplateSpriteIndex = 0;
+                    BackplateSR.sprite = BackplateSprites[currentBackplateSpriteIndex];
+                    GameManager.instance.Respawn();
+                    SpawnAS.PlayOneShot(spawnClose);
+                }
+            }
+        }
+
+        void AnimateGateOpening()
+        {
+            gateTimer += Time.deltaTime;
+            float current_gate_animation_frame_time = (openTime / (GateSprites.Length + BackplateSprites.Length)) * currentGateSpriteIndex;
+            if (gateTimer > current_gate_animation_frame_time)
+            {
+                currentGateSpriteIndex++;
+                if (currentGateSpriteIndex < GateSprites.Length)
+                {
+                    GateSR.sprite = GateSprites[currentGateSpriteIndex];
+                }
+                else
+                {
+                    // finished gate opening
+                    // start slime exit.
+                    shouldAnimateSlimeSpawn = true;
+                }
+            }
+        }
+
+        void AnimateGateClosing()
         {
             gateTimer -= Time.deltaTime;
             if (gateTimer < (closeTime / GateSprites.Length) * currentGateSpriteIndex)
             {
                 currentGateSpriteIndex--;
                 GateSR.sprite = GateSprites[currentGateSpriteIndex];
-                if(currentGateSpriteIndex == 0)
+                if (currentGateSpriteIndex == 0)
                 {
+                    // finished animating gate closing.
+                    // disable this
                     gateTimer = 0f;
 
                     enabled = false;

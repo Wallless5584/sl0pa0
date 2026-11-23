@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class FreezeMoveState : SlimeMoveState
 {
-    public float freezeTimer;
+    public float freezeTimer = 999f;
 
     public override void EnterState(SlimeController slime)
     {
@@ -14,6 +14,7 @@ public class FreezeMoveState : SlimeMoveState
         freezeTimer -= Time.deltaTime;
         if (freezeTimer < 0f)
         {
+            freezeTimer = 999f;
             slime.EnterMoveState(MoveState.Air);
         }
     }

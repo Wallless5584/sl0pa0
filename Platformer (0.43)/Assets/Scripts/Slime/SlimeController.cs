@@ -419,7 +419,7 @@ public class SlimeController : MonoBehaviour
     public void FreezePosition(float freezeTime)
     {
         EnterMoveState(MoveState.Freeze);
-        FreezeMoveState localFreezeMoveState = MoveStates[(int)MoveState.Freeze]as FreezeMoveState;
+        FreezeMoveState localFreezeMoveState = MoveStates[(int)MoveState.Freeze - 1] as FreezeMoveState;
         localFreezeMoveState.freezeTimer = freezeTime;
     }
     #endregion
@@ -695,7 +695,9 @@ public class SlimeController : MonoBehaviour
     void Die()
     {
         //Play death effect
-        GameManager.instance.RespawnOnSpawn();
+        slimeCollider.enabled = false;
+        enabled = false;
+        GameManager.instance.SlimeDied(this);
     }
     #endregion
 

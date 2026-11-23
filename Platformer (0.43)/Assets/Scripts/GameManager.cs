@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
                 ParallaxBG.gameObject.SetActive(false);
                 UIManager.instance.SwitchState(UIManager.UIState.Load);
                 LoadLevel();
-                RespawnOnSpawn();
+                RespawnOnSpawnpoint();
                 CurrentState = new_state;
                 LevelStartTime = Time.time;
                 //SwitchState(GameState.Play);
@@ -124,7 +124,8 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void RespawnOnSpawn()
+
+    public void RespawnOnSpawnpoint()
     {
         cameraTarget.StopExtrapolation();
         SpawnedRooms[activeRoom].spawn.Spawn();
@@ -144,18 +145,8 @@ public class GameManager : MonoBehaviour
             PlayerInstance.transform.position = SpawnedRooms[activeSpawn].spawn.GetComponentInChildren<TriggerZone>().transform.position; 
             PlayerInstance.ResetSlime();
         }
-        //PlayerInstance.FreezePosition(1f);
         SetTargetSlime();
-    }
-
-    public void SetTargetSlime()
-    {
-        cameraTarget.SetTarget(PlayerInstance.transform);
-    }
-
-    public void SetTargetSpawn()
-    {
-        cameraTarget.SetTarget(SpawnedRooms[activeRoom].spawn.transform);
+        PlayerInstance.FreezePosition(0.5f);
     }
 
     public bool SpawnTriggered(SpawnPoint new_sp)
@@ -179,6 +170,29 @@ public class GameManager : MonoBehaviour
         }
         return false;
     }
+
+
+
+
+    public void SetTargetSlime()
+    {
+        cameraTarget.SetTarget(PlayerInstance.transform);
+    }
+
+    public void SetTargetSpawn()
+    {
+        cameraTarget.SetTarget(SpawnedRooms[activeRoom].spawn.transform);
+    }
+
+
+
+    public void SlimeDied(SlimeController deadSlime)
+    {
+        deadSlime.FreezePosition(999f);
+        RespawnOnSpawnpoint();
+    }
+
+
 
     public void PrepareRoom(int roomIndex)
     {
@@ -219,7 +233,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
     public bool CheckLevelComplete()
     {
         //if (GameLevels[SelectedLevel].name != "Level Test 01")
@@ -259,8 +272,10 @@ public class GameManager : MonoBehaviour
         activeRoom = 1;
         activeSpawn = 0;
         PrepareRoom(activeRoom);
-        RespawnOnSpawn();
+        RespawnOnSpawnpoint();
     }
+
+
 
 
 
