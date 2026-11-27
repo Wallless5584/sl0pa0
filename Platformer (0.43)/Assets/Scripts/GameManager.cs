@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] int activeSpawn;
     [SerializeField] SlimeController PlayerPrefab;
     [SerializeField] FollowTarget cameraTarget;
+    public float spawnFreezeTime = 0.4f;
     [SerializeField] GameObject ParallaxBG;
     [SerializeField] GMPlayer GMTimer;
 
@@ -90,8 +92,8 @@ public class GameManager : MonoBehaviour
                 ClearLevel();
                 //Write code for deletion all spawned objects
                 CurrentState = new_state;
-                
                 break;
+
             case GameState.Load:
                 ParallaxBG.gameObject.SetActive(false);
                 UIManager.instance.SwitchState(UIManager.UIState.Load);
@@ -125,28 +127,34 @@ public class GameManager : MonoBehaviour
 
 
 
-    public void RespawnOnSpawnpoint()
+    public void RespawnOnSpawnpoint() //The moment old slime dies
     {
+        if (PlayerInstance)
+        {
+            SlimeDied(PlayerInstance);
+        }
         cameraTarget.StopExtrapolation();
-        SpawnedRooms[activeRoom].spawn.Spawn();
+        SpawnedRooms[activeSpawn].spawn.Spawn();
         //Respawn();
     }
 
-    public void Respawn()
+    public void Respawn() //The moment new slime appears
     {
         cameraTarget.StartExtrapolation();
-        if (PlayerInstance == null)
+        if (PlayerInstance)
         {
-            PlayerInstance = Instantiate(PlayerPrefab, SpawnedRooms[activeSpawn].spawn.GetComponentInChildren<TriggerZone>().transform.position, Quaternion.identity);
+            PlayerInstance.DestroySlime();
         }
-        else
-        {
-
-            PlayerInstance.transform.position = SpawnedRooms[activeSpawn].spawn.GetComponentInChildren<TriggerZone>().transform.position; 
-            PlayerInstance.ResetSlime();
-        }
+        PlayerInstance = Instantiate(PlayerPrefab, SpawnedRooms[activeSpawn].spawn.GetComponentInChildren<TriggerZone>().transform.position, Quaternion.identity);
+        
+        //else
+        //{
+        //    PlayerInstance.transform.position = SpawnedRooms[activeSpawn].spawn.GetComponentInChildren<TriggerZone>().transform.position; 
+        //    PlayerInstance.ResetSlime();
+        //}
         SetTargetSlime();
-        PlayerInstance.FreezePosition(0.5f);
+        PlayerInstance.FreezePosition(spawnFreezeTime);
+        
     }
 
     public bool SpawnTriggered(SpawnPoint new_sp)
@@ -184,11 +192,15 @@ public class GameManager : MonoBehaviour
         cameraTarget.SetTarget(SpawnedRooms[activeRoom].spawn.transform);
     }
 
-
-
     public void SlimeDied(SlimeController deadSlime)
     {
-        deadSlime.FreezePosition(999f);
+        SlimeMarkManager.instance.AddMark(deadSlime.transform.position);
+        deadSlime.FreezePosition(10f);
+    }
+
+    public void SlimeKilled(SlimeController deadSlime) //Only for Element deaths
+    {
+        SlimeDied(deadSlime);
         RespawnOnSpawnpoint();
     }
 

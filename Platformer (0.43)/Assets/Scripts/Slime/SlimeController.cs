@@ -174,6 +174,7 @@ public class SlimeController : MonoBehaviour
     SlimeMoveState CurrentMoveState;
     const float c_MoveForce = 80;
     bool debugVelocity = false;
+    float currentFreezeTime;
 
     SideData currentSides;
     public Sides CurrentSides { get => currentSides.Flags; }
@@ -418,9 +419,11 @@ public class SlimeController : MonoBehaviour
     }
     public void FreezePosition(float freezeTime)
     {
+        currentFreezeTime = freezeTime;
         EnterMoveState(MoveState.Freeze);
         FreezeMoveState localFreezeMoveState = MoveStates[(int)MoveState.Freeze - 1] as FreezeMoveState;
         localFreezeMoveState.freezeTimer = freezeTime;
+        
     }
     #endregion
 
@@ -692,15 +695,25 @@ public class SlimeController : MonoBehaviour
         ChangeSlimeState(WetnessState.Normal);
         ChangeSaltinessDisplay(false);
     }
+
     void Die()
     {
         //Play death effect
         slimeCollider.enabled = false;
         enabled = false;
-        GameManager.instance.SlimeDied(this);
+        GameManager.instance.SlimeKilled(this);
+        Debug.Log("Slime destroyed!");
     }
     #endregion
 
+    public void DestroySlime()
+    {
+        Destroy(gameObject);
+        //foreach (Transform child in transform.parent)
+        //{
+        //    Destroy(child);
+        //}
+    }
 
     #region Slime Display
     public void ChangeDirectionDisplay(Direction direction)
