@@ -1678,7 +1678,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1109604611
-  m_SortingLayer: 8
+  m_SortingLayer: 10
   m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0.125, z: 0}
@@ -1736,10 +1736,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 653f443f3a5f7ee478bb08a0f54e16d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonsInRoom: []
   exit: {fileID: 3137196908856648200}
-  ParallaxBGs: []
-  roomParts: []
   spawn: {fileID: 107573296540076402}
   OnRoomCompletion:
     m_PersistentCalls:
@@ -2460,7 +2457,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1109604611
-  m_SortingLayer: 8
+  m_SortingLayer: 10
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0.125, y: 0.125, z: 0}
@@ -3427,7 +3424,7 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 0.5372549, g: 0.5372549, b: 0.5372549, a: 1}
+  m_Color: {r: 0.61012214, g: 0.7106918, b: 0.7070508, a: 1}
   m_Origin: {x: -1, y: -3, z: 0}
   m_Size: {x: 8, y: 9, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
